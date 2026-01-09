@@ -16,74 +16,61 @@
     background:var(--bg);color:var(--text);line-height:1.5
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  header{min-height:100vh;display:grid;place-content:center;text-align:center;padding:2rem}
+  header{min-height:100vh;display:flex;align-items:center;justify-content:center;gap:3rem;padding:2rem;text-align:center;flex-wrap:wrap}
   header img{width:240px;height:240px;border-radius:50%;border:4px solid var(--accent);object-fit:cover;box-shadow:0 0 30px rgba(249,200,14,.35)}
   h1{font-size:3rem;margin:.5rem 0;letter-spacing:-1px}
   p.sub{font-size:1.1rem;color:var(--sub)}
-  section{max-width:800px;margin:auto;padding:4rem 1.5rem}
-  h2{margin-bottom:1rem;font-size:1.8rem}
-  .btn{display:inline-block;background:var(--accent);color:#000;padding:.85rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;margin:.5rem .25rem;transition:.2s}
-  .btn:hover{filter:brightness(1.1)}
-  iframe{width:100%;height:152px;border:0;border-radius:6px;margin:.75rem 0}
+  .hub{display:grid;gap:1.5rem;padding:4rem 1.5rem;max-width:900px;margin:auto;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .card{background:var(--card);border:1px solid #222;border-radius:12px;padding:2rem 1.5rem;text-align:center;color:var(--text);text-decoration:none;transition:.25s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(249,200,14,.25);border-color:var(--accent)}
+  .icon{font-size:2rem;margin-bottom:.75rem}
+  .card h3{margin-bottom:.5rem;font-size:1.4rem}
+  .card p{font-size:.95rem;color:var(--sub)}
   footer{text-align:center;padding:3rem 1rem;font-size:.8rem;color:var(--sub)}
-
-  /* ===== DESKTOP SIDE-BY-SIDE ===== */
-  @media (min-width: 900px) {
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:3rem;
-      text-align:left;
-      min-height:70vh;
-    }
-    header img{width:300px;height:300px}
-    .intro{max-width:480px}
-  }
-
-  @media (max-width:600px){
-    h1{font-size:2.2rem}
-    header img{width:180px;height:180px}
-  }
+  @media (max-width:900px){header{flex-direction:column;gap:1.5rem}header img{width:180px;height:180px}h1{font-size:2.2rem}}
   </style>
 </head>
 <body>
 
 <header>
   <img src="cover.jpg" alt="Buffalo Pill">
-  <div class="intro">
+  <div>
     <h1>Buffalo Pill</h1>
     <p class="sub">straight outta woodsboro</p>
   </div>
 </header>
 
-<section>
-  <h2>LATEST RELEASE</h2>
-  <iframe src="https://open.spotify.com/embed/artist/0KT9MzDOenp2Fa2TbUAJSL?utm_source=generator" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <a class="btn" href="https://open.spotify.com/artist/0KT9MzDOenp2Fa2TbUAJSL" target="_blank" rel="noopener">Follow on Spotify</a>
-  <a class="btn" href="https://music.apple.com/us/artist/buffalo-pill/1853023050" target="_blank" rel="noopener">Apple Music</a>
-  <a class="btn" href="https://soundcloud.com/buffalo-pill" target="_blank" rel="noopener">SoundCloud</a>
+<section class="hub">
+  <!-- 1 STREAM -->
+  <a class="card" href="https://open.spotify.com/artist/0KT9MzDOenp2Fa2TbUAJSL" target="_blank" rel="noopener">
+    <span class="icon">🎧</span>
+    <h3>Stream</h3>
+    <p>Spotify, Apple, SoundCloud — all in one click.</p>
+  </a>
+
+  <!-- 2 WATCH -->
+  <a class="card" href="https://www.youtube.com/embed/Hz7aMDYH8Bw" target="_blank" rel="noopener">
+    <span class="icon">📺</span>
+    <h3>Watch</h3>
+    <p>Official videos & live sessions.</p>
+  </a>
+
+  <!-- 3 MAIL -->
+  <a class="card" href="https://buttondown.email/buffalopill" target="_blank" rel="noopener">
+    <span class="icon">✉️</span>
+    <h3>Mail List</h3>
+    <p>New drops straight to your inbox.</p>
+  </a>
+
+  <!-- 4 SOCIAL -->
+  <a class="card" href="https://www.instagram.com/buff.alopill/" target="_blank" rel="noopener">
+    <span class="icon">💬</span>
+    <h3>Socials</h3>
+    <p>Instagram, X — stay in the loop.</p>
+  </a>
 </section>
 
-<section>
-  <h2>OFFICIAL SHADY MUSIC VIDEO</h2>
-  <iframe width="100%" height="315" src="https://www.youtube.com/embed/Hz7aMDYH8Bw" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-</section>
-
-<section>
-  <h2>Stay Updated</h2>
-  <a class="btn" href="https://buttondown.email/buffalopill" target="_blank" rel="noopener">Join the mailing list</a>
-</section>
-
-<section>
-  <h2>Socials</h2>
-  <a href="https://www.instagram.com/buff.alopill/" target="_blank" rel="noopener">Instagram</a> |
-  <a href="https://x.com/BuffaloPill" target="_blank" rel="noopener">X</a>
-</section>
-
-<footer>
-  NEW MUSIC SOON ❤️ YOU ARE GOING TO LOVE THE NEXT FOLLOWING MONTHS
-</footer>
+<footer>NEW MUSIC SOON ❤️ YOU ARE GOING TO LOVE THE NEXT FOLLOWING MONTHS</footer>
 
 </body>
 </html>

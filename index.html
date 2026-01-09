@@ -5,6 +5,13 @@
   <title>Buffalo Pill</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <!-- SOCIAL PREVIEW -->
+  <meta property="og:title" content="Buffalo Pill">
+  <meta property="og:description" content="Heavy-hitting bars straight outta Woodsboro. New music soon.">
+  <meta property="og:image" content="https://buffalopill.pages.dev/cover.jpg">
+  <meta property="og:type" content="website">
+  <!-- FAVICON -->
+  <link rel="icon" href="favicon.png">
   <style>
   :root{
     --bg:#0a0a0a;
@@ -20,20 +27,18 @@
   header img{width:240px;height:240px;border-radius:50%;border:4px solid var(--accent);object-fit:cover;box-shadow:0 0 30px rgba(249,200,14,.35)}
   h1{font-size:3rem;margin:.5rem 0;letter-spacing:-1px}
   p.sub{font-size:1.1rem;color:var(--sub)}
-  .hub{display:grid;gap:1.5rem;padding:4rem 1.5rem;max-width:900px;margin:auto;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-  .card{background:var(--card);border:1px solid #222;border-radius:12px;padding:2rem 1.5rem;text-align:center;color:var(--text);text-decoration:none;transition:.25s;position:relative}
+  .hub{display:grid;gap:1.5rem;padding:4rem 1.5rem;max-width:800px;margin:auto;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .card{background:var(--card);border:1px solid #222;border-radius:12px;padding:2rem 1.5rem;text-align:center;color:var(--text);text-decoration:none;transition:.25s}
   .card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(249,200,14,.25);border-color:var(--accent)}
   .icon{font-size:2rem;margin-bottom:.75rem}
   .card h3{margin-bottom:.5rem;font-size:1.4rem}
   .card p{font-size:.95rem;color:var(--sub)}
-  /* ----- flip card ----- */
-  #streamCard{cursor:pointer}
-  .front,.back{padding:1rem}
-  .hidden{display:none}
-  #streamCard.flip .front{display:none}
-  #streamCard.flip .back{display:block;text-align:center}
-  .ghost{background:transparent;border:1px solid var(--accent);color:var(--accent);margin-top:.75rem}
   footer{text-align:center;padding:3rem 1rem;font-size:.8rem;color:var(--sub)}
+  /* ANIMATION */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  header,.hub,footer{animation:fadeUp .8s ease-out}
+  /* SMOOTH-SCROLL */
+  html{scroll-behavior:smooth}
   @media (max-width:900px){header{flex-direction:column;gap:1.5rem}header img{width:180px;height:180px}h1{font-size:2.2rem}}
   </style>
 </head>
@@ -44,41 +49,29 @@
   <div>
     <h1>Buffalo Pill</h1>
     <p class="sub">straight outta woodsboro</p>
+    <a href="#music" class="btn">Hear Now</a>
   </div>
 </header>
 
-<section class="hub">
-  <!-- 1 STREAM (flip card) -->
-  <div class="card" id="streamCard" onclick="flipStream(this)">
-    <div class="front">
-      <span class="icon">🎧</span>
-      <h3>Stream</h3>
-      <p>Pick your platform →</p>
-    </div>
-    <div class="back hidden">
-      <h3>Stream</h3>
-      <a class="btn" href="https://open.spotify.com/artist/0KT9MzDOenp2Fa2TbUAJSL" target="_blank" rel="noopener">Spotify</a>
-      <a class="btn" href="https://music.apple.com/us/artist/buffalo-pill/1853023050" target="_blank" rel="noopener">Apple</a>
-      <a class="btn" href="https://soundcloud.com/buffalo-pill" target="_blank" rel="noopener">SoundCloud</a>
-      <button class="btn ghost" onclick="event.stopPropagation();flipBack()">Back</button>
-    </div>
-  </div>
+<section class="hub" id="music">
+  <a class="card" href="https://open.spotify.com/artist/0KT9MzDOenp2Fa2TbUAJSL" target="_blank" rel="noopener">
+    <span class="icon">🎧</span>
+    <h3>Stream</h3>
+    <p>Spotify, Apple, SoundCloud — all in one click.</p>
+  </a>
 
-  <!-- 2 WATCH -->
   <a class="card" href="https://www.youtube.com/embed/Hz7aMDYH8Bw" target="_blank" rel="noopener">
     <span class="icon">📺</span>
     <h3>Watch</h3>
     <p>Official videos & live sessions.</p>
   </a>
 
-  <!-- 3 MAIL -->
   <a class="card" href="https://buttondown.email/buffalopill" target="_blank" rel="noopener">
     <span class="icon">✉️</span>
     <h3>Mail List</h3>
     <p>New drops straight to your inbox.</p>
   </a>
 
-  <!-- 4 SOCIAL -->
   <a class="card" href="https://www.instagram.com/buff.alopill/" target="_blank" rel="noopener">
     <span class="icon">💬</span>
     <h3>Socials</h3>
@@ -87,20 +80,6 @@
 </section>
 
 <footer>NEW MUSIC SOON ❤️ YOU ARE GOING TO LOVE THE NEXT FOLLOWING MONTHS</footer>
-
-<script>
-function flipStream(card){
-  card.classList.add('flip');
-}
-function flipBack(){
-  document.getElementById('streamCard').classList.remove('flip');
-}
-/* click outside card also closes it */
-document.addEventListener('click',function(e){
-  const card=document.getElementById('streamCard');
-  if(!card.contains(e.target)) card.classList.remove('flip');
-});
-</script>
 
 </body>
 </html>

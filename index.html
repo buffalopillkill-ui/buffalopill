@@ -5,14 +5,11 @@
   <title>Buffalo Pill</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <!-- SOCIAL PREVIEW -->
   <meta property="og:title" content="Buffalo Pill">
   <meta property="og:description" content="Heavy-hitting bars straight outta Woodsboro. New music soon.">
   <meta property="og:image" content="https://buffalopill.pages.dev/cover.jpg">
   <meta property="og:type" content="website">
-  <!-- DARK / LIGHT FAVICON -->
-  <link rel="icon" href="favicon-dark.png" media="(prefers-color-scheme: dark)">
-  <link rel="icon" href="favicon-light.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="https://buffalopill.pages.dev/favicon.png">
   <style>
   :root{
     --bg:#0a0a0a;
@@ -32,11 +29,11 @@
   .btn{display:inline-block;background:var(--accent);color:#000;padding:.85rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;margin:.5rem .25rem;transition:.2s}
   .btn:hover{filter:brightness(1.1)}
   iframe{width:100%;height:152px;border:0;border-radius:6px;margin:.75rem 0}
+  .vid-wall{display:none;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
+  .vid-wall.active{display:grid}
   footer{text-align:center;padding:3rem 1rem;font-size:.8rem;color:var(--sub)}
-  /* ANIMATION */
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
   header,section,footer{animation:fadeUp .8s ease-out}
-  /* SMOOTH-SCROLL */
   html{scroll-behavior:smooth}
   @media (max-width:900px){header{flex-direction:column;gap:1.5rem}header img{width:180px;height:180px}h1{font-size:2.2rem}}
   </style>
@@ -63,6 +60,15 @@
 <section>
   <h2>NEW OFFICIAL YDOBON MUSIC VIDEO</h2>
   <iframe width="100%" height="315" src="https://www.youtube.com/embed/fi91y84H-og" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+  <button class="btn" onclick="toggleWall()">Watch More</button>
+  <div class="vid-wall" id="wall">
+    <iframe src="https://www.youtube.com/embed/elQ_1hpXzjU" title="vid1" loading="lazy"></iframe>
+    <iframe src="https://www.youtube.com/embed/cbblpXQ3l20" title="vid2" loading="lazy"></iframe>
+    <iframe src="https://www.youtube.com/embed/nJbpTs2Oedg" title="vid3" loading="lazy"></iframe>
+    <iframe src="https://www.youtube.com/embed/Hz7aMDYH8Bw" title="vid4" loading="lazy"></iframe>
+    <iframe src="https://www.youtube.com/embed/3tfCjVQfEB8" title="vid5" loading="lazy"></iframe>
+    <iframe src="https://www.youtube.com/embed/fi91y84H-og" title="vid6" loading="lazy"></iframe>
+  </div>
 </section>
 
 <section>
@@ -80,10 +86,15 @@
   NEW MUSIC SOON <span id="secret" style="cursor:pointer;">❤️</span> YOU ARE GOING TO LOVE THE NEXT FOLLOWING MONTHS
 </footer>
 
-<!-- SECRET AUDIO + ANALYTICS -->
+<!-- SCRIPTS -->
 <audio id="s" src="secret.mp3" preload="auto"></audio>
 <script>
+// secret audio
 document.getElementById('secret').onclick = function(){document.getElementById('s').play()};
+// show/hide video wall
+function toggleWall(){
+  document.getElementById('wall').classList.toggle('active');
+}
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR-TOKEN-HERE"}'></script>
 

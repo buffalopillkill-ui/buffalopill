@@ -9,7 +9,9 @@
   <meta property="og:description" content="Heavy-hitting bars straight outta Woodsboro. New music soon.">
   <meta property="og:image" content="https://buffalopill.pages.dev/cover.jpg">
   <meta property="og:type" content="website">
-  <link rel="icon" href="https://buffalopill.pages.dev/favicon.png">
+  <!-- dark / light favicon -->
+  <link rel="icon" href="https://buffalopill.pages.dev/favicon-dark.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="https://buffalopill.pages.dev/favicon-light.png" media="(prefers-color-scheme: light)">
   <style>
   :root{
     --bg:#0a0a0a;
@@ -89,9 +91,7 @@
 <!-- SCRIPTS -->
 <audio id="s" src="secret.mp3" preload="auto"></audio>
 <script>
-// secret audio
 document.getElementById('secret').onclick = function(){document.getElementById('s').play()};
-// show/hide video wall
 function toggleWall(){
   document.getElementById('wall').classList.toggle('active');
 }

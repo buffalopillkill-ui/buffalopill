@@ -9,46 +9,36 @@
   <meta property="og:description" content="Heavy-hitting bars straight outta Woodsboro. New music soon.">
   <meta property="og:image" content="https://buffalopill.pages.dev/cover.jpg">
   <meta property="og:type" content="website">
-  <!-- dark / light favicon -->
-  <link rel="icon" href="https://buffalopill.pages.dev/favicon-dark.png" media="(prefers-color-scheme: dark)">
-  <link rel="icon" href="https://buffalopill.pages.dev/favicon-light.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="https://buffalopill.pages.dev/favicon.png">
   <style>
   :root{
     --bg:#0a0a0a;
-    --accent:#f9c80e;
+    --accent:#0077ff;   /* calm blue */
     --text:#eee;
     --sub:#999;
     font-family:'Inter',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
     background:var(--bg);color:var(--text);line-height:1.5
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  /* bigger type scale + breathing room */
-  h1{font-size:clamp(2.5rem,5vw,4rem)}
-  h2{font-size:clamp(1.6rem,3vw,2.4rem)}
-  p.sub{font-size:clamp(1rem,2vw,1.25rem)}
-  section{padding:clamp(3rem,8vw,6rem) 1.5rem;max-width:900px;margin:auto}
-
-  /* sticky nav */
   nav{position:fixed;top:0;left:0;right:0;background:rgba(10,10,10,.85);backdrop-filter:blur(8px);border-bottom:1px solid #222;display:flex;gap:1.5rem;padding:1rem 2rem;z-index:10}
   nav a{color:var(--sub);text-decoration:none;font-weight:500;transition:.2s}
   nav a:hover{color:var(--accent)}
-
-  /* header + parallax */
   header{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;flex-wrap:wrap;gap:3rem;overflow:hidden}
-  header img{width:clamp(180px,20vw,280px);height:clamp(180px,20vw,280px);border-radius:50%;border:4px solid var(--accent);object-fit:cover;box-shadow:0 0 30px rgba(249,200,14,.35);will-change:transform;transition:transform .1s linear}
-  h1{margin:.5rem 0;letter-spacing:-1px}
-  p.sub{color:var(--sub)}
-
-  /* glass-morphism cards */
-  .glass{background:rgba(30,30,30,.45);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:2rem;backdrop-filter:blur(12px)}
-
-  /* buttons / iframe */
-  .btn{display:inline-block;background:var(--accent);color:#000;padding:.85rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;margin:.5rem .25rem;transition:.2s}
+  header img{width:clamp(180px,20vw,280px);height:clamp(180px,20vw,280px);border-radius:50%;border:4px solid var(--accent);object-fit:cover;box-shadow:0 0 30px rgba(0,119,255,.35);will-change:transform;transition:transform .1s linear}
+  h1{font-size:clamp(2.5rem,5vw,4rem);margin:.5rem 0;letter-spacing:-1px}
+  p.sub{font-size:clamp(1rem,2vw,1.25rem);color:var(--sub)}
+  section{padding:clamp(3rem,8vw,6rem) 1.5rem;max-width:900px;margin:auto}
+  h2{margin-bottom:1rem;font-size:clamp(1.6rem,3vw,2.4rem)}
+  .btn{display:inline-block;background:var(--accent);color:#fff;padding:.85rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;margin:.5rem .25rem;transition:.2s}
   .btn:hover{filter:brightness(1.1)}
   iframe{width:100%;height:152px;border:0;border-radius:6px;margin:.75rem 0}
+  .glass{background:rgba(30,30,30,.45);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:2rem;backdrop-filter:blur(12px)}
   .vid-wall{display:none;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
   .vid-wall.active{display:grid}
-
+  /* clean social bar */
+  .social-bar{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;font-size:1.1rem;font-weight:500}
+  .social-bar a{color:var(--sub);text-decoration:none;letter-spacing:.5px;transition:.2s}
+  .social-bar a:hover{color:var(--accent)}
   footer{text-align:center;padding:3rem 1rem;font-size:.8rem;color:var(--sub)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
   header,section,footer{animation:fadeUp .8s ease-out}
@@ -58,12 +48,11 @@
 </head>
 <body>
 
-<!-- STICKY NAV -->
 <nav>
-  <a href="#music">Music</a>
-  <a href="#videos">Videos</a>
-  <a href="#updates">Updates</a>
-  <a href="#socials">Socials</a>
+  <a href="#music">MUSIC</a>
+  <a href="#videos">MUSIC VIDEOS</a>
+  <a href="#updates">STAY UPDATED</a>
+  <a href="#socials">BUFFALO PILL'S SOCIAL MEDIA</a>
 </nav>
 
 <header>
@@ -71,22 +60,22 @@
   <div>
     <h1>Buffalo Pill</h1>
     <p class="sub">straight outta woodsboro</p>
-    <a href="#music" class="btn">Hear Now</a>
+    <a href="#music" class="btn">HEAR NOW</a>
   </div>
 </header>
 
 <section id="music" class="glass">
   <h2>LATEST RELEASE</h2>
   <iframe src="https://open.spotify.com/embed/artist/0KT9MzDOenp2Fa2TbUAJSL?utm_source=generator" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <a class="btn" href="https://open.spotify.com/artist/0KT9MzDOenp2Fa2TbUAJSL" target="_blank" rel="noopener">Spotify</a>
-  <a class="btn" href="https://music.apple.com/us/artist/buffalo-pill/1853023050" target="_blank" rel="noopener">Apple Music</a>
-  <a class="btn" href="https://soundcloud.com/buffalo-pill" target="_blank" rel="noopener">SoundCloud</a>
+  <a class="btn" href="https://open.spotify.com/artist/0KT9MzDOenp2Fa2TbUAJSL" target="_blank" rel="noopener">SPOTIFY</a>
+  <a class="btn" href="https://music.apple.com/us/artist/buffalo-pill/1853023050" target="_blank" rel="noopener">APPLE MUSIC</a>
+  <a class="btn" href="https://soundcloud.com/buffalo-pill" target="_blank" rel="noopener">SOUNDCLOUD</a>
 </section>
 
 <section id="videos" class="glass">
   <h2>NEW OFFICIAL YDOBON MUSIC VIDEO</h2>
   <iframe width="100%" height="315" src="https://www.youtube.com/embed/fi91y84H-og" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-  <button class="btn" onclick="toggleWall()">Watch More</button>
+  <button class="btn" onclick="toggleWall()">WATCH MORE</button>
   <div class="vid-wall" id="wall">
     <iframe src="https://www.youtube.com/embed/elQ_1hpXzjU" title="vid1" loading="lazy"></iframe>
     <iframe src="https://www.youtube.com/embed/cbblpXQ3l20" title="vid2" loading="lazy"></iframe>
@@ -98,14 +87,19 @@
 </section>
 
 <section id="updates" class="glass">
-  <h2>Stay Updated</h2>
-  <a class="btn" href="https://buttondown.email/buffalopill" target="_blank" rel="noopener">Join the mailing list</a>
+  <h2>STAY UPDATED</h2>
+  <a class="btn" href="https://buttondown.email/buffalopill" target="_blank" rel="noopener">JOIN</a>
 </section>
 
 <section id="socials" class="glass">
-  <h2>Socials</h2>
-  <a href="https://www.instagram.com/buff.alopill/" target="_blank" rel="noopener">Instagram</a> |
-  <a href="https://x.com/BuffaloPill" target="_blank" rel="noopener">X</a>
+  <h2>SOCIALS</h2>
+  <div class="social-bar">
+    <a href="https://www.instagram.com/buff.alopill/" target="_blank" rel="noopener">INSTAGRAM</a>
+    <span style="color:var(--sub);">·</span>
+    <a href="https://x.com/BuffaloPill" target="_blank" rel="noopener">X</a>
+    <span style="color:var(--sub);">·</span>
+    <a href="https://www.tiktok.com/@buffalo.pill" target="_blank" rel="noopener">TIKTOK</a>
+  </div>
 </section>
 
 <footer>
@@ -115,7 +109,7 @@
 <!-- SCRIPTS -->
 <audio id="s" src="https://buffalopill.pages.dev/secret.mp3" preload="auto"></audio>
 <script>
-document.getElementById('secret').onclick = function(){document.getElementById('s').play()};
+document.getElementById('secret1').onclick = function(){document.getElementById('s').play()};
 function toggleWall(){
   document.getElementById('wall').classList.toggle('active');
 }

@@ -13,32 +13,63 @@
   <style>
   :root{
     --bg:#0a0a0a;
-    --accent:#0077ff;   /* calm blue */
+    --accent:#0077ff;
     --text:#eee;
     --sub:#999;
+    --glitch:#ff0040;
     font-family:'Inter',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
-    background:var(--bg);color:var(--text);line-height:1.5
+    background:var(--bg);color:var(--text);line-height:1.5;
+    cursor:crosshair
+  }
+  /* grain texture overlay */
+  body::before{
+    content:"";position:fixed;top:0;left:0;width:100%;height:100%;
+    background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity:.03;pointer-events:none;z-index:9999
   }
   *{box-sizing:border-box;margin:0;padding:0}
   nav{position:fixed;top:0;left:0;right:0;background:rgba(10,10,10,.85);backdrop-filter:blur(8px);border-bottom:1px solid #222;display:flex;gap:1.5rem;padding:1rem 2rem;z-index:10}
   nav a{color:var(--sub);text-decoration:none;font-weight:500;transition:.2s}
-  nav a:hover{color:var(--accent)}
+  nav a:hover{color:var(--accent);text-shadow:0 0 10px var(--accent)}
   header{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;flex-wrap:wrap;gap:3rem;overflow:hidden}
-  header img{width:clamp(180px,20vw,280px);height:clamp(180px,20vw,280px);border-radius:50%;border:4px solid var(--accent);object-fit:cover;box-shadow:0 0 30px rgba(0,119,255,.35);will-change:transform;transition:transform .1s linear}
+  header img{width:clamp(180px,20vw,280px);height:clamp(180px,20vw,280px);border-radius:50%;border:4px solid var(--accent);object-fit:cover;box-shadow:0 0 30px rgba(0,119,255,.35);transition:.3s}
+  /* glitch hover on photo */
+  header img:hover{
+    animation:glitch .3s infinite;
+    box-shadow:0 0 40px var(--glitch),0 0 80px var(--accent)
+  }
+  @keyframes glitch{
+    0%{transform:translate(0)}
+    20%{transform:translate(-2px,2px)}
+    40%{transform:translate(-2px,-2px)}
+    60%{transform:translate(2px,2px)}
+    80%{transform:translate(2px,-2px)}
+    100%{transform:translate(0)}
+  }
   h1{font-size:clamp(2.5rem,5vw,4rem);margin:.5rem 0;letter-spacing:-1px}
   p.sub{font-size:clamp(1rem,2vw,1.25rem);color:var(--sub)}
   section{padding:clamp(3rem,8vw,6rem) 1.5rem;max-width:900px;margin:auto}
   h2{margin-bottom:1rem;font-size:clamp(1.6rem,3vw,2.4rem)}
-  .btn{display:inline-block;background:var(--accent);color:#fff;padding:.85rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;margin:.5rem .25rem;transition:.2s}
-  .btn:hover{filter:brightness(1.1)}
+  .btn{display:inline-block;background:var(--accent);color:#fff;padding:.85rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;margin:.5rem .25rem;transition:.2s;position:relative;overflow:hidden}
+  .btn:hover{filter:brightness(1.1);box-shadow:0 0 20px var(--accent)}
+  /* btn glitch on hover */
+  .btn::before{
+    content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+    transition:.5s
+  }
+  .btn:hover::before{left:100%}
   iframe{width:100%;height:152px;border:0;border-radius:6px;margin:.75rem 0}
   .glass{background:rgba(30,30,30,.45);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:2rem;backdrop-filter:blur(12px)}
   .vid-wall{display:none;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
   .vid-wall.active{display:grid}
-  /* clean social bar */
+  /* countdown timer */
+  .countdown{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1rem;font-size:clamp(1.2rem,3vw,2rem);font-weight:700}
+  .countdown div{background:rgba(0,119,255,.15);border:1px solid var(--accent);border-radius:8px;padding:1rem 1.5rem;text-align:center;min-width:80px}
+  .countdown span{display:block;font-size:.7rem;color:var(--sub);font-weight:400;margin-top:.25rem}
   .social-bar{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;font-size:1.1rem;font-weight:500}
   .social-bar a{color:var(--sub);text-decoration:none;letter-spacing:.5px;transition:.2s}
-  .social-bar a:hover{color:var(--accent)}
+  .social-bar a:hover{color:var(--accent);text-shadow:0 0 10px var(--accent)}
   footer{text-align:center;padding:3rem 1rem;font-size:.8rem;color:var(--sub)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
   header,section,footer{animation:fadeUp .8s ease-out}
@@ -49,10 +80,10 @@
 <body>
 
 <nav>
-  <a href="#music">MUSIC</a>
-  <a href="#videos">MUSIC VIDEOS</a>
-  <a href="#updates">STAY UPDATED</a>
-  <a href="#socials">BUFFALO PILL'S SOCIAL MEDIA</a>
+  <a href="#music">Music</a>
+  <a href="#videos">Videos</a>
+  <a href="#merch">Merch</a>
+  <a href="#socials">Socials</a>
 </nav>
 
 <header>
@@ -60,22 +91,22 @@
   <div>
     <h1>Buffalo Pill</h1>
     <p class="sub">straight outta woodsboro</p>
-    <a href="#music" class="btn">HEAR NOW</a>
+    <a href="#music" class="btn">Hear Now</a>
   </div>
 </header>
 
 <section id="music" class="glass">
   <h2>LATEST RELEASE</h2>
   <iframe src="https://open.spotify.com/embed/artist/0KT9MzDOenp2Fa2TbUAJSL?utm_source=generator" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <a class="btn" href="https://open.spotify.com/artist/0KT9MzDOenp2Fa2TbUAJSL" target="_blank" rel="noopener">SPOTIFY</a>
-  <a class="btn" href="https://music.apple.com/us/artist/buffalo-pill/1853023050" target="_blank" rel="noopener">APPLE MUSIC</a>
-  <a class="btn" href="https://soundcloud.com/buffalo-pill" target="_blank" rel="noopener">SOUNDCLOUD</a>
+  <a class="btn" href="https://open.spotify.com/artist/0KT9MzDOenp2Fa2TbUAJSL" target="_blank" rel="noopener">Spotify</a>
+  <a class="btn" href="https://music.apple.com/us/artist/buffalo-pill/1853023050" target="_blank" rel="noopener">Apple Music</a>
+  <a class="btn" href="https://soundcloud.com/buffalo-pill" target="_blank" rel="noopener">SoundCloud</a>
 </section>
 
 <section id="videos" class="glass">
   <h2>NEW OFFICIAL YDOBON MUSIC VIDEO</h2>
   <iframe width="100%" height="315" src="https://www.youtube.com/embed/fi91y84H-og" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-  <button class="btn" onclick="toggleWall()">WATCH MORE</button>
+  <button class="btn" onclick="toggleWall()">Watch More</button>
   <div class="vid-wall" id="wall">
     <iframe src="https://www.youtube.com/embed/elQ_1hpXzjU" title="vid1" loading="lazy"></iframe>
     <iframe src="https://www.youtube.com/embed/cbblpXQ3l20" title="vid2" loading="lazy"></iframe>
@@ -86,13 +117,20 @@
   </div>
 </section>
 
-<section id="updates" class="glass">
-  <h2>STAY UPDATED</h2>
-  <a class="btn" href="https://buttondown.email/buffalopill" target="_blank" rel="noopener">JOIN</a>
+<section id="merch" class="glass">
+  <h2>MERCH DROP</h2>
+  <p style="text-align:center;color:var(--sub);margin-bottom:1rem;">First capsule collection — coming soon</p>
+  <div class="countdown" id="countdown">
+    <div><span id="days">00</span><span>DAYS</span></div>
+    <div><span id="hours">00</span><span>HOURS</span></div>
+    <div><span id="minutes">00</span><span>MINS</span></div>
+    <div><span id="seconds">00</span><span>SECS</span></div>
+  </div>
+  <p style="text-align:center;margin-top:1.5rem;"><a href="#" class="btn" onclick="alert('Merch store launching soon — join the mailing list for early access');return false">Notify Me</a></p>
 </section>
 
 <section id="socials" class="glass">
-  <h2>SOCIALS</h2>
+  <h2>Socials</h2>
   <div class="social-bar">
     <a href="https://www.instagram.com/buff.alopill/" target="_blank" rel="noopener">INSTAGRAM</a>
     <span style="color:var(--sub);">·</span>
@@ -109,10 +147,31 @@
 <!-- SCRIPTS -->
 <audio id="s" src="https://buffalopill.pages.dev/secret.mp3" preload="auto"></audio>
 <script>
-document.getElementById('secret1').onclick = function(){document.getElementById('s').play()};
+// secret audio
+document.getElementById('secret').onclick = function(){document.getElementById('s').play()};
+// video wall toggle
 function toggleWall(){
   document.getElementById('wall').classList.toggle('active');
 }
+// merch countdown — set your drop date here
+const dropDate = new Date('2026-03-01T00:00:00').getTime();
+function updateCountdown(){
+  const now = new Date().getTime();
+  const distance = dropDate - now;
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  document.getElementById('days').innerText = String(days).padStart(2,'0');
+  document.getElementById('hours').innerText = String(hours).padStart(2,'0');
+  document.getElementById('minutes').innerText = String(minutes).padStart(2,'0');
+  document.getElementById('seconds').innerText = String(seconds).padStart(2,'0');
+  if(distance < 0){
+    document.getElementById('countdown').innerHTML = '<div style="grid-column:1/-1;">DROP IS LIVE</div>';
+  }
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR-TOKEN-HERE"}'></script>
 

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <meta property="og:title" content="Buffalo Pill">
-  <meta property="og:description" content="Heavy-hitting bars straight outta Woodsboro. New music soon.">
+  <meta property="og:description" content="Heavy-hitting bars straight outta Woodsboro.">
   <meta property="og:image" content="https://buffalopill.pages.dev/cover.jpg">
   <meta property="og:type" content="website">
   <link rel="icon" href="https://buffalopill.pages.dev/favicon.png">
@@ -21,7 +21,6 @@
     background:var(--bg);color:var(--text);line-height:1.5;
     cursor:crosshair
   }
-  /* grain texture overlay */
   body::before{
     content:"";position:fixed;top:0;left:0;width:100%;height:100%;
     background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -33,7 +32,6 @@
   nav a:hover{color:var(--accent);text-shadow:0 0 10px var(--accent)}
   header{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;flex-wrap:wrap;gap:3rem;overflow:hidden}
   header img{width:clamp(180px,20vw,280px);height:clamp(180px,20vw,280px);border-radius:50%;border:4px solid var(--accent);object-fit:cover;box-shadow:0 0 30px rgba(0,119,255,.35);transition:.3s}
-  /* glitch hover on photo */
   header img:hover{
     animation:glitch .3s infinite;
     box-shadow:0 0 40px var(--glitch),0 0 80px var(--accent)
@@ -52,7 +50,6 @@
   h2{margin-bottom:1rem;font-size:clamp(1.6rem,3vw,2.4rem)}
   .btn{display:inline-block;background:var(--accent);color:#fff;padding:.85rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;margin:.5rem .25rem;transition:.2s;position:relative;overflow:hidden}
   .btn:hover{filter:brightness(1.1);box-shadow:0 0 20px var(--accent)}
-  /* btn glitch on hover */
   .btn::before{
     content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;
     background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
@@ -63,13 +60,13 @@
   .glass{background:rgba(30,30,30,.45);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:2rem;backdrop-filter:blur(12px)}
   .vid-wall{display:none;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
   .vid-wall.active{display:grid}
-  /* countdown timer */
   .countdown{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1rem;font-size:clamp(1.2rem,3vw,2rem);font-weight:700}
   .countdown div{background:rgba(0,119,255,.15);border:1px solid var(--accent);border-radius:8px;padding:1rem 1.5rem;text-align:center;min-width:80px}
   .countdown span{display:block;font-size:.7rem;color:var(--sub);font-weight:400;margin-top:.25rem}
   .social-bar{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;font-size:1.1rem;font-weight:500}
   .social-bar a{color:var(--sub);text-decoration:none;letter-spacing:.5px;transition:.2s}
   .social-bar a:hover{color:var(--accent);text-shadow:0 0 10px var(--accent)}
+  .divider{margin:1.5rem 0;border:none;border-top:1px solid #222}
   footer{text-align:center;padding:3rem 1rem;font-size:.8rem;color:var(--sub)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
   header,section,footer{animation:fadeUp .8s ease-out}
@@ -97,6 +94,14 @@
 
 <section id="music" class="glass">
   <h2>LATEST RELEASE</h2>
+  <!-- Saturated single embed -->
+  <iframe src="https://open.spotify.com/embed/album/6VYYQg4Zmwwqm0GBmd6qLo?utm_source=generator" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <a class="btn" href="https://open.spotify.com/album/6VYYQg4Zmwwqm0GBmd6qLo" target="_blank" rel="noopener">Listen on Spotify</a>
+
+  <hr class="divider">
+
+  <h2>ALL MUSIC</h2>
+  <!-- Full artist embed -->
   <iframe src="https://open.spotify.com/embed/artist/0KT9MzDOenp2Fa2TbUAJSL?utm_source=generator" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
   <a class="btn" href="https://open.spotify.com/artist/0KT9MzDOenp2Fa2TbUAJSL" target="_blank" rel="noopener">Spotify</a>
   <a class="btn" href="https://music.apple.com/us/artist/buffalo-pill/1853023050" target="_blank" rel="noopener">Apple Music</a>
@@ -141,19 +146,14 @@
 </section>
 
 <footer>
-  NEW MUSIC SOON <span id="secret" style="cursor:pointer;">❤️</span> I PROMISE ITS GETTING WORKED ON
+  WOODSBORO - 04/01/26
 </footer>
 
-<!-- SCRIPTS -->
 <audio id="s" src="https://buffalopill.pages.dev/secret.mp3" preload="auto"></audio>
 <script>
-// secret audio
-document.getElementById('secret').onclick = function(){document.getElementById('s').play()};
-// video wall toggle
 function toggleWall(){
   document.getElementById('wall').classList.toggle('active');
 }
-// merch countdown — set your drop date here
 const dropDate = new Date('2027-01-15T00:00:00').getTime();
 function updateCountdown(){
   const now = new Date().getTime();

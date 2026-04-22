@@ -22,7 +22,6 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -33,18 +32,68 @@
       overflow-x: hidden;
     }
 
+    /* LOADING SCREEN */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      transition: opacity 0.6s ease;
+    }
+
+    #loader.fade-out { opacity: 0; pointer-events: none; }
+
+    .loader-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 6vw, 4rem);
+      letter-spacing: 8px;
+      color: var(--red);
+      animation: loader-glitch 1.5s infinite;
+    }
+
+    .loader-sub {
+      font-size: 0.6rem;
+      letter-spacing: 5px;
+      color: #333;
+      text-transform: uppercase;
+      animation: blink 1s infinite;
+    }
+
+    .loader-bar-wrap {
+      width: 200px;
+      height: 1px;
+      background: #111;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loader-bar {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: var(--red);
+      width: 0%;
+      transition: width 0.05s linear;
+    }
+
+    @keyframes loader-glitch {
+      0%, 88%, 100% { text-shadow: 2px 0 var(--red), -2px 0 rgba(0,100,255,0.4); transform: none; }
+      90% { transform: translate(-2px); text-shadow: 3px 0 var(--red2), -3px 0 rgba(0,200,255,0.5); }
+      92% { transform: translate(2px); }
+      94% { transform: none; }
+    }
+
     /* SCANLINE OVERLAY */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.08) 2px,
-        rgba(0,0,0,0.08) 4px
-      );
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
       pointer-events: none;
       z-index: 9998;
     }
@@ -90,10 +139,7 @@
       color: var(--red);
     }
 
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
 
     nav a {
       color: var(--grey);
@@ -105,6 +151,21 @@
     }
 
     nav a:hover { color: var(--red2); }
+
+    .nav-file {
+      color: var(--red) !important;
+      border: 1px solid var(--red);
+      padding: 0.3rem 0.8rem;
+      font-size: 0.6rem !important;
+      animation: blink-border 2s infinite;
+    }
+
+    .nav-file:hover { background: var(--red); color: #fff !important; }
+
+    @keyframes blink-border {
+      0%, 100% { border-color: var(--red); }
+      50% { border-color: transparent; }
+    }
 
     /* HERO */
     header {
@@ -126,11 +187,7 @@
         linear-gradient(180deg, #050505 0%, #0a0000 50%, #050505 100%);
     }
 
-    .hero-img-wrap {
-      position: relative;
-      margin-bottom: 2rem;
-      z-index: 2;
-    }
+    .hero-img-wrap { position: relative; margin-bottom: 2rem; z-index: 2; }
 
     .hero-img-wrap img {
       width: clamp(140px, 18vw, 220px);
@@ -156,14 +213,7 @@
       100% { transform: translate(0); clip-path: inset(0 0 0 0); }
     }
 
-    .hero-tag {
-      font-size: 0.65rem;
-      letter-spacing: 5px;
-      color: var(--red);
-      margin-bottom: 0.75rem;
-      z-index: 2;
-      position: relative;
-    }
+    .hero-tag { font-size: 0.65rem; letter-spacing: 5px; color: var(--red); margin-bottom: 0.75rem; z-index: 2; position: relative; }
 
     h1 {
       font-family: 'Bebas Neue', sans-serif;
@@ -184,24 +234,29 @@
       96% { text-shadow: 2px 0 0 var(--red), -2px 0 0 rgba(0,100,255,0.3); transform: translate(0); }
     }
 
-    .hero-sub {
-      font-size: 0.7rem;
-      letter-spacing: 6px;
-      color: var(--grey);
-      margin-top: 1rem;
-      z-index: 2;
-      position: relative;
+    .hero-sub { font-size: 0.7rem; letter-spacing: 6px; color: var(--grey); margin-top: 1rem; z-index: 2; position: relative; }
+
+    .hero-cta { margin-top: 2.5rem; z-index: 2; position: relative; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    /* ALBUM COUNTDOWN BANNER */
+    .album-banner {
+      background: #0a0000;
+      border-top: 1px solid #1a0000;
+      border-bottom: 1px solid #1a0000;
+      padding: 1.5rem;
+      text-align: center;
     }
 
-    .hero-cta {
-      margin-top: 2.5rem;
-      z-index: 2;
-      position: relative;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+    .album-banner-label { font-size: 0.55rem; letter-spacing: 5px; color: var(--red); text-transform: uppercase; margin-bottom: 0.75rem; display: block; }
+
+    .album-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 4vw, 2.5rem); letter-spacing: 6px; color: var(--white); margin-bottom: 1rem; }
+
+    .album-countdown { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+
+    .acd-block { text-align: center; min-width: 55px; }
+    .acd-num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--red2); display: block; line-height: 1; }
+    .acd-label { font-size: 0.5rem; letter-spacing: 3px; color: var(--grey); text-transform: uppercase; margin-top: 0.2rem; display: block; }
+    .acd-sep { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #1a1a1a; align-self: center; padding-bottom: 0.3rem; }
 
     /* BUTTONS */
     .btn {
@@ -217,312 +272,302 @@
       overflow: hidden;
     }
 
-    .btn-primary {
-      background: var(--red);
-      color: #fff;
-      border: 1px solid var(--red2);
-    }
+    .btn-primary { background: var(--red); color: #fff; border: 1px solid var(--red2); }
+    .btn-primary:hover { background: var(--red2); box-shadow: 0 0 20px rgba(255,0,0,0.4); }
+    .btn-ghost { background: transparent; color: var(--grey); border: 1px solid #222; }
+    .btn-ghost:hover { color: var(--white); border-color: var(--grey); }
 
-    .btn-primary:hover {
-      background: var(--red2);
-      box-shadow: 0 0 20px rgba(255,0,0,0.4);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--grey);
-      border: 1px solid #222;
-    }
-
-    .btn-ghost:hover {
-      color: var(--white);
-      border-color: var(--grey);
-    }
-
-    /* SCROLL INDICATOR */
     .scroll-hint {
       position: absolute;
-      bottom: 2rem;
-      left: 50%;
+      bottom: 2rem; left: 50%;
       transform: translateX(-50%);
-      font-size: 0.6rem;
-      letter-spacing: 4px;
-      color: var(--grey);
-      z-index: 2;
+      font-size: 0.6rem; letter-spacing: 4px; color: var(--grey); z-index: 2;
       animation: blink 2s infinite;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
-    }
+    @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
     /* SECTIONS */
-    section {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: clamp(4rem, 8vw, 7rem) 1.5rem;
-    }
+    section { max-width: 860px; margin: 0 auto; padding: clamp(4rem, 8vw, 7rem) 1.5rem; }
 
-    .section-label {
-      font-size: 0.6rem;
-      letter-spacing: 5px;
-      color: var(--red);
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
+    .section-label { font-size: 0.6rem; letter-spacing: 5px; color: var(--red); text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
 
-    h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      letter-spacing: 3px;
-      margin-bottom: 2rem;
-      color: var(--white);
-    }
+    h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 3px; margin-bottom: 2rem; color: var(--white); }
 
-    /* DIVIDER */
-    .rule {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0;
-    }
+    .rule { border: none; border-top: 1px solid var(--border); margin: 0; }
 
-    /* MUSIC SECTION */
-    .music-block {
-      margin-bottom: 3rem;
-    }
+    .music-block { margin-bottom: 3rem; }
+    .music-block p { font-size: 0.7rem; letter-spacing: 2px; color: var(--grey); margin-bottom: 1rem; text-transform: uppercase; }
 
-    .music-block p {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      color: var(--grey);
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-    }
+    iframe { width: 100%; border: 0; border-radius: 0; display: block; margin-bottom: 1rem; border: 1px solid var(--border); }
 
-    iframe {
-      width: 100%;
-      border: 0;
-      border-radius: 0;
-      display: block;
-      margin-bottom: 1rem;
-      border: 1px solid var(--border);
-    }
+    .btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
 
-    .btn-row {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-    }
-
-    /* VIDEOS */
-    .main-vid {
-      width: 100%;
-      aspect-ratio: 16/9;
-      border: 1px solid var(--border);
-      display: block;
-      margin-bottom: 1.5rem;
-    }
+    .main-vid { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); display: block; margin-bottom: 1.5rem; }
 
     .vid-toggle {
-      background: none;
-      border: 1px solid #222;
-      color: var(--grey);
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 3px;
-      padding: 0.8rem 2rem;
-      cursor: crosshair;
-      text-transform: uppercase;
-      transition: all 0.2s;
-      margin-bottom: 1.5rem;
-      display: block;
+      background: none; border: 1px solid #222; color: var(--grey);
+      font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 3px;
+      padding: 0.8rem 2rem; cursor: crosshair; text-transform: uppercase;
+      transition: all 0.2s; margin-bottom: 1.5rem; display: block;
     }
-
-    .vid-toggle:hover {
-      border-color: var(--grey);
-      color: var(--white);
-    }
-
-    .vid-grid {
-      display: none;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-    }
-
+    .vid-toggle:hover { border-color: var(--grey); color: var(--white); }
+    .vid-grid { display: none; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
     .vid-grid.open { display: grid; }
+    .vid-grid iframe { aspect-ratio: 16/9; height: auto; }
 
-    .vid-grid iframe {
-      aspect-ratio: 16/9;
-      height: auto;
-    }
+    /* MAILING LIST */
+    .mail-block { border: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; overflow: hidden; }
+    .mail-block::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); }
+    .mail-desc { font-size: 0.7rem; letter-spacing: 2px; color: var(--grey); margin-bottom: 1.5rem; line-height: 1.8; }
+    .mail-form { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .mail-input { flex: 1; min-width: 200px; background: #0a0a0a; border: 1px solid #222; color: var(--white); font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 2px; padding: 0.8rem 1rem; outline: none; transition: border-color 0.2s; }
+    .mail-input:focus { border-color: var(--red); }
+    .mail-input::placeholder { color: #333; }
 
     /* MERCH */
-    .merch-inner {
-      border: 1px solid var(--border);
-      padding: 3rem 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .merch-inner::before {
-      content: "COMING SOON";
-      position: absolute;
-      top: 1rem; right: -2rem;
-      background: var(--red);
-      color: #fff;
-      font-size: 0.6rem;
-      letter-spacing: 3px;
-      padding: 0.3rem 3rem;
-      transform: rotate(12deg);
-    }
-
-    .merch-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.5rem, 4vw, 3rem);
-      letter-spacing: 4px;
-      margin-bottom: 1rem;
-    }
-
-    .countdown {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 2rem 0;
-    }
-
-    .cd-block {
-      min-width: 70px;
-      text-align: center;
-    }
-
-    .cd-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      color: var(--red2);
-      display: block;
-      line-height: 1;
-    }
-
-    .cd-label {
-      font-size: 0.55rem;
-      letter-spacing: 3px;
-      color: var(--grey);
-      text-transform: uppercase;
-      margin-top: 0.3rem;
-      display: block;
-    }
-
-    .cd-sep {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.5rem;
-      color: var(--border);
-      align-self: center;
-      padding-bottom: 0.5rem;
-    }
+    .merch-inner { border: 1px solid var(--border); padding: 3rem 2rem; text-align: center; position: relative; overflow: hidden; }
+    .merch-inner::before { content: "COMING SOON"; position: absolute; top: 1rem; right: -2rem; background: var(--red); color: #fff; font-size: 0.6rem; letter-spacing: 3px; padding: 0.3rem 3rem; transform: rotate(12deg); }
+    .merch-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 4vw, 3rem); letter-spacing: 4px; margin-bottom: 1rem; }
+    .countdown { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 2rem 0; }
+    .cd-block { min-width: 70px; text-align: center; }
+    .cd-num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--red2); display: block; line-height: 1; }
+    .cd-label { font-size: 0.55rem; letter-spacing: 3px; color: var(--grey); text-transform: uppercase; margin-top: 0.3rem; display: block; }
+    .cd-sep { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--border); align-self: center; padding-bottom: 0.5rem; }
 
     /* SOCIALS */
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1px;
-      border: 1px solid var(--border);
-    }
+    .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; border: 1px solid var(--border); }
+    .social-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 1rem; text-decoration: none; color: var(--grey); border: 1px solid transparent; transition: all 0.2s; gap: 0.5rem; }
+    .social-item:hover { background: rgba(200,0,0,0.05); color: var(--white); border-color: var(--border); }
+    .social-platform { font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
+    .social-handle { font-size: 0.75rem; color: var(--grey); }
 
-    .social-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
-      text-decoration: none;
-      color: var(--grey);
-      border: 1px solid transparent;
-      transition: all 0.2s;
-      gap: 0.5rem;
-    }
-
-    .social-item:hover {
-      background: rgba(200,0,0,0.05);
-      color: var(--white);
-      border-color: var(--border);
-    }
-
-    .social-platform {
-      font-size: 0.6rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
-
-    .social-handle {
-      font-size: 0.75rem;
-      color: var(--grey);
-    }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.6rem;
-      letter-spacing: 3px;
-      color: #333;
-    }
-
+    footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.6rem; letter-spacing: 3px; color: #333; }
     footer span { color: var(--red); }
 
-    /* LORE TICKER */
-    .ticker-wrap {
-      overflow: hidden;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: #080808;
-      padding: 0.6rem 0;
-    }
-
-    .ticker-inner {
-      display: flex;
-      white-space: nowrap;
-      animation: ticker 30s linear infinite;
-      font-size: 0.6rem;
-      letter-spacing: 4px;
-      color: var(--red);
-      text-transform: uppercase;
-    }
-
+    .ticker-wrap { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: #080808; padding: 0.6rem 0; }
+    .ticker-inner { display: flex; white-space: nowrap; animation: ticker 30s linear infinite; font-size: 0.6rem; letter-spacing: 4px; color: var(--red); text-transform: uppercase; }
     .ticker-inner span { padding: 0 3rem; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-    @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+    /* FILE137 OVERLAY */
+    #file-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.97); overflow-y: auto; padding: 2rem 1rem; }
+    #file-overlay.open { display: block; }
+
+    .file-close { position: fixed; top: 1.5rem; right: 2rem; background: none; border: 1px solid #333; color: var(--grey); font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 3px; padding: 0.5rem 1rem; cursor: crosshair; text-transform: uppercase; z-index: 10000; transition: all 0.2s; }
+    .file-close:hover { border-color: var(--red); color: var(--red2); }
+
+    #file-gate { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; gap: 1.5rem; }
+
+    .gate-label { font-size: 0.6rem; letter-spacing: 5px; color: var(--red); text-transform: uppercase; }
+    .gate-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 6vw, 4rem); letter-spacing: 6px; color: var(--white); text-align: center; }
+    .gate-sub { font-size: 0.6rem; letter-spacing: 3px; color: #333; text-align: center; }
+    .gate-input-wrap { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+    .gate-input { background: #0a0a0a; border: 1px solid #222; color: var(--white); font-family: 'Share Tech Mono', monospace; font-size: 1rem; letter-spacing: 6px; padding: 0.8rem 1.5rem; outline: none; width: 220px; text-align: center; text-transform: uppercase; transition: border-color 0.2s; }
+    .gate-input:focus { border-color: var(--red); }
+    .gate-input.error { border-color: var(--red2); animation: shake 0.3s ease; }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+    .gate-error { font-size: 0.6rem; letter-spacing: 3px; color: var(--red2); display: none; }
+    .gate-error.show { display: block; }
+
+    /* CLASSIFIED DOC */
+    #file-doc { display: none; max-width: 800px; margin: 0 auto; padding: 1rem 0 4rem; }
+    #file-doc.open { display: block; }
+
+    .doc-header { border: 2px solid #222; padding: 2rem; margin-bottom: 2rem; position: relative; background: #070707; }
+    .doc-stamp { position: absolute; top: 1.5rem; right: 1.5rem; border: 3px solid var(--red); color: var(--red); font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 4px; padding: 0.3rem 0.8rem; transform: rotate(-8deg); opacity: 0.8; }
+    .doc-agency { font-size: 0.6rem; letter-spacing: 5px; color: var(--grey); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .doc-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 4vw, 2.5rem); letter-spacing: 4px; color: var(--white); margin-bottom: 1rem; }
+    .doc-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #1a1a1a; }
+    .doc-meta-item { font-size: 0.6rem; letter-spacing: 2px; color: var(--grey); line-height: 1.8; }
+    .doc-meta-item span { color: var(--white); display: block; }
+
+    .doc-section { border: 1px solid #1a1a1a; margin-bottom: 1.5rem; background: #060606; }
+    .doc-section-header { background: #0f0f0f; padding: 0.75rem 1.5rem; border-bottom: 1px solid #1a1a1a; display: flex; align-items: center; gap: 1rem; }
+    .doc-section-num { font-size: 0.55rem; letter-spacing: 3px; color: var(--red); text-transform: uppercase; }
+    .doc-section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 3px; color: var(--white); }
+    .doc-section-body { padding: 1.5rem; font-size: 0.65rem; letter-spacing: 1.5px; color: #888; line-height: 2.2; }
+    .doc-section-body p { margin-bottom: 1rem; }
+    .doc-section-body p:last-child { margin-bottom: 0; }
+
+    .redacted { background: #e8e8e8; color: #e8e8e8; user-select: none; padding: 0 0.2rem; border-radius: 1px; }
+    .redacted:hover { background: var(--red); color: var(--red); }
+    .doc-highlight { color: var(--white); }
+
+    .doc-warning { border: 1px solid var(--red); padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,0,0,0.03); }
+    .doc-warning-icon { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--red); line-height: 1; flex-shrink: 0; }
+    .doc-warning-text { font-size: 0.6rem; letter-spacing: 2px; color: var(--grey); line-height: 2; }
+
+    .doc-discography { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: #1a1a1a; }
+    .doc-disco-item { background: #060606; padding: 1rem 1.5rem; }
+    .doc-disco-title { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 2px; color: var(--white); margin-bottom: 0.3rem; }
+    .doc-disco-desc { font-size: 0.55rem; letter-spacing: 1px; color: var(--grey); line-height: 1.8; }
+
+    .doc-footer { border-top: 1px solid #1a1a1a; padding: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.55rem; letter-spacing: 3px; color: #333; margin-top: 2rem; }
 
     /* HIDDEN TRACKLIST */
-    .hidden-tracklist {
-      color: #050505;
-      background: #050505;
-      font-size: 0.6rem;
-      letter-spacing: 2px;
-      line-height: 2;
-      padding: 0 1.5rem;
-      user-select: text;
-    }
+    .hidden-tracklist { color: #050505; background: #050505; font-size: 0.6rem; letter-spacing: 2px; line-height: 2; padding: 0 1.5rem; user-select: text; }
 
     @media (max-width: 700px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { gap: 1rem; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .doc-stamp { display: none; }
     }
   </style>
 </head>
 <body>
 
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-text">BUFFALO PILL</div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+  <div class="loader-sub">initializing transmission...</div>
+</div>
+
+<!-- FILE137 OVERLAY -->
+<div id="file-overlay">
+  <button class="file-close" onclick="closeFile()">[ CLOSE ]</button>
+
+  <div id="file-gate">
+    <div class="gate-label">// PKPD RESTRICTED ACCESS //</div>
+    <div class="gate-title">CLEARANCE<br>REQUIRED</div>
+    <div class="gate-sub">enter access code to continue</div>
+    <div class="gate-input-wrap">
+      <input class="gate-input" id="gate-input" type="text" placeholder="_ _ _ _ _ _ _" maxlength="7" autocomplete="off" spellcheck="false">
+      <button class="btn btn-primary" onclick="checkPassword()">ENTER</button>
+    </div>
+    <div class="gate-error" id="gate-error">ACCESS DENIED — INVALID CLEARANCE CODE</div>
+  </div>
+
+  <div id="file-doc">
+    <div class="doc-header">
+      <div class="doc-stamp">CLASSIFIED</div>
+      <div class="doc-agency">PILLKILL POLICE DEPARTMENT · PKPD · CASE DIVISION</div>
+      <div class="doc-title">SUBJECT FILE:<br>BUFFALO PILL</div>
+      <div class="doc-meta">
+        <div class="doc-meta-item">FILE NUMBER<span>PKPD-137-BP</span></div>
+        <div class="doc-meta-item">STATUS<span>ONGOING / ACTIVE</span></div>
+        <div class="doc-meta-item">THREAT LEVEL<span>EXTREME</span></div>
+        <div class="doc-meta-item">LEAD DETECTIVE<span><span class="redacted">DET. R. ██████</span></span></div>
+        <div class="doc-meta-item">LAST UPDATED<span>REDACTED</span></div>
+        <div class="doc-meta-item">JURISDICTION<span>PILLKILL, NV + BEYOND</span></div>
+      </div>
+    </div>
+
+    <div class="doc-warning">
+      <div class="doc-warning-icon">!</div>
+      <div class="doc-warning-text">
+        THIS DOCUMENT IS THE PROPERTY OF THE PILLKILL POLICE DEPARTMENT. UNAUTHORIZED ACCESS, REPRODUCTION, OR DISTRIBUTION IS A FEDERAL OFFENSE UNDER PKPD STATUTE 137-C. IF YOU ARE READING THIS WITHOUT CLEARANCE, STOP NOW. WE KNOW WHERE YOU ARE.
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">SECTION 01</div>
+        <div class="doc-section-title">ORIGIN & EARLY LIFE</div>
+      </div>
+      <div class="doc-section-body">
+        <p>Subject was born in <span class="doc-highlight">Nevada</span>, later relocating to <span class="doc-highlight">Pillkill, NV</span> — a township that does not appear on any state-issued map and is listed in no census. Its existence is confirmed only by streaming service metadata and a single gas station receipt recovered from a murder scene.</p>
+        <p>At an undetermined point in his adolescence, subject became fixated on actor <span class="doc-highlight">Matthew Lillard</span>, consuming his filmography on a compulsive loop. This obsession escalated following repeated viewings of the 1996 film <em>Scream</em>. Subject legally attempted to change his name to <span class="redacted">MATTHEW THE FRICK LILLARD</span> — request was denied by the Clark County clerk on grounds of "disturbing intent."</p>
+        <p>The obsession did not stop at cinema. Subject began to identify with the film's primary antagonist, eventually moving from identification to <span class="doc-highlight">imitation</span>.</p>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">SECTION 02</div>
+        <div class="doc-section-title">KNOWN CRIMINAL HISTORY</div>
+      </div>
+      <div class="doc-section-body">
+        <p>Subject's first confirmed victim was his own mother. Details of the incident are too graphic for standard filing. Following this event, subject systematically eliminated the remainder of his bloodline — his grandmother, his sister — before expanding his activity beyond family units.</p>
+        <p>Subject has been shot a confirmed <span class="doc-highlight">multiple times</span> across various incidents. He has survived every instance. PKPD ballistics team has no explanation for this. Dr. <span class="redacted">████ ████████</span> of the Nevada State Medical Board described his continued survival as <em>"physiologically impossible and deeply upsetting."</em></p>
+        <p>The name "Buffalo Pill" was assigned to subject by a victim during an active incident who reportedly said, <em>"What are you? Some sort of buffalo pill?"</em> Subject paused, replied <span class="doc-highlight">"Huh. Buffalo Pill. I think I like that name,"</span> and completed the encounter. PKPD considers this the official origin of the alias.</p>
+        <p>Most notable incident: <span class="doc-highlight">Las Vegas, NV</span> — committed in collaboration with associate known only as <span class="doc-highlight">"K-DOT"</span> (see associated file <span class="redacted">PKPD-204-KD</span>). Exact nature of the Las Vegas incident remains classified above this clearance level. What we can confirm: it was bad.</p>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">SECTION 03</div>
+        <div class="doc-section-title">KNOWN ASSOCIATES</div>
+      </div>
+      <div class="doc-section-body">
+        <p><span class="doc-highlight">K-DOT</span> — Underground rapper. Met subject at an undisclosed location. Their partnership produced crimes of note, most memorably in Las Vegas. Current whereabouts: <span class="redacted">████████████, CA</span>. Ongoing investigation.</p>
+        <p><span class="doc-highlight">MEXICAN MICHAEL JACKSON</span> — Two conjoined twins separated at birth who independently arrived at the same rap alias. Both make music. PKPD psychologists describe their dynamic with subject as <em>"symbiotic and concerning."</em></p>
+        <p><span class="doc-highlight">BRYDN</span> — Recurring collaborator. Appears across multiple subject recordings. Background check returned <span class="redacted">█████████████████████████████</span>. File sealed.</p>
+        <p><span class="doc-highlight">KANYE WEST</span> — Met subject at undisclosed event. Collaborated on unreleased material. Subject later produced derogatory content directed at West. West reportedly believed the slides came from his wife due to being under the influence of nitrous oxide at the time, subsequently entering a documented public breakdown about <span class="doc-highlight">Twix bars</span>. Incident unresolved.</p>
+        <p><span class="doc-highlight">KENDRICK LAMAR</span> — Active beef. Nature: professional and deeply personal. Subject's fourth album addresses this conflict directly. PKPD advised both parties to seek mediation. Neither party has responded to mediation offers. PKPD has stopped trying.</p>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">SECTION 04</div>
+        <div class="doc-section-title">PSYCHOLOGICAL PROFILE</div>
+      </div>
+      <div class="doc-section-body">
+        <p>Subject presents as <span class="doc-highlight">perpetually angry</span> with documented episodes of emotional vulnerability, particularly regarding loss and romantic failure. Despite his actions, subject displays capacity for genuine grief. He is afraid of two things: <span class="doc-highlight">losing</span>, and <span class="doc-highlight">being made fun of</span>.</p>
+        <p>Subject has been married twice. Both marriages ended under circumstances PKPD has declined to document in this file. He owns a dog named <span class="doc-highlight">Scooby Doo</span>, whom he loves unconditionally. Agents who have surveilled subject report that his demeanor in the presence of the dog is <em>"completely different. Like a different guy entirely. It's weird."</em></p>
+        <p>Subject also maintains a deep personal attachment to his <span class="doc-highlight">knife</span>. Forensics have declined to run further tests on it.</p>
+        <p>Profiling note: subject does not appear to feel remorse for his crimes in the conventional sense. However, his fourth studio album suggests he is beginning to process the consequences of having <span class="doc-highlight">eliminated his entire family</span>. PKPD regards this as a potential vulnerability. It may also just make him angrier. We genuinely do not know.</p>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">SECTION 05</div>
+        <div class="doc-section-title">DISCOGRAPHY / EVIDENCE LOG</div>
+      </div>
+      <div class="doc-section-body">
+        <p>Subject has used rap music as a vehicle for self-documentation. PKPD has catalogued all known releases as evidence. Analysts note that subject's output is <em>"disturbingly self-aware for someone who has done the things he has done."</em></p>
+      </div>
+      <div class="doc-discography">
+        <div class="doc-disco-item">
+          <div class="doc-disco-title">LILLARD'S REVENGE</div>
+          <div class="doc-disco-desc">SoundCloud. Removed for content violations. Covers subject's origin and early acts. PKPD has a copy. You don't want to hear it.</div>
+        </div>
+        <div class="doc-disco-item">
+          <div class="doc-disco-title">MY GOSPEL</div>
+          <div class="doc-disco-desc">First major release. Documents subject's current life and relationship with faith, fame, and Kanye West. Love songs written by a man with no family left to love.</div>
+        </div>
+        <div class="doc-disco-item">
+          <div class="doc-disco-title">SNAKE EATER</div>
+          <div class="doc-disco-desc">Depicts subject at his lowest point. Introduction of Mexican Michael Jackson. Production described by analysts as "genuinely unsettling." Subject described this period as being "fully broken."</div>
+        </div>
+        <div class="doc-disco-item">
+          <div class="doc-disco-title">CIVIL WAR BUT IRL</div>
+          <div class="doc-disco-desc">Current release. Explores guilt for the first time. Active beef with Kendrick Lamar. PKPD considers this a breakthrough — subject is beginning to feel things again. This may make him more dangerous.</div>
+        </div>
+        <div class="doc-disco-item">
+          <div class="doc-disco-title">MANUFACTURED CONSENT</div>
+          <div class="doc-disco-desc">INCOMING. DETAILS CLASSIFIED. File <span class="redacted">████████████████████████████████████████</span>. PKPD has been briefed. We are not ready.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">SECTION 06</div>
+        <div class="doc-section-title">PILLKILL, NV — LOCATION REPORT</div>
+      </div>
+      <div class="doc-section-body">
+        <p>Pillkill, Nevada does not exist according to any official state or federal record. It does not appear on Google Maps, Apple Maps, or any cartographic database maintained by the USGS. It has never been incorporated as a municipality, township, or census-designated place.</p>
+        <p>And yet: it is listed as subject's hometown on three separate streaming platforms. Two PKPD officers dispatched to investigate its coordinates in <span class="redacted">20██</span> did not return. Their vehicles were found approximately 40 miles outside of <span class="redacted">████████</span>, NV, engines still running, doors open.</p>
+        <p>The name "Pillkill" appears in <span class="doc-highlight">zero</span> of subject's songs. He has never referenced it directly. PKPD analysts believe this is intentional. <em>"He wants you to find it yourself,"</em> wrote one analyst before resigning from the department the following morning.</p>
+        <p>Current PKPD position: Pillkill is real. We do not recommend visiting. We do not recommend thinking about it too hard. You are already thinking about it too hard. Stop.</p>
+      </div>
+    </div>
+
+    <div class="doc-footer">
+      <span>PKPD — PILLKILL POLICE DEPARTMENT</span>
+      <span>FILE 137 — EYES ONLY</span>
+      <span>DO NOT PRINT · DO NOT SHARE · DO NOT DREAM ABOUT THIS</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN SITE -->
 <nav>
   <div class="nav-logo">BUFFALO PILL</div>
   <div class="nav-links">
@@ -530,6 +575,7 @@
     <a href="#videos">VIDEOS</a>
     <a href="#merch">MERCH</a>
     <a href="#socials">SOCIALS</a>
+    <a href="#" class="nav-file" onclick="openFile();return false;">FILE 137</a>
   </div>
 </nav>
 
@@ -555,6 +601,21 @@
   </div>
 </div>
 
+<!-- ALBUM COUNTDOWN BANNER -->
+<div class="album-banner">
+  <span class="album-banner-label">// INCOMING //</span>
+  <div class="album-banner-title">MANUFACTURED CONSENT</div>
+  <div class="album-countdown" id="album-countdown">
+    <div class="acd-block"><span class="acd-num" id="acd-days">00</span><span class="acd-label">DAYS</span></div>
+    <div class="acd-sep">:</div>
+    <div class="acd-block"><span class="acd-num" id="acd-hours">00</span><span class="acd-label">HRS</span></div>
+    <div class="acd-sep">:</div>
+    <div class="acd-block"><span class="acd-num" id="acd-minutes">00</span><span class="acd-label">MINS</span></div>
+    <div class="acd-sep">:</div>
+    <div class="acd-block"><span class="acd-num" id="acd-seconds">00</span><span class="acd-label">SECS</span></div>
+  </div>
+</div>
+
 <hr class="rule">
 
 <section id="music">
@@ -567,9 +628,7 @@
       <a class="btn btn-ghost" href="https://music.apple.com/us/artist/buffalo-pill/1853023050" target="_blank" rel="noopener">APPLE MUSIC</a>
     </div>
   </div>
-
   <hr class="rule" style="margin-bottom:3rem;">
-
   <span class="section-label">// ALL MUSIC</span>
   <h2>DISCOGRAPHY</h2>
   <div class="music-block">
@@ -622,25 +681,35 @@
 
 <hr class="rule">
 
+<section id="mailinglist">
+  <span class="section-label">// STAY IN THE LOOP</span>
+  <h2>MAILING LIST</h2>
+  <div class="mail-block">
+    <p class="mail-desc">GET NOTIFIED WHEN MANUFACTURED CONSENT DROPS.<br>NO SPAM. JUST THE SIGNAL.</p>
+    <div class="mail-form">
+      <input class="mail-input" type="email" placeholder="YOUR EMAIL" id="mail-input">
+      <a class="btn btn-primary" href="https://buttondown.com/buffalopill" target="_blank" rel="noopener" onclick="handleMailSignup(event)">SUBSCRIBE</a>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
 <section id="socials">
   <span class="section-label">// FIND ME</span>
   <h2>SOCIALS</h2>
   <div class="social-grid">
     <a class="social-item" href="https://www.tiktok.com/@buffalo.pill" target="_blank" rel="noopener">
-      <span class="social-platform">TIKTOK</span>
-      <span class="social-handle">@buffalo.pill</span>
+      <span class="social-platform">TIKTOK</span><span class="social-handle">@buffalo.pill</span>
     </a>
     <a class="social-item" href="https://www.instagram.com/buff.alopill/" target="_blank" rel="noopener">
-      <span class="social-platform">INSTAGRAM</span>
-      <span class="social-handle">@buff.alopill</span>
+      <span class="social-platform">INSTAGRAM</span><span class="social-handle">@buff.alopill</span>
     </a>
     <a class="social-item" href="https://x.com/BuffaloPill" target="_blank" rel="noopener">
-      <span class="social-platform">X / TWITTER</span>
-      <span class="social-handle">@BuffaloPill</span>
+      <span class="social-platform">X / TWITTER</span><span class="social-handle">@BuffaloPill</span>
     </a>
     <a class="social-item" href="https://soundcloud.com/buffalo-pill" target="_blank" rel="noopener">
-      <span class="social-platform">SOUNDCLOUD</span>
-      <span class="social-handle">buffalo-pill</span>
+      <span class="social-platform">SOUNDCLOUD</span><span class="social-handle">buffalo-pill</span>
     </a>
   </div>
 </section>
@@ -677,6 +746,24 @@ MANUFACTURED CONSENT
 <audio id="s" src="https://buffalopill.pages.dev/secret.mp3" preload="auto"></audio>
 
 <script>
+  // LOADER
+  let progress = 0;
+  const bar = document.getElementById('loader-bar');
+  const loaderInterval = setInterval(() => {
+    progress += Math.random() * 18;
+    if (progress >= 100) {
+      progress = 100;
+      bar.style.width = '100%';
+      clearInterval(loaderInterval);
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('fade-out');
+        setTimeout(() => document.getElementById('loader').style.display = 'none', 600);
+      }, 400);
+    }
+    bar.style.width = progress + '%';
+  }, 120);
+
+  // MERCH COUNTDOWN
   const dropDate = new Date('2027-01-15T00:00:00').getTime();
   function updateCountdown() {
     const now = Date.now();
@@ -693,7 +780,69 @@ MANUFACTURED CONSENT
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
-  // secret easter egg — konami code plays secret.mp3
+  // ALBUM COUNTDOWN — June 15 2026 placeholder, update when you have the real date
+  const albumDate = new Date('2026-06-15T00:00:00').getTime();
+  function updateAlbumCountdown() {
+    const now = Date.now();
+    const d = albumDate - now;
+    if (d < 0) {
+      document.getElementById('album-countdown').innerHTML = '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:1.5rem;letter-spacing:4px;color:var(--red2);">OUT NOW</div>';
+      return;
+    }
+    document.getElementById('acd-days').textContent    = String(Math.floor(d / 86400000)).padStart(2,'0');
+    document.getElementById('acd-hours').textContent   = String(Math.floor((d % 86400000) / 3600000)).padStart(2,'0');
+    document.getElementById('acd-minutes').textContent = String(Math.floor((d % 3600000) / 60000)).padStart(2,'0');
+    document.getElementById('acd-seconds').textContent = String(Math.floor((d % 60000) / 1000)).padStart(2,'0');
+  }
+  setInterval(updateAlbumCountdown, 1000);
+  updateAlbumCountdown();
+
+  // FILE 137
+  function openFile() {
+    document.getElementById('file-overlay').classList.add('open');
+    document.getElementById('file-gate').style.display = 'flex';
+    document.getElementById('file-doc').classList.remove('open');
+    document.getElementById('gate-input').value = '';
+    document.getElementById('gate-error').classList.remove('show');
+    document.getElementById('gate-input').classList.remove('error');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFile() {
+    document.getElementById('file-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function checkPassword() {
+    const val = document.getElementById('gate-input').value.trim().toUpperCase();
+    if (val === 'FILE137') {
+      document.getElementById('file-gate').style.display = 'none';
+      document.getElementById('file-doc').classList.add('open');
+      document.getElementById('file-overlay').scrollTop = 0;
+    } else {
+      const input = document.getElementById('gate-input');
+      const err = document.getElementById('gate-error');
+      input.classList.add('error');
+      err.classList.add('show');
+      setTimeout(() => input.classList.remove('error'), 400);
+    }
+  }
+
+  document.getElementById('gate-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  // MAILING LIST
+  function handleMailSignup(e) {
+    const email = document.getElementById('mail-input').value;
+    if (!email || !email.includes('@')) {
+      e.preventDefault();
+      document.getElementById('mail-input').style.borderColor = 'var(--red2)';
+      setTimeout(() => document.getElementById('mail-input').style.borderColor = '', 1000);
+    }
+  }
+
+  // KONAMI CODE — plays secret.mp3
   let keys = [];
   const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   document.addEventListener('keydown', e => {
@@ -702,6 +851,14 @@ MANUFACTURED CONSENT
     if (keys.join(',') === konami.join(',')) {
       document.getElementById('s').play();
     }
+  });
+
+  // EASTER EGG — type "pillkill" anywhere to open FILE 137
+  let typedWord = '';
+  document.addEventListener('keypress', e => {
+    typedWord += e.key.toLowerCase();
+    typedWord = typedWord.slice(-8);
+    if (typedWord === 'pillkill') openFile();
   });
 </script>
 

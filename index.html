@@ -20,190 +20,44 @@
       --dark: #111;
       --border: #1a1a1a;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--white); font-family: 'Share Tech Mono', monospace; cursor: crosshair; overflow-x: hidden; }
 
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'Share Tech Mono', monospace;
-      cursor: crosshair;
-      overflow-x: hidden;
-    }
-
-    /* LOADING SCREEN */
-    #loader {
-      position: fixed;
-      inset: 0;
-      background: #000;
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      transition: opacity 0.6s ease;
-    }
-
+    /* LOADER */
+    #loader { position: fixed; inset: 0; background: #000; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; transition: opacity 0.6s ease; }
     #loader.fade-out { opacity: 0; pointer-events: none; }
-
-    .loader-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 6vw, 4rem);
-      letter-spacing: 8px;
-      color: var(--red);
-      animation: loader-glitch 1.5s infinite;
-    }
-
-    .loader-sub {
-      font-size: 0.6rem;
-      letter-spacing: 5px;
-      color: #333;
-      text-transform: uppercase;
-      animation: blink 1s infinite;
-    }
-
-    .loader-bar-wrap {
-      width: 200px;
-      height: 1px;
-      background: #111;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .loader-bar {
-      position: absolute;
-      top: 0; left: 0;
-      height: 100%;
-      background: var(--red);
-      width: 0%;
-      transition: width 0.05s linear;
-    }
-
+    .loader-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 6vw, 4rem); letter-spacing: 8px; color: var(--red); animation: loader-glitch 1.5s infinite; }
+    .loader-sub { font-size: 0.6rem; letter-spacing: 5px; color: #333; text-transform: uppercase; animation: blink 1s infinite; }
+    .loader-bar-wrap { width: 200px; height: 1px; background: #111; position: relative; overflow: hidden; }
+    .loader-bar { position: absolute; top: 0; left: 0; height: 100%; background: var(--red); width: 0%; transition: width 0.05s linear; }
     @keyframes loader-glitch {
       0%, 88%, 100% { text-shadow: 2px 0 var(--red), -2px 0 rgba(0,100,255,0.4); transform: none; }
       90% { transform: translate(-2px); text-shadow: 3px 0 var(--red2), -3px 0 rgba(0,200,255,0.5); }
-      92% { transform: translate(2px); }
-      94% { transform: none; }
+      92% { transform: translate(2px); } 94% { transform: none; }
     }
 
-    /* SCANLINE OVERLAY */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
-      pointer-events: none;
-      z-index: 9998;
-    }
-
-    /* NOISE */
-    body::after {
-      content: "";
-      position: fixed;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity: 0.035;
-      pointer-events: none;
-      z-index: 9997;
-      animation: noise 0.2s steps(2) infinite;
-    }
-
-    @keyframes noise {
-      0% { transform: translate(0,0); }
-      25% { transform: translate(-1%,1%); }
-      50% { transform: translate(1%,-1%); }
-      75% { transform: translate(-1%,-1%); }
-      100% { transform: translate(1%,1%); }
-    }
+    /* SCANLINES */
+    body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 9998; }
+    body::after { content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 9997; animation: noise 0.2s steps(2) infinite; }
+    @keyframes noise { 0% { transform: translate(0,0); } 25% { transform: translate(-1%,1%); } 50% { transform: translate(1%,-1%); } 75% { transform: translate(-1%,-1%); } 100% { transform: translate(1%,1%); } }
 
     /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.2rem 2.5rem;
-      background: rgba(5,5,5,0.92);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 4px;
-      color: var(--red);
-    }
-
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 2.5rem; background: rgba(5,5,5,0.92); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 4px; color: var(--red); }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
-
-    nav a {
-      color: var(--grey);
-      text-decoration: none;
-      font-size: 0.7rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      transition: color 0.15s;
-    }
-
+    nav a { color: var(--grey); text-decoration: none; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; transition: color 0.15s; }
     nav a:hover { color: var(--red2); }
-
-    .nav-file {
-      color: var(--red) !important;
-      border: 1px solid var(--red);
-      padding: 0.3rem 0.8rem;
-      font-size: 0.6rem !important;
-      animation: blink-border 2s infinite;
-    }
-
+    .nav-file { color: var(--red) !important; border: 1px solid var(--red); padding: 0.3rem 0.8rem; font-size: 0.6rem !important; animation: blink-border 2s infinite; }
     .nav-file:hover { background: var(--red); color: #fff !important; }
-
-    @keyframes blink-border {
-      0%, 100% { border-color: var(--red); }
-      50% { border-color: transparent; }
-    }
+    @keyframes blink-border { 0%, 100% { border-color: var(--red); } 50% { border-color: transparent; } }
 
     /* HERO */
-    header {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 50% 60%, rgba(150,0,0,0.12) 0%, transparent 70%),
-        linear-gradient(180deg, #050505 0%, #0a0000 50%, #050505 100%);
-    }
-
+    header { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(150,0,0,0.12) 0%, transparent 70%), linear-gradient(180deg, #050505 0%, #0a0000 50%, #050505 100%); }
     .hero-img-wrap { position: relative; margin-bottom: 2rem; z-index: 2; }
-
-    .hero-img-wrap img {
-      width: clamp(140px, 18vw, 220px);
-      height: clamp(140px, 18vw, 220px);
-      object-fit: cover;
-      display: block;
-      filter: grayscale(30%) contrast(1.1);
-      border: 1px solid var(--red);
-      box-shadow: 0 0 40px rgba(200,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.5);
-    }
-
-    .hero-img-wrap img:hover {
-      animation: glitch-img 0.4s infinite;
-      filter: grayscale(0%) contrast(1.3) hue-rotate(340deg);
-    }
-
+    .hero-img-wrap img { width: clamp(140px, 18vw, 220px); height: clamp(140px, 18vw, 220px); object-fit: cover; display: block; filter: grayscale(30%) contrast(1.1); border: 1px solid var(--red); box-shadow: 0 0 40px rgba(200,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.5); }
+    .hero-img-wrap img:hover { animation: glitch-img 0.4s infinite; filter: grayscale(0%) contrast(1.3) hue-rotate(340deg); }
     @keyframes glitch-img {
       0%   { transform: translate(0); clip-path: inset(0 0 0 0); }
       20%  { transform: translate(-3px, 1px); clip-path: inset(10% 0 80% 0); filter: hue-rotate(90deg); }
@@ -212,105 +66,45 @@
       80%  { transform: translate(2px, -2px); clip-path: inset(80% 0 5% 0); }
       100% { transform: translate(0); clip-path: inset(0 0 0 0); }
     }
-
     .hero-tag { font-size: 0.65rem; letter-spacing: 5px; color: var(--red); margin-bottom: 0.75rem; z-index: 2; position: relative; }
-
-    h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4rem, 12vw, 9rem);
-      letter-spacing: 6px;
-      line-height: 0.9;
-      color: var(--white);
-      z-index: 2;
-      position: relative;
-      text-shadow: 2px 0 0 var(--red), -2px 0 0 rgba(0,100,255,0.3);
-      animation: text-glitch 6s infinite;
-    }
-
+    h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 12vw, 9rem); letter-spacing: 6px; line-height: 0.9; color: var(--white); z-index: 2; position: relative; text-shadow: 2px 0 0 var(--red), -2px 0 0 rgba(0,100,255,0.3); animation: text-glitch 6s infinite; }
     @keyframes text-glitch {
       0%, 90%, 100% { text-shadow: 2px 0 0 var(--red), -2px 0 0 rgba(0,100,255,0.3); }
       92% { text-shadow: -3px 0 0 var(--red), 3px 0 0 rgba(0,100,255,0.4); transform: translate(2px); }
       94% { text-shadow: 3px 0 0 var(--red2), -3px 0 0 rgba(0,100,255,0.3); transform: translate(-2px); }
       96% { text-shadow: 2px 0 0 var(--red), -2px 0 0 rgba(0,100,255,0.3); transform: translate(0); }
     }
-
     .hero-sub { font-size: 0.7rem; letter-spacing: 6px; color: var(--grey); margin-top: 1rem; z-index: 2; position: relative; }
-
     .hero-cta { margin-top: 2.5rem; z-index: 2; position: relative; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
 
-    /* ALBUM COUNTDOWN BANNER */
-    .album-banner {
-      background: #0a0000;
-      border-top: 1px solid #1a0000;
-      border-bottom: 1px solid #1a0000;
-      padding: 1.5rem;
-      text-align: center;
-    }
-
+    /* ALBUM BANNER */
+    .album-banner { background: #0a0000; border-top: 1px solid #1a0000; border-bottom: 1px solid #1a0000; padding: 1.5rem; text-align: center; }
     .album-banner-label { font-size: 0.55rem; letter-spacing: 5px; color: var(--red); text-transform: uppercase; margin-bottom: 0.75rem; display: block; }
-
     .album-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 4vw, 2.5rem); letter-spacing: 6px; color: var(--white); margin-bottom: 1rem; }
-
     .album-countdown { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-
     .acd-block { text-align: center; min-width: 55px; }
     .acd-num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--red2); display: block; line-height: 1; }
     .acd-label { font-size: 0.5rem; letter-spacing: 3px; color: var(--grey); text-transform: uppercase; margin-top: 0.2rem; display: block; }
     .acd-sep { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #1a1a1a; align-self: center; padding-bottom: 0.3rem; }
 
     /* BUTTONS */
-    .btn {
-      display: inline-block;
-      padding: 0.8rem 2rem;
-      text-decoration: none;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      transition: all 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
+    .btn { display: inline-block; padding: 0.8rem 2rem; text-decoration: none; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; transition: all 0.2s; }
     .btn-primary { background: var(--red); color: #fff; border: 1px solid var(--red2); }
     .btn-primary:hover { background: var(--red2); box-shadow: 0 0 20px rgba(255,0,0,0.4); }
     .btn-ghost { background: transparent; color: var(--grey); border: 1px solid #222; }
     .btn-ghost:hover { color: var(--white); border-color: var(--grey); }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem; left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.6rem; letter-spacing: 4px; color: var(--grey); z-index: 2;
-      animation: blink 2s infinite;
-    }
-
+    .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); font-size: 0.6rem; letter-spacing: 4px; color: var(--grey); z-index: 2; animation: blink 2s infinite; }
     @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-    /* SECTIONS */
     section { max-width: 860px; margin: 0 auto; padding: clamp(4rem, 8vw, 7rem) 1.5rem; }
-
     .section-label { font-size: 0.6rem; letter-spacing: 5px; color: var(--red); text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
-
     h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 3px; margin-bottom: 2rem; color: var(--white); }
-
     .rule { border: none; border-top: 1px solid var(--border); margin: 0; }
-
     .music-block { margin-bottom: 3rem; }
-    .music-block p { font-size: 0.7rem; letter-spacing: 2px; color: var(--grey); margin-bottom: 1rem; text-transform: uppercase; }
-
     iframe { width: 100%; border: 0; border-radius: 0; display: block; margin-bottom: 1rem; border: 1px solid var(--border); }
-
     .btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
-
     .main-vid { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--border); display: block; margin-bottom: 1.5rem; }
-
-    .vid-toggle {
-      background: none; border: 1px solid #222; color: var(--grey);
-      font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 3px;
-      padding: 0.8rem 2rem; cursor: crosshair; text-transform: uppercase;
-      transition: all 0.2s; margin-bottom: 1.5rem; display: block;
-    }
+    .vid-toggle { background: none; border: 1px solid #222; color: var(--grey); font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 3px; padding: 0.8rem 2rem; cursor: crosshair; text-transform: uppercase; transition: all 0.2s; margin-bottom: 1.5rem; display: block; }
     .vid-toggle:hover { border-color: var(--grey); color: var(--white); }
     .vid-grid { display: none; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
     .vid-grid.open { display: grid; }
@@ -350,15 +144,16 @@
     .ticker-inner span { padding: 0 3rem; }
     @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-    /* FILE137 OVERLAY */
+    /* ======================== */
+    /* FILE 137 OVERLAY         */
+    /* ======================== */
     #file-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.97); overflow-y: auto; padding: 2rem 1rem; }
     #file-overlay.open { display: block; }
-
     .file-close { position: fixed; top: 1.5rem; right: 2rem; background: none; border: 1px solid #333; color: var(--grey); font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 3px; padding: 0.5rem 1rem; cursor: crosshair; text-transform: uppercase; z-index: 10000; transition: all 0.2s; }
     .file-close:hover { border-color: var(--red); color: var(--red2); }
 
+    /* PASSWORD GATE */
     #file-gate { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; gap: 1.5rem; }
-
     .gate-label { font-size: 0.6rem; letter-spacing: 5px; color: var(--red); text-transform: uppercase; }
     .gate-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 6vw, 4rem); letter-spacing: 6px; color: var(--white); text-align: center; }
     .gate-sub { font-size: 0.6rem; letter-spacing: 3px; color: #333; text-align: center; }
@@ -371,7 +166,7 @@
     .gate-error.show { display: block; }
 
     /* CLASSIFIED DOC */
-    #file-doc { display: none; max-width: 800px; margin: 0 auto; padding: 1rem 0 4rem; }
+    #file-doc { display: none; max-width: 820px; margin: 0 auto; padding: 1rem 0 4rem; }
     #file-doc.open { display: block; }
 
     .doc-header { border: 2px solid #222; padding: 2rem; margin-bottom: 2rem; position: relative; background: #070707; }
@@ -389,8 +184,7 @@
     .doc-section-body { padding: 1.5rem; font-size: 0.65rem; letter-spacing: 1.5px; color: #888; line-height: 2.2; }
     .doc-section-body p { margin-bottom: 1rem; }
     .doc-section-body p:last-child { margin-bottom: 0; }
-
-    .redacted { background: #e8e8e8; color: #e8e8e8; user-select: none; padding: 0 0.2rem; border-radius: 1px; }
+    .redacted { background: #e8e8e8; color: #e8e8e8; user-select: none; padding: 0 0.2rem; border-radius: 1px; cursor: not-allowed; }
     .redacted:hover { background: var(--red); color: var(--red); }
     .doc-highlight { color: var(--white); }
 
@@ -398,10 +192,227 @@
     .doc-warning-icon { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--red); line-height: 1; flex-shrink: 0; }
     .doc-warning-text { font-size: 0.6rem; letter-spacing: 2px; color: var(--grey); line-height: 2; }
 
+    /* PHOTO EVIDENCE GRID */
+    .evidence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+
+    .evidence-photo { border: 1px solid #2a2a2a; background: #080808; position: relative; overflow: hidden; }
+
+    .evidence-photo-inner {
+      width: 100%;
+      aspect-ratio: 3/4;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Mugshot style — grainy CSS figure */
+    .mugshot-bg {
+      position: absolute;
+      inset: 0;
+      background: #0d0d0d;
+    }
+
+    .mugshot-figure {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .mugshot-head {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #2a2a2a;
+      position: absolute;
+      top: 22%;
+      border: 1px solid #333;
+      box-shadow: inset 0 -8px 16px rgba(0,0,0,0.6);
+    }
+
+    .mugshot-mask {
+      width: 44px;
+      height: 28px;
+      background: #1a1a1a;
+      border-radius: 4px 4px 0 0;
+      position: absolute;
+      top: 30%;
+      border: 1px solid #333;
+    }
+
+    .mugshot-body {
+      width: 90px;
+      height: 60px;
+      background: #1e1e1e;
+      border-radius: 8px 8px 0 0;
+      position: absolute;
+      bottom: 22%;
+      border: 1px solid #2a2a2a;
+    }
+
+    .mugshot-height-ruler {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 18px;
+      background: #0a0a0a;
+      border-left: 1px solid #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 4px 2px;
+    }
+
+    .mugshot-height-ruler span {
+      font-size: 0.35rem;
+      color: #333;
+      letter-spacing: 0;
+      text-align: center;
+      display: block;
+    }
+
+    .mugshot-grain {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0.4;
+    }
+
+    .mugshot-scan {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.12) 3px, rgba(0,0,0,0.12) 4px);
+      pointer-events: none;
+      z-index: 9;
+    }
+
+    .mugshot-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%);
+      pointer-events: none;
+      z-index: 8;
+    }
+
+    /* Crime scene photo variant */
+    .crime-bg {
+      position: absolute;
+      inset: 0;
+      background: #090909;
+    }
+
+    .crime-tape {
+      position: absolute;
+      width: 140%;
+      height: 14px;
+      background: repeating-linear-gradient(90deg, #cc0000 0px, #cc0000 20px, #111 20px, #111 40px);
+      transform: rotate(-15deg);
+      opacity: 0.7;
+      z-index: 3;
+    }
+
+    .crime-tape-2 { top: 35%; }
+    .crime-tape-3 { top: 60%; }
+
+    .crime-number {
+      position: absolute;
+      bottom: 18%;
+      left: 12%;
+      background: #fff;
+      color: #000;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      padding: 2px 6px;
+      z-index: 5;
+      transform: rotate(-2deg);
+    }
+
+    .crime-flash {
+      position: absolute;
+      top: 0; right: 0;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.04) 0%, transparent 70%);
+      z-index: 4;
+    }
+
+    /* Incident report variant */
+    .report-inner {
+      position: absolute;
+      inset: 0;
+      background: #080808;
+      padding: 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .report-header-bar {
+      background: var(--red);
+      height: 10px;
+      width: 100%;
+      opacity: 0.8;
+    }
+
+    .report-line {
+      height: 6px;
+      background: #1a1a1a;
+      border-radius: 1px;
+    }
+
+    .report-line.short { width: 60%; }
+    .report-line.med { width: 80%; }
+    .report-line.full { width: 100%; }
+    .report-line.red { background: rgba(200,0,0,0.3); }
+
+    .report-box {
+      border: 1px solid #1a1a1a;
+      padding: 4px;
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+    }
+
+    .report-sig {
+      height: 12px;
+      border-bottom: 1px solid #222;
+      margin-top: auto;
+    }
+
+    .evidence-caption {
+      padding: 0.5rem 0.75rem;
+      border-top: 1px solid #1a1a1a;
+      background: #060606;
+    }
+
+    .evidence-caption-id { font-size: 0.5rem; letter-spacing: 3px; color: var(--red); display: block; }
+    .evidence-caption-desc { font-size: 0.55rem; letter-spacing: 1px; color: #555; display: block; margin-top: 0.2rem; }
+
+    /* DISCOGRAPHY */
     .doc-discography { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: #1a1a1a; }
     .doc-disco-item { background: #060606; padding: 1rem 1.5rem; }
     .doc-disco-title { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 2px; color: var(--white); margin-bottom: 0.3rem; }
     .doc-disco-desc { font-size: 0.55rem; letter-spacing: 1px; color: var(--grey); line-height: 1.8; }
+
+    /* BRYDN SECTION SPECIAL */
+    .brydn-threat { display: inline-block; background: var(--red); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 0.7rem; letter-spacing: 3px; padding: 0.2rem 0.6rem; margin-bottom: 1rem; }
+    .brydn-files { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .brydn-file { border: 1px solid #1a1a1a; padding: 1rem; background: #050505; }
+    .brydn-file-label { font-size: 0.5rem; letter-spacing: 3px; color: var(--red); display: block; margin-bottom: 0.4rem; }
+    .brydn-file-content { font-size: 0.6rem; letter-spacing: 1px; color: #666; line-height: 1.8; }
 
     .doc-footer { border-top: 1px solid #1a1a1a; padding: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.55rem; letter-spacing: 3px; color: #333; margin-top: 2rem; }
 
@@ -418,14 +429,14 @@
 </head>
 <body>
 
-<!-- LOADING SCREEN -->
+<!-- LOADER -->
 <div id="loader">
   <div class="loader-text">BUFFALO PILL</div>
   <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
   <div class="loader-sub">initializing transmission...</div>
 </div>
 
-<!-- FILE137 OVERLAY -->
+<!-- FILE 137 OVERLAY -->
 <div id="file-overlay">
   <button class="file-close" onclick="closeFile()">[ CLOSE ]</button>
 
@@ -457,11 +468,94 @@
 
     <div class="doc-warning">
       <div class="doc-warning-icon">!</div>
-      <div class="doc-warning-text">
-        THIS DOCUMENT IS THE PROPERTY OF THE PILLKILL POLICE DEPARTMENT. UNAUTHORIZED ACCESS, REPRODUCTION, OR DISTRIBUTION IS A FEDERAL OFFENSE UNDER PKPD STATUTE 137-C. IF YOU ARE READING THIS WITHOUT CLEARANCE, STOP NOW. WE KNOW WHERE YOU ARE.
+      <div class="doc-warning-text">THIS DOCUMENT IS THE PROPERTY OF THE PILLKILL POLICE DEPARTMENT. UNAUTHORIZED ACCESS, REPRODUCTION, OR DISTRIBUTION IS A FEDERAL OFFENSE UNDER PKPD STATUTE 137-C. IF YOU ARE READING THIS WITHOUT CLEARANCE, STOP NOW. WE KNOW WHERE YOU ARE.</div>
+    </div>
+
+    <!-- PHOTO EVIDENCE -->
+    <div class="evidence-grid">
+      <div class="evidence-photo">
+        <div class="evidence-photo-inner">
+          <div class="mugshot-bg"></div>
+          <div class="mugshot-height-ruler">
+            <span>6'2"</span><span>6'0"</span><span>5'10"</span><span>5'8"</span><span>5'6"</span>
+          </div>
+          <div class="mugshot-head"></div>
+          <div class="mugshot-mask"></div>
+          <div class="mugshot-body"></div>
+          <div class="mugshot-grain"></div>
+          <div class="mugshot-scan"></div>
+          <div class="mugshot-vignette"></div>
+        </div>
+        <div class="evidence-caption">
+          <span class="evidence-caption-id">PKPD-137 · BOOKING PHOTO</span>
+          <span class="evidence-caption-desc">SUBJECT: BUFFALO PILL<br>DATE: REDACTED</span>
+        </div>
+      </div>
+      <div class="evidence-photo">
+        <div class="evidence-photo-inner" style="aspect-ratio:4/3;">
+          <div class="crime-bg"></div>
+          <div class="crime-tape crime-tape-2"></div>
+          <div class="crime-tape crime-tape-3"></div>
+          <div class="crime-number">EVIDENCE #04</div>
+          <div class="crime-flash"></div>
+          <div class="mugshot-grain"></div>
+          <div class="mugshot-scan"></div>
+        </div>
+        <div class="evidence-caption">
+          <span class="evidence-caption-id">PKPD-137 · SCENE PHOTO</span>
+          <span class="evidence-caption-desc">PILLKILL, NV — INCIDENT 04<br>DETAILS: CLASSIFIED</span>
+        </div>
+      </div>
+      <div class="evidence-photo">
+        <div class="evidence-photo-inner" style="aspect-ratio:3/4;">
+          <div class="report-inner">
+            <div class="report-header-bar"></div>
+            <div style="font-size:0.45rem;letter-spacing:3px;color:var(--red);margin:4px 0;">PKPD INCIDENT REPORT</div>
+            <div class="report-line short"></div>
+            <div class="report-line med"></div>
+            <div class="report-line full"></div>
+            <div class="report-line short red"></div>
+            <div class="report-box">
+              <div class="report-line full"></div>
+              <div class="report-line full"></div>
+              <div class="report-line med"></div>
+              <div class="report-line full"></div>
+              <div class="report-line short red"></div>
+              <div class="report-line full"></div>
+              <div class="report-line med"></div>
+            </div>
+            <div class="report-sig"></div>
+            <div style="font-size:0.4rem;letter-spacing:2px;color:#222;">AUTHORIZED · PKPD-137</div>
+          </div>
+          <div class="mugshot-grain"></div>
+        </div>
+        <div class="evidence-caption">
+          <span class="evidence-caption-id">PKPD-137 · INCIDENT REPORT</span>
+          <span class="evidence-caption-desc">CASE REF: 137-BP-NV-09<br>FILED: REDACTED</span>
+        </div>
+      </div>
+      <div class="evidence-photo">
+        <div class="evidence-photo-inner">
+          <div class="mugshot-bg"></div>
+          <div class="mugshot-height-ruler">
+            <span>6'2"</span><span>6'0"</span><span>5'10"</span><span>5'8"</span><span>5'6"</span>
+          </div>
+          <div class="mugshot-head" style="background:#222;top:20%;"></div>
+          <div class="mugshot-mask" style="top:28%;width:50px;height:32px;border-radius:2px;background:#151515;"></div>
+          <div class="mugshot-body" style="bottom:20%;background:#181818;"></div>
+          <div style="position:absolute;bottom:36%;font-family:'Share Tech Mono',monospace;font-size:0.4rem;letter-spacing:2px;color:#cc0000;z-index:6;">MK ULTRA</div>
+          <div class="mugshot-grain"></div>
+          <div class="mugshot-scan"></div>
+          <div class="mugshot-vignette"></div>
+        </div>
+        <div class="evidence-caption">
+          <span class="evidence-caption-id">PKPD-204 · ASSOCIATE PHOTO</span>
+          <span class="evidence-caption-desc">ALIAS: MK ULTRA<br>STATUS: WANTED</span>
+        </div>
       </div>
     </div>
 
+    <!-- SECTION 01 -->
     <div class="doc-section">
       <div class="doc-section-header">
         <div class="doc-section-num">SECTION 01</div>
@@ -474,6 +568,7 @@
       </div>
     </div>
 
+    <!-- SECTION 02 -->
     <div class="doc-section">
       <div class="doc-section-header">
         <div class="doc-section-num">SECTION 02</div>
@@ -483,40 +578,91 @@
         <p>Subject's first confirmed victim was his own mother. Details of the incident are too graphic for standard filing. Following this event, subject systematically eliminated the remainder of his bloodline — his grandmother, his sister — before expanding his activity beyond family units.</p>
         <p>Subject has been shot a confirmed <span class="doc-highlight">multiple times</span> across various incidents. He has survived every instance. PKPD ballistics team has no explanation for this. Dr. <span class="redacted">████ ████████</span> of the Nevada State Medical Board described his continued survival as <em>"physiologically impossible and deeply upsetting."</em></p>
         <p>The name "Buffalo Pill" was assigned to subject by a victim during an active incident who reportedly said, <em>"What are you? Some sort of buffalo pill?"</em> Subject paused, replied <span class="doc-highlight">"Huh. Buffalo Pill. I think I like that name,"</span> and completed the encounter. PKPD considers this the official origin of the alias.</p>
-        <p>Most notable incident: <span class="doc-highlight">Las Vegas, NV</span> — committed in collaboration with associate known only as <span class="doc-highlight">"K-DOT"</span> (see associated file <span class="redacted">PKPD-204-KD</span>). Exact nature of the Las Vegas incident remains classified above this clearance level. What we can confirm: it was bad.</p>
+        <p>Most notable incident: <span class="doc-highlight">Las Vegas, NV</span> — committed in collaboration with associate known as <span class="doc-highlight">MK ULTRA</span> (see Section 03). Exact nature of the Las Vegas incident remains classified above this clearance level. What we can confirm: it was bad.</p>
       </div>
     </div>
 
+    <!-- SECTION 03 -->
     <div class="doc-section">
       <div class="doc-section-header">
         <div class="doc-section-num">SECTION 03</div>
         <div class="doc-section-title">KNOWN ASSOCIATES</div>
       </div>
       <div class="doc-section-body">
-        <p><span class="doc-highlight">K-DOT</span> — Underground rapper. Met subject at an undisclosed location. Their partnership produced crimes of note, most memorably in Las Vegas. Current whereabouts: <span class="redacted">████████████, CA</span>. Ongoing investigation.</p>
-        <p><span class="doc-highlight">MEXICAN MICHAEL JACKSON</span> — Two conjoined twins separated at birth who independently arrived at the same rap alias. Both make music. PKPD psychologists describe their dynamic with subject as <em>"symbiotic and concerning."</em></p>
-        <p><span class="doc-highlight">BRYDN</span> — Recurring collaborator. Appears across multiple subject recordings. Background check returned <span class="redacted">█████████████████████████████</span>. File sealed.</p>
-        <p><span class="doc-highlight">KANYE WEST</span> — Met subject at undisclosed event. Collaborated on unreleased material. Subject later produced derogatory content directed at West. West reportedly believed the slides came from his wife due to being under the influence of nitrous oxide at the time, subsequently entering a documented public breakdown about <span class="doc-highlight">Twix bars</span>. Incident unresolved.</p>
-        <p><span class="doc-highlight">KENDRICK LAMAR</span> — Active beef. Nature: professional and deeply personal. Subject's fourth album addresses this conflict directly. PKPD advised both parties to seek mediation. Neither party has responded to mediation offers. PKPD has stopped trying.</p>
+        <p><span class="doc-highlight">MK ULTRA</span> — Listed on streaming platforms under this alias. Underground rapper and known criminal. Met subject at an undisclosed location. Their partnership produced crimes of note, most memorably in Las Vegas. PKPD analysts believe "MK Ultra" is not a codename chosen by subject — it was assigned to him by someone else, for reasons that remain classified. Current whereabouts: <span class="redacted">████████████, CA</span>. Active investigation. The fact that he now appears on subject's own music is considered a significant escalation.</p>
+        <p><span class="doc-highlight">MC TWIXX</span> — Streaming alias. Met subject at undisclosed event. Collaborated on unreleased material. Subject later produced derogatory content directed at MC Twixx. Twixx reportedly believed the slides came from his wife due to being under the influence of nitrous oxide at the time, subsequently entering a documented public breakdown about <span class="doc-highlight">Twix bars</span>. The specific Twix bar grievance remains unclear to PKPD and, reportedly, to Twixx himself. Incident unresolved. Analysts believe MC Twixx chose his alias specifically to mock this incident. Subject has not commented.</p>
+        <p><span class="doc-highlight">MEXICAN MICHAEL JACKSON</span> — Two conjoined twins separated at birth who independently arrived at the same rap alias. Both make music. PKPD psychologists describe their dynamic with subject as <em>"symbiotic and concerning."</em> Appears on REAGANOMICS II. Background check inconclusive.</p>
       </div>
     </div>
 
+    <!-- SECTION 04 — BRYDN -->
     <div class="doc-section">
       <div class="doc-section-header">
         <div class="doc-section-num">SECTION 04</div>
+        <div class="doc-section-title">ASSOCIATE: BRYDN — FULL DOSSIER</div>
+      </div>
+      <div class="doc-section-body">
+        <div class="brydn-threat">THREAT CLASSIFICATION: UNKNOWN / POTENTIALLY HIGHEST ON RECORD</div>
+        <p>BRYDN is the single most difficult individual PKPD has ever attempted to investigate. What follows is not a complete profile. It is everything we have. It is not enough.</p>
+        <p>BRYDN does not appear in any government database — federal, state, or local. No birth record. No social security number. No known address. No known last name. No known face. Three separate PKPD officers assigned to the BRYDN sub-investigation submitted identical resignation letters on the same morning in <span class="redacted">20██</span>. The letters contained only the phrase: <em>"I know what I heard."</em> None of them will elaborate.</p>
+      </div>
+      <div class="brydn-files">
+        <div class="brydn-file">
+          <span class="brydn-file-label">// KNOWN FACTS</span>
+          <div class="brydn-file-content">
+            — BRYDN appears on MANUFACTURED CONSENT.<br>
+            — BRYDN has appeared on multiple prior Buffalo Pill recordings.<br>
+            — No recording session with BRYDN has ever been photographed.<br>
+            — Engineers present at sessions involving BRYDN have described the experience as "fine, normal, nothing weird" in a tone PKPD analysts describe as "rehearsed."<br>
+            — BRYDN's voice has been analyzed by three independent audio labs. All three returned the same finding: <span class="redacted">████████████████████████</span>
+          </div>
+        </div>
+        <div class="brydn-file">
+          <span class="brydn-file-label">// THEORIES (UNCONFIRMED)</span>
+          <div class="brydn-file-content">
+            — BRYDN may not be one person.<br>
+            — BRYDN may not be a person.<br>
+            — BRYDN may have been present at the Las Vegas incident.<br>
+            — One analyst suggested BRYDN is the reason Buffalo Pill cannot be killed by conventional means. This analyst has since been <span class="redacted">██████████████</span>.<br>
+            — PKPD's working theory as of this filing: BRYDN knows something. What that something is, we do not want to find out.
+          </div>
+        </div>
+        <div class="brydn-file">
+          <span class="brydn-file-label">// PKPD COMMUNICATION LOG</span>
+          <div class="brydn-file-content">
+            PKPD has attempted to contact BRYDN on <span class="redacted">██</span> separate occasions.<br><br>
+            Attempt 1: Phone number disconnected.<br>
+            Attempt 2: Email bounced. Domain did not exist.<br>
+            Attempt 3: Officer dispatched to last known location. Officer returned to precinct 40 minutes later with no memory of leaving.<br>
+            Attempt 4–<span class="redacted">██</span>: <span class="redacted">████████████████████████████████████████████████████</span><br><br>
+            Current status: PKPD has suspended active attempts to contact BRYDN. We have left a voicemail. We do not expect a callback.
+          </div>
+        </div>
+      </div>
+      <div class="doc-section-body" style="border-top:1px solid #1a1a1a;">
+        <p>What PKPD can confirm: BRYDN and Buffalo Pill share a working relationship that predates subject's rap career. The nature of this relationship — whether professional, personal, contractual, or <span class="redacted">██████████████</span> — remains unknown. Subject has never, in any interview, song, or intercepted communication, been heard saying BRYDN's name aloud. He has only ever written it. PKPD does not think this is a coincidence.</p>
+        <p>MANUFACTURED CONSENT is the first album to feature BRYDN on the title track itself. PKPD considers this <span class="doc-highlight">significant</span>. We do not yet know what it means. We are working on it. We are scared.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 05 -->
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">SECTION 05</div>
         <div class="doc-section-title">PSYCHOLOGICAL PROFILE</div>
       </div>
       <div class="doc-section-body">
         <p>Subject presents as <span class="doc-highlight">perpetually angry</span> with documented episodes of emotional vulnerability, particularly regarding loss and romantic failure. Despite his actions, subject displays capacity for genuine grief. He is afraid of two things: <span class="doc-highlight">losing</span>, and <span class="doc-highlight">being made fun of</span>.</p>
         <p>Subject has been married twice. Both marriages ended under circumstances PKPD has declined to document in this file. He owns a dog named <span class="doc-highlight">Scooby Doo</span>, whom he loves unconditionally. Agents who have surveilled subject report that his demeanor in the presence of the dog is <em>"completely different. Like a different guy entirely. It's weird."</em></p>
         <p>Subject also maintains a deep personal attachment to his <span class="doc-highlight">knife</span>. Forensics have declined to run further tests on it.</p>
-        <p>Profiling note: subject does not appear to feel remorse for his crimes in the conventional sense. However, his fourth studio album suggests he is beginning to process the consequences of having <span class="doc-highlight">eliminated his entire family</span>. PKPD regards this as a potential vulnerability. It may also just make him angrier. We genuinely do not know.</p>
+        <p>His fourth studio album suggests he is beginning to process guilt for the first time. PKPD regards this as a potential vulnerability. It may also just make him angrier. We genuinely do not know.</p>
       </div>
     </div>
 
+    <!-- SECTION 06 — DISCOGRAPHY -->
     <div class="doc-section">
       <div class="doc-section-header">
-        <div class="doc-section-num">SECTION 05</div>
+        <div class="doc-section-num">SECTION 06</div>
         <div class="doc-section-title">DISCOGRAPHY / EVIDENCE LOG</div>
       </div>
       <div class="doc-section-body">
@@ -525,30 +671,31 @@
       <div class="doc-discography">
         <div class="doc-disco-item">
           <div class="doc-disco-title">LILLARD'S REVENGE</div>
-          <div class="doc-disco-desc">SoundCloud. Removed for content violations. Covers subject's origin and early acts. PKPD has a copy. You don't want to hear it.</div>
+          <div class="doc-disco-desc">Original SoundCloud release. Removed by platform for content violations after 72 hours. Covered subject's origin, the Lillard obsession, and early criminal acts in explicit detail. PKPD has a copy. You don't want to hear it.<br><br>Later re-uploaded to streaming platforms under the alias <span style="color:var(--white);">EVIL MAN</span> after subject digitally altered the vocal track, slowed the tempo, and replaced all proper nouns with coordinates. Coordinates lead to locations in Pillkill, NV. PKPD sent a team. See Officer Dispatch Log <span class="redacted">PKPD-009</span>. The team did not find what they expected.</div>
         </div>
         <div class="doc-disco-item">
           <div class="doc-disco-title">MY GOSPEL</div>
-          <div class="doc-disco-desc">First major release. Documents subject's current life and relationship with faith, fame, and Kanye West. Love songs written by a man with no family left to love.</div>
+          <div class="doc-disco-desc">First major release. Documents subject's life after the bloodline elimination — his faith, his fame, and his complicated relationship with MC TWIXX. Love songs written by a man with no family left to love. Charted in <span class="redacted">██</span> countries.</div>
         </div>
         <div class="doc-disco-item">
           <div class="doc-disco-title">SNAKE EATER</div>
-          <div class="doc-disco-desc">Depicts subject at his lowest point. Introduction of Mexican Michael Jackson. Production described by analysts as "genuinely unsettling." Subject described this period as being "fully broken."</div>
+          <div class="doc-disco-desc">Depicts subject at his lowest point. Introduces Mexican Michael Jackson. First confirmed appearance of BRYDN in the credits, listed under a role that does not exist: <span class="redacted">█████████████████</span>. Production described by PKPD audio analysts as "genuinely unsettling." Subject described this period as being "fully broken."</div>
         </div>
         <div class="doc-disco-item">
           <div class="doc-disco-title">CIVIL WAR BUT IRL</div>
-          <div class="doc-disco-desc">Current release. Explores guilt for the first time. Active beef with Kendrick Lamar. PKPD considers this a breakthrough — subject is beginning to feel things again. This may make him more dangerous.</div>
+          <div class="doc-disco-desc">Current release. Explores guilt for the first time. Active beef with MK ULTRA. Features a track that PKPD believes contains an encoded confession — we are still decoding it. Subject is beginning to feel things again. This may make him more dangerous.</div>
         </div>
         <div class="doc-disco-item">
           <div class="doc-disco-title">MANUFACTURED CONSENT</div>
-          <div class="doc-disco-desc">INCOMING. DETAILS CLASSIFIED. File <span class="redacted">████████████████████████████████████████</span>. PKPD has been briefed. We are not ready.</div>
+          <div class="doc-disco-desc">INCOMING. JUNE 2026. Details classified. Features BRYDN on the title track. PKPD has been briefed on the content. We are not ready. The dream does not end.</div>
         </div>
       </div>
     </div>
 
+    <!-- SECTION 07 — PILLKILL -->
     <div class="doc-section">
       <div class="doc-section-header">
-        <div class="doc-section-num">SECTION 06</div>
+        <div class="doc-section-num">SECTION 07</div>
         <div class="doc-section-title">PILLKILL, NV — LOCATION REPORT</div>
       </div>
       <div class="doc-section-body">
@@ -581,9 +728,7 @@
 
 <header>
   <div class="hero-bg"></div>
-  <div class="hero-img-wrap">
-    <img src="cover.jpg" alt="Buffalo Pill">
-  </div>
+  <div class="hero-img-wrap"><img src="cover.jpg" alt="Buffalo Pill"></div>
   <p class="hero-tag">// STRAIGHT OUTTA WOODSBORO //</p>
   <h1>BUFFALO<br>PILL</h1>
   <p class="hero-sub">THE BEST TO DO IT SINCE MICHAEL</p>
@@ -601,7 +746,6 @@
   </div>
 </div>
 
-<!-- ALBUM COUNTDOWN BANNER -->
 <div class="album-banner">
   <span class="album-banner-label">// INCOMING //</span>
   <div class="album-banner-title">MANUFACTURED CONSENT</div>
@@ -648,7 +792,7 @@
   <h2>VIDEOS</h2>
   <iframe class="main-vid" src="https://www.youtube.com/embed/v6djoOp6MUs" title="SATURATED feat. SHAMAMA" allowfullscreen loading="lazy"></iframe>
   <button class="vid-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.textContent = this.nextElementSibling.classList.contains('open') ? '[ — HIDE VIDEOS ]' : '[ + MORE VIDEOS ]'">[ + MORE VIDEOS ]</button>
-  <div class="vid-grid" id="wall">
+  <div class="vid-grid">
     <iframe src="https://www.youtube.com/embed/fi91y84H-og" title="vid" loading="lazy"></iframe>
     <iframe src="https://www.youtube.com/embed/elQ_1hpXzjU" title="vid" loading="lazy"></iframe>
     <iframe src="https://www.youtube.com/embed/cbblpXQ3l20" title="vid" loading="lazy"></iframe>
@@ -699,18 +843,10 @@
   <span class="section-label">// FIND ME</span>
   <h2>SOCIALS</h2>
   <div class="social-grid">
-    <a class="social-item" href="https://www.tiktok.com/@buffalo.pill" target="_blank" rel="noopener">
-      <span class="social-platform">TIKTOK</span><span class="social-handle">@buffalo.pill</span>
-    </a>
-    <a class="social-item" href="https://www.instagram.com/buff.alopill/" target="_blank" rel="noopener">
-      <span class="social-platform">INSTAGRAM</span><span class="social-handle">@buff.alopill</span>
-    </a>
-    <a class="social-item" href="https://x.com/BuffaloPill" target="_blank" rel="noopener">
-      <span class="social-platform">X / TWITTER</span><span class="social-handle">@BuffaloPill</span>
-    </a>
-    <a class="social-item" href="https://soundcloud.com/buffalo-pill" target="_blank" rel="noopener">
-      <span class="social-platform">SOUNDCLOUD</span><span class="social-handle">buffalo-pill</span>
-    </a>
+    <a class="social-item" href="https://www.tiktok.com/@buffalo.pill" target="_blank" rel="noopener"><span class="social-platform">TIKTOK</span><span class="social-handle">@buffalo.pill</span></a>
+    <a class="social-item" href="https://www.instagram.com/buff.alopill/" target="_blank" rel="noopener"><span class="social-platform">INSTAGRAM</span><span class="social-handle">@buff.alopill</span></a>
+    <a class="social-item" href="https://x.com/BuffaloPill" target="_blank" rel="noopener"><span class="social-platform">X / TWITTER</span><span class="social-handle">@BuffaloPill</span></a>
+    <a class="social-item" href="https://soundcloud.com/buffalo-pill" target="_blank" rel="noopener"><span class="social-platform">SOUNDCLOUD</span><span class="social-handle">buffalo-pill</span></a>
   </div>
 </section>
 
@@ -768,10 +904,7 @@ MANUFACTURED CONSENT
   function updateCountdown() {
     const now = Date.now();
     const d = dropDate - now;
-    if (d < 0) {
-      document.getElementById('countdown').innerHTML = '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:2rem;letter-spacing:4px;color:var(--red2);">DROP IS LIVE</div>';
-      return;
-    }
+    if (d < 0) { document.getElementById('countdown').innerHTML = '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:2rem;letter-spacing:4px;color:var(--red2);">DROP IS LIVE</div>'; return; }
     document.getElementById('days').textContent    = String(Math.floor(d / 86400000)).padStart(2,'0');
     document.getElementById('hours').textContent   = String(Math.floor((d % 86400000) / 3600000)).padStart(2,'0');
     document.getElementById('minutes').textContent = String(Math.floor((d % 3600000) / 60000)).padStart(2,'0');
@@ -780,15 +913,12 @@ MANUFACTURED CONSENT
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
-  // ALBUM COUNTDOWN — June 15 2026 placeholder, update when you have the real date
-  const albumDate = new Date('2026-06-15T00:00:00').getTime();
+  // ALBUM COUNTDOWN — June 12 2026
+  const albumDate = new Date('2026-06-12T00:00:00').getTime();
   function updateAlbumCountdown() {
     const now = Date.now();
     const d = albumDate - now;
-    if (d < 0) {
-      document.getElementById('album-countdown').innerHTML = '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:1.5rem;letter-spacing:4px;color:var(--red2);">OUT NOW</div>';
-      return;
-    }
+    if (d < 0) { document.getElementById('album-countdown').innerHTML = '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:1.5rem;letter-spacing:4px;color:var(--red2);">OUT NOW</div>'; return; }
     document.getElementById('acd-days').textContent    = String(Math.floor(d / 86400000)).padStart(2,'0');
     document.getElementById('acd-hours').textContent   = String(Math.floor((d % 86400000) / 3600000)).padStart(2,'0');
     document.getElementById('acd-minutes').textContent = String(Math.floor((d % 3600000) / 60000)).padStart(2,'0');
@@ -828,9 +958,7 @@ MANUFACTURED CONSENT
     }
   }
 
-  document.getElementById('gate-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') checkPassword();
-  });
+  document.getElementById('gate-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
 
   // MAILING LIST
   function handleMailSignup(e) {
@@ -842,18 +970,16 @@ MANUFACTURED CONSENT
     }
   }
 
-  // KONAMI CODE — plays secret.mp3
+  // KONAMI CODE
   let keys = [];
   const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   document.addEventListener('keydown', e => {
     keys.push(e.key);
     keys = keys.slice(-10);
-    if (keys.join(',') === konami.join(',')) {
-      document.getElementById('s').play();
-    }
+    if (keys.join(',') === konami.join(',')) document.getElementById('s').play();
   });
 
-  // EASTER EGG — type "pillkill" anywhere to open FILE 137
+  // TYPE "pillkill" anywhere to open FILE 137
   let typedWord = '';
   document.addEventListener('keypress', e => {
     typedWord += e.key.toLowerCase();
@@ -861,6 +987,5 @@ MANUFACTURED CONSENT
     if (typedWord === 'pillkill') openFile();
   });
 </script>
-
 </body>
 </html>

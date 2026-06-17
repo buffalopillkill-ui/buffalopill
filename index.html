@@ -80,12 +80,8 @@
     /* ALBUM BANNER */
     .album-banner { background: #0a0000; border-top: 1px solid #1a0000; border-bottom: 1px solid #1a0000; padding: 1.5rem; text-align: center; }
     .album-banner-label { font-size: 0.55rem; letter-spacing: 5px; color: var(--red); text-transform: uppercase; margin-bottom: 0.75rem; display: block; }
-    .album-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 4vw, 2.5rem); letter-spacing: 6px; color: var(--white); margin-bottom: 1rem; }
-    .album-countdown { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-    .acd-block { text-align: center; min-width: 55px; }
-    .acd-num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--red2); display: block; line-height: 1; }
-    .acd-label { font-size: 0.5rem; letter-spacing: 3px; color: var(--grey); text-transform: uppercase; margin-top: 0.2rem; display: block; }
-    .acd-sep { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #1a1a1a; align-self: center; padding-bottom: 0.3rem; }
+    .album-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 4vw, 2.5rem); letter-spacing: 6px; color: var(--white); margin-bottom: 0.5rem; }
+    .album-banner-sub { font-size: 0.6rem; letter-spacing: 3px; color: var(--grey); margin-bottom: 1rem; }
 
     /* BUTTONS */
     .btn { display: inline-block; padding: 0.8rem 2rem; text-decoration: none; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; transition: all 0.2s; }
@@ -109,6 +105,10 @@
     .vid-grid { display: none; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
     .vid-grid.open { display: grid; }
     .vid-grid iframe { aspect-ratio: 16/9; height: auto; }
+
+    /* LEGAL NOTICE */
+    .legal-notice { border: 1px solid #2a0000; background: rgba(200,0,0,0.04); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.6rem; letter-spacing: 2px; color: #884444; line-height: 1.8; }
+    .legal-notice span { color: var(--red); }
 
     /* MAILING LIST */
     .mail-block { border: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; overflow: hidden; }
@@ -194,210 +194,34 @@
 
     /* PHOTO EVIDENCE GRID */
     .evidence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-
     .evidence-photo { border: 1px solid #2a2a2a; background: #080808; position: relative; overflow: hidden; }
-
-    .evidence-photo-inner {
-      width: 100%;
-      aspect-ratio: 3/4;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Mugshot style — grainy CSS figure */
-    .mugshot-bg {
-      position: absolute;
-      inset: 0;
-      background: #0d0d0d;
-    }
-
-    .mugshot-figure {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-      width: 100%;
-      height: 100%;
-      justify-content: flex-end;
-    }
-
-    .mugshot-head {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: #2a2a2a;
-      position: absolute;
-      top: 22%;
-      border: 1px solid #333;
-      box-shadow: inset 0 -8px 16px rgba(0,0,0,0.6);
-    }
-
-    .mugshot-mask {
-      width: 44px;
-      height: 28px;
-      background: #1a1a1a;
-      border-radius: 4px 4px 0 0;
-      position: absolute;
-      top: 30%;
-      border: 1px solid #333;
-    }
-
-    .mugshot-body {
-      width: 90px;
-      height: 60px;
-      background: #1e1e1e;
-      border-radius: 8px 8px 0 0;
-      position: absolute;
-      bottom: 22%;
-      border: 1px solid #2a2a2a;
-    }
-
-    .mugshot-height-ruler {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 18px;
-      background: #0a0a0a;
-      border-left: 1px solid #1a1a1a;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 4px 2px;
-    }
-
-    .mugshot-height-ruler span {
-      font-size: 0.35rem;
-      color: #333;
-      letter-spacing: 0;
-      text-align: center;
-      display: block;
-    }
-
-    .mugshot-grain {
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 10;
-      opacity: 0.4;
-    }
-
-    .mugshot-scan {
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.12) 3px, rgba(0,0,0,0.12) 4px);
-      pointer-events: none;
-      z-index: 9;
-    }
-
-    .mugshot-vignette {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%);
-      pointer-events: none;
-      z-index: 8;
-    }
-
-    /* Crime scene photo variant */
-    .crime-bg {
-      position: absolute;
-      inset: 0;
-      background: #090909;
-    }
-
-    .crime-tape {
-      position: absolute;
-      width: 140%;
-      height: 14px;
-      background: repeating-linear-gradient(90deg, #cc0000 0px, #cc0000 20px, #111 20px, #111 40px);
-      transform: rotate(-15deg);
-      opacity: 0.7;
-      z-index: 3;
-    }
-
+    .evidence-photo-inner { width: 100%; aspect-ratio: 3/4; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .mugshot-bg { position: absolute; inset: 0; background: #0d0d0d; }
+    .mugshot-figure { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0; width: 100%; height: 100%; justify-content: flex-end; }
+    .mugshot-head { width: 52px; height: 52px; border-radius: 50%; background: #2a2a2a; position: absolute; top: 22%; border: 1px solid #333; box-shadow: inset 0 -8px 16px rgba(0,0,0,0.6); }
+    .mugshot-mask { width: 44px; height: 28px; background: #1a1a1a; border-radius: 4px 4px 0 0; position: absolute; top: 30%; border: 1px solid #333; }
+    .mugshot-body { width: 90px; height: 60px; background: #1e1e1e; border-radius: 8px 8px 0 0; position: absolute; bottom: 22%; border: 1px solid #2a2a2a; }
+    .mugshot-height-ruler { position: absolute; right: 0; top: 0; bottom: 0; width: 18px; background: #0a0a0a; border-left: 1px solid #1a1a1a; display: flex; flex-direction: column; justify-content: space-between; padding: 4px 2px; }
+    .mugshot-height-ruler span { font-size: 0.35rem; color: #333; letter-spacing: 0; text-align: center; display: block; }
+    .mugshot-grain { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"); pointer-events: none; z-index: 10; opacity: 0.4; }
+    .mugshot-scan { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.12) 3px, rgba(0,0,0,0.12) 4px); pointer-events: none; z-index: 9; }
+    .mugshot-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%); pointer-events: none; z-index: 8; }
+    .crime-bg { position: absolute; inset: 0; background: #090909; }
+    .crime-tape { position: absolute; width: 140%; height: 14px; background: repeating-linear-gradient(90deg, #cc0000 0px, #cc0000 20px, #111 20px, #111 40px); transform: rotate(-15deg); opacity: 0.7; z-index: 3; }
     .crime-tape-2 { top: 35%; }
     .crime-tape-3 { top: 60%; }
-
-    .crime-number {
-      position: absolute;
-      bottom: 18%;
-      left: 12%;
-      background: #fff;
-      color: #000;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 2px;
-      padding: 2px 6px;
-      z-index: 5;
-      transform: rotate(-2deg);
-    }
-
-    .crime-flash {
-      position: absolute;
-      top: 0; right: 0;
-      width: 60%;
-      height: 60%;
-      background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.04) 0%, transparent 70%);
-      z-index: 4;
-    }
-
-    /* Incident report variant */
-    .report-inner {
-      position: absolute;
-      inset: 0;
-      background: #080808;
-      padding: 0.6rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-
-    .report-header-bar {
-      background: var(--red);
-      height: 10px;
-      width: 100%;
-      opacity: 0.8;
-    }
-
-    .report-line {
-      height: 6px;
-      background: #1a1a1a;
-      border-radius: 1px;
-    }
-
+    .crime-number { position: absolute; bottom: 18%; left: 12%; background: #fff; color: #000; font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; letter-spacing: 2px; padding: 2px 6px; z-index: 5; transform: rotate(-2deg); }
+    .crime-flash { position: absolute; top: 0; right: 0; width: 60%; height: 60%; background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.04) 0%, transparent 70%); z-index: 4; }
+    .report-inner { position: absolute; inset: 0; background: #080808; padding: 0.6rem; display: flex; flex-direction: column; gap: 0.3rem; }
+    .report-header-bar { background: var(--red); height: 10px; width: 100%; opacity: 0.8; }
+    .report-line { height: 6px; background: #1a1a1a; border-radius: 1px; }
     .report-line.short { width: 60%; }
     .report-line.med { width: 80%; }
     .report-line.full { width: 100%; }
     .report-line.red { background: rgba(200,0,0,0.3); }
-
-    .report-box {
-      border: 1px solid #1a1a1a;
-      padding: 4px;
-      margin-top: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      flex: 1;
-    }
-
-    .report-sig {
-      height: 12px;
-      border-bottom: 1px solid #222;
-      margin-top: auto;
-    }
-
-    .evidence-caption {
-      padding: 0.5rem 0.75rem;
-      border-top: 1px solid #1a1a1a;
-      background: #060606;
-    }
-
+    .report-box { border: 1px solid #1a1a1a; padding: 4px; margin-top: 4px; display: flex; flex-direction: column; gap: 3px; flex: 1; }
+    .report-sig { height: 12px; border-bottom: 1px solid #222; margin-top: auto; }
+    .evidence-caption { padding: 0.5rem 0.75rem; border-top: 1px solid #1a1a1a; background: #060606; }
     .evidence-caption-id { font-size: 0.5rem; letter-spacing: 3px; color: var(--red); display: block; }
     .evidence-caption-desc { font-size: 0.55rem; letter-spacing: 1px; color: #555; display: block; margin-top: 0.2rem; }
 
@@ -407,17 +231,188 @@
     .doc-disco-title { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 2px; color: var(--white); margin-bottom: 0.3rem; }
     .doc-disco-desc { font-size: 0.55rem; letter-spacing: 1px; color: var(--grey); line-height: 1.8; }
 
-    /* BRYDN SECTION SPECIAL */
+    /* BRYDN */
     .brydn-threat { display: inline-block; background: var(--red); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 0.7rem; letter-spacing: 3px; padding: 0.2rem 0.6rem; margin-bottom: 1rem; }
     .brydn-files { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
     .brydn-file { border: 1px solid #1a1a1a; padding: 1rem; background: #050505; }
     .brydn-file-label { font-size: 0.5rem; letter-spacing: 3px; color: var(--red); display: block; margin-bottom: 0.4rem; }
     .brydn-file-content { font-size: 0.6rem; letter-spacing: 1px; color: #666; line-height: 1.8; }
-
     .doc-footer { border-top: 1px solid #1a1a1a; padding: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.55rem; letter-spacing: 3px; color: #333; margin-top: 2rem; }
-
-    /* HIDDEN TRACKLIST */
     .hidden-tracklist { color: #050505; background: #050505; font-size: 0.6rem; letter-spacing: 2px; line-height: 2; padding: 0 1.5rem; user-select: text; }
+
+    /* ======================== */
+    /* BUFFALO PILL CLICKER     */
+    /* ======================== */
+    #clicker-section {
+      background: #030303;
+      border-top: 2px solid var(--red);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .clicker-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: clamp(3rem, 6vw, 5rem) 1.5rem;
+    }
+    .clicker-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .clicker-header .section-label { display: block; margin-bottom: 0.5rem; }
+    .clicker-header h2 { margin-bottom: 0.5rem; }
+    .clicker-header p { font-size: 0.6rem; letter-spacing: 3px; color: var(--grey); }
+
+    .clicker-main {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 700px) {
+      .clicker-main { grid-template-columns: 1fr; }
+    }
+
+    /* PILL BUTTON */
+    .clicker-left { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+    .pill-btn-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+    #pill-btn {
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 38%, #2a0000 0%, #0a0000 60%, #000 100%);
+      border: 2px solid var(--red);
+      box-shadow: 0 0 30px rgba(200,0,0,0.25), inset 0 0 20px rgba(0,0,0,0.8);
+      cursor: crosshair;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 4px;
+      color: var(--red2);
+      transition: transform 0.08s, box-shadow 0.08s;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+      position: relative; overflow: hidden;
+      user-select: none;
+    }
+    #pill-btn:active { transform: scale(0.93); box-shadow: 0 0 10px rgba(200,0,0,0.4), inset 0 0 30px rgba(0,0,0,0.9); }
+    #pill-btn .pill-icon { font-size: 2.5rem; line-height: 1; }
+    #pill-btn .pill-label { font-size: 0.65rem; letter-spacing: 3px; color: #883333; }
+    .pill-click-float {
+      position: absolute;
+      pointer-events: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: var(--red2);
+      animation: float-up 0.9s ease-out forwards;
+      z-index: 20;
+    }
+    @keyframes float-up {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-70px) scale(0.7); }
+    }
+
+    .clicker-stats {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .clicker-stat {
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      text-align: center;
+    }
+    .clicker-stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--red2);
+      display: block;
+      line-height: 1;
+    }
+    .clicker-stat-label {
+      font-size: 0.5rem;
+      letter-spacing: 3px;
+      color: var(--grey);
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+      display: block;
+    }
+
+    /* UPGRADES */
+    .clicker-right { display: flex; flex-direction: column; gap: 1rem; }
+    .upgrades-label {
+      font-size: 0.55rem;
+      letter-spacing: 4px;
+      color: var(--red);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+    .upgrade-btn {
+      width: 100%;
+      background: #080808;
+      border: 1px solid #1a1a1a;
+      color: var(--grey);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      padding: 0.75rem 1rem;
+      cursor: crosshair;
+      text-align: left;
+      transition: all 0.15s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .upgrade-btn:hover:not(:disabled) { border-color: var(--red); color: var(--white); background: #0f0000; }
+    .upgrade-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .upgrade-btn.owned { border-color: #330000; color: #553333; }
+    .upgrade-btn.owned::after { content: "OWNED"; position: absolute; right: 0.75rem; font-size: 0.45rem; letter-spacing: 3px; color: var(--red); }
+    .upgrade-name { flex: 1; }
+    .upgrade-cost { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; color: var(--red); white-space: nowrap; }
+    .upgrade-desc { font-size: 0.5rem; letter-spacing: 1px; color: #444; display: block; margin-top: 0.2rem; }
+
+    /* PRESTIGE */
+    .prestige-zone {
+      margin-top: 1.5rem;
+      border: 1px solid #330000;
+      padding: 1rem;
+      text-align: center;
+      background: rgba(200,0,0,0.02);
+    }
+    .prestige-label { font-size: 0.5rem; letter-spacing: 4px; color: var(--red); display: block; margin-bottom: 0.5rem; }
+    #prestige-btn {
+      background: none;
+      border: 1px solid var(--red);
+      color: var(--red2);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      padding: 0.6rem 1.2rem;
+      cursor: crosshair;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    #prestige-btn:hover:not(:disabled) { background: var(--red); color: #fff; }
+    #prestige-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+    .prestige-sub { font-size: 0.5rem; letter-spacing: 2px; color: #333; margin-top: 0.5rem; display: block; }
+    #prestige-count { color: var(--red2); }
+
+    /* CLICKER NEWS TICKER */
+    .clicker-news {
+      margin-top: 2rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      overflow: hidden;
+    }
+    .clicker-news-inner {
+      font-size: 0.55rem;
+      letter-spacing: 3px;
+      color: #333;
+      white-space: nowrap;
+      animation: ticker 20s linear infinite;
+    }
 
     @media (max-width: 700px) {
       nav { padding: 1rem 1.5rem; }
@@ -439,7 +434,6 @@
 <!-- FILE 137 OVERLAY -->
 <div id="file-overlay">
   <button class="file-close" onclick="closeFile()">[ CLOSE ]</button>
-
   <div id="file-gate">
     <div class="gate-label">// PKPD RESTRICTED ACCESS //</div>
     <div class="gate-title">CLEARANCE<br>REQUIRED</div>
@@ -659,7 +653,7 @@
       </div>
     </div>
 
-    <!-- SECTION 06 — DISCOGRAPHY -->
+    <!-- SECTION 06 — DISCOGRAPHY (UPDATED) -->
     <div class="doc-section">
       <div class="doc-section-header">
         <div class="doc-section-num">SECTION 06</div>
@@ -687,7 +681,11 @@
         </div>
         <div class="doc-disco-item">
           <div class="doc-disco-title">MANUFACTURED CONSENT</div>
-          <div class="doc-disco-desc">INCOMING. JUNE 2026. Details classified. Features BRYDN on the title track. PKPD has been briefed on the content. We are not ready. The dream does not end.</div>
+          <div class="doc-disco-desc">NOW AVAILABLE. Released June 2026. Features BRYDN on the title track. NOTE: Track 07, RADIO SILENT, was removed prior to release for legal reasons. PKPD's legal division has been briefed. We cannot elaborate. We tried to listen to it anyway. The file was corrupted. The dream does not end.</div>
+        </div>
+        <div class="doc-disco-item">
+          <div class="doc-disco-title">RADIO SILENT</div>
+          <div class="doc-disco-desc">SUPPRESSED TRACK. Was to appear as track 07 on MANUFACTURED CONSENT. Removed before release for <span class="redacted">██████████████████████████</span> reasons. Music video exists. PKPD has watched it <span class="redacted">██</span> times. We cannot explain why. Available on YouTube. Subject has not commented on the removal. No one has commented on the removal. We are not allowed to comment on the removal.</div>
         </div>
       </div>
     </div>
@@ -739,39 +737,54 @@
   <p class="scroll-hint">SCROLL DOWN</p>
 </header>
 
+<!-- UPDATED TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-inner">
-    <span>BUFFALO PILL</span><span>·</span><span>STREAM NOW</span><span>·</span><span>CIVIL WAR BUT IRL</span><span>·</span><span>MY GOSPEL</span><span>·</span><span>SNAKE EATER</span><span>·</span><span>MANUFACTURED</span><span>·</span><span>STREAM IT BITCH!</span><span>·</span><span>STRAIGHT OUTTA PILLKILL NEVADA</span><span>·</span>
-    <span>BUFFALO PILL</span><span>·</span><span>STREAM NOW</span><span>·</span><span>CIVIL WAR BUT IRL</span><span>·</span><span>MY GOSPEL</span><span>·</span><span>SNAKE EATER</span><span>·</span><span>CONSENT</span><span>·</span><span>GO STREAM NOW</span><span>·</span><span>STRAIGHT OUTTA PILLKILL NEVADA</span><span>·</span>
+    <span>BUFFALO PILL</span><span>·</span><span>STREAM NOW</span><span>·</span><span>MANUFACTURED CONSENT</span><span>·</span><span>OUT NOW</span><span>·</span><span>MY GOSPEL</span><span>·</span><span>SNAKE EATER</span><span>·</span><span>RADIO SILENT</span><span>·</span><span>LEGAL REASONS</span><span>·</span><span>STRAIGHT OUTTA PILLKILL NEVADA</span><span>·</span>
+    <span>BUFFALO PILL</span><span>·</span><span>STREAM NOW</span><span>·</span><span>MANUFACTURED CONSENT</span><span>·</span><span>OUT NOW</span><span>·</span><span>MY GOSPEL</span><span>·</span><span>SNAKE EATER</span><span>·</span><span>RADIO SILENT</span><span>·</span><span>LEGAL REASONS</span><span>·</span><span>STRAIGHT OUTTA PILLKILL NEVADA</span><span>·</span>
   </div>
 </div>
 
+<!-- UPDATED ALBUM BANNER — OUT NOW -->
 <div class="album-banner">
-  <span class="album-banner-label">// INCOMING //</span>
+  <span class="album-banner-label">// OUT NOW //</span>
   <div class="album-banner-title">MANUFACTURED CONSENT</div>
-  <div class="album-countdown" id="album-countdown">
-    <div class="acd-block"><span class="acd-num" id="acd-days">00</span><span class="acd-label">DAYS</span></div>
-    <div class="acd-sep">:</div>
-    <div class="acd-block"><span class="acd-num" id="acd-hours">00</span><span class="acd-label">HRS</span></div>
-    <div class="acd-sep">:</div>
-    <div class="acd-block"><span class="acd-num" id="acd-minutes">00</span><span class="acd-label">MINS</span></div>
-    <div class="acd-sep">:</div>
-    <div class="acd-block"><span class="acd-num" id="acd-seconds">00</span><span class="acd-label">SECS</span></div>
+  <div class="album-banner-sub">AVAILABLE ON ALL PLATFORMS</div>
+  <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-top:1rem;">
+    <a href="https://open.spotify.com/album/4G2ilJCHmRs9nTvENbZLIn" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 1.5rem;font-size:0.65rem;">SPOTIFY</a>
+    <a href="https://music.apple.com/us/artist/buffalo-pill/1853023050" target="_blank" rel="noopener" class="btn btn-ghost" style="padding:0.5rem 1.5rem;font-size:0.65rem;">APPLE MUSIC</a>
   </div>
 </div>
 
 <hr class="rule">
 
 <section id="music">
+  <!-- NEW RELEASE: RADIO SILENT -->
   <span class="section-label">// NEW RELEASE</span>
-  <h2>BUREAUCRATIC RED TAPE</h2>
+  <h2>RADIO SILENT</h2>
   <div class="music-block">
-    <iframe src="https://open.spotify.com/embed/album/4vnOjztPM8xqJgW5yzuIKa?utm_source=generator&theme=0" height="152" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <div class="legal-notice">
+      <span>// NOTE //</span> RADIO SILENT was originally track 07 on MANUFACTURED CONSENT. It was removed prior to release for legal reasons. No further information is available. The music video still exists.
+    </div>
+    <iframe class="main-vid" src="https://www.youtube.com/embed/gQyjohMuEyY" title="RADIO SILENT" allowfullscreen loading="lazy" style="aspect-ratio:16/9;height:auto;border:1px solid var(--border);margin-bottom:1rem;"></iframe>
     <div class="btn-row">
-      <a class="btn btn-primary" href="https://open.spotify.com/album/4UspVO7XxmiVyABuF8BrX2" target="_blank" rel="noopener">SPOTIFY</a>
+      <a class="btn btn-primary" href="https://www.youtube.com/watch?v=gQyjohMuEyY" target="_blank" rel="noopener">WATCH ON YOUTUBE</a>
+    </div>
+  </div>
+
+  <hr class="rule" style="margin-bottom:3rem;">
+
+  <!-- LATEST ALBUM -->
+  <span class="section-label">// LATEST ALBUM</span>
+  <h2>MANUFACTURED CONSENT</h2>
+  <div class="music-block">
+    <iframe src="https://open.spotify.com/embed/album/4G2ilJCHmRs9nTvENbZLIn?utm_source=generator&theme=0" height="152" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://open.spotify.com/album/4G2ilJCHmRs9nTvENbZLIn" target="_blank" rel="noopener">SPOTIFY</a>
       <a class="btn btn-ghost" href="https://music.apple.com/us/artist/buffalo-pill/1853023050" target="_blank" rel="noopener">APPLE MUSIC</a>
     </div>
   </div>
+
   <hr class="rule" style="margin-bottom:3rem;">
   <span class="section-label">// ALL MUSIC</span>
   <h2>DISCOGRAPHY</h2>
@@ -790,9 +803,11 @@
 <section id="videos">
   <span class="section-label">// VISUALS</span>
   <h2>VIDEOS</h2>
-  <iframe class="main-vid" src="https://www.youtube.com/embed/v6djoOp6MUs" title="SATURATED feat. SHAMAMA" allowfullscreen loading="lazy"></iframe>
+  <!-- Radio Silent is now the featured video -->
+  <iframe class="main-vid" src="https://www.youtube.com/embed/gQyjohMuEyY" title="RADIO SILENT" allowfullscreen loading="lazy"></iframe>
   <button class="vid-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.textContent = this.nextElementSibling.classList.contains('open') ? '[ — HIDE VIDEOS ]' : '[ + MORE VIDEOS ]'">[ + MORE VIDEOS ]</button>
   <div class="vid-grid">
+    <iframe src="https://www.youtube.com/embed/v6djoOp6MUs" title="SATURATED feat. SHAMAMA" loading="lazy"></iframe>
     <iframe src="https://www.youtube.com/embed/fi91y84H-og" title="vid" loading="lazy"></iframe>
     <iframe src="https://www.youtube.com/embed/elQ_1hpXzjU" title="vid" loading="lazy"></iframe>
     <iframe src="https://www.youtube.com/embed/cbblpXQ3l20" title="vid" loading="lazy"></iframe>
@@ -825,11 +840,12 @@
 
 <hr class="rule">
 
+<!-- UPDATED MAILING LIST -->
 <section id="mailinglist">
   <span class="section-label">// STAY IN THE LOOP</span>
   <h2>MAILING LIST</h2>
   <div class="mail-block">
-    <p class="mail-desc">GET NOTIFIED WHEN MANUFACTURED CONSENT DROPS.<br>NO SPAM. JUST THE SIGNAL.</p>
+    <p class="mail-desc">MANUFACTURED CONSENT IS OUT NOW. STAY IN THE LOOP FOR WHAT COMES NEXT.<br>NO SPAM. JUST THE SIGNAL.</p>
     <div class="mail-form">
       <input class="mail-input" type="email" placeholder="YOUR EMAIL" id="mail-input">
       <a class="btn btn-primary" href="https://buttondown.com/buffalopill" target="_blank" rel="noopener" onclick="handleMailSignup(event)">SUBSCRIBE</a>
@@ -850,6 +866,68 @@
   </div>
 </section>
 
+<hr class="rule">
+
+<!-- ============================== -->
+<!-- BUFFALO PILL CLICKER           -->
+<!-- ============================== -->
+<div id="clicker-section">
+  <div class="clicker-wrap">
+    <div class="clicker-header">
+      <span class="section-label">// CLASSIFIED OPERATION</span>
+      <h2>PILLKILL CLICKER</h2>
+      <p>CLICK THE PILL. BUILD THE EMPIRE. DON'T ASK QUESTIONS.</p>
+    </div>
+
+    <div class="clicker-main">
+      <div class="clicker-left">
+        <div class="pill-btn-wrap">
+          <button id="pill-btn" onclick="clickPill(event)">
+            <span class="pill-icon">💊</span>
+            <span class="pill-label">CLICK</span>
+          </button>
+        </div>
+
+        <div class="clicker-stats">
+          <div class="clicker-stat">
+            <span class="clicker-stat-num" id="stat-pills">0</span>
+            <span class="clicker-stat-label">TOTAL PILLS</span>
+          </div>
+          <div class="clicker-stat">
+            <span class="clicker-stat-num" id="stat-pps">0</span>
+            <span class="clicker-stat-label">PILLS / SEC</span>
+          </div>
+          <div class="clicker-stat">
+            <span class="clicker-stat-num" id="stat-per-click">1</span>
+            <span class="clicker-stat-label">PER CLICK</span>
+          </div>
+          <div class="clicker-stat">
+            <span class="clicker-stat-num" id="stat-prestige">0</span>
+            <span class="clicker-stat-label">PRESTIGE</span>
+          </div>
+        </div>
+
+        <div class="clicker-news">
+          <div class="clicker-news-inner" id="clicker-news-text">
+            PKPD DISPATCH · PILLKILL NV · BUFFALO PILL STILL AT LARGE · PILLS MOVING · SCOOBY DOO UNHARMED · BRYDN UNAVAILABLE FOR COMMENT ·
+          </div>
+        </div>
+      </div>
+
+      <div class="clicker-right">
+        <div class="upgrades-label">// UPGRADES — <span id="current-pills-display">0</span> PILLS</div>
+        <div id="upgrades-container"></div>
+
+        <div class="prestige-zone">
+          <span class="prestige-label">// PRESTIGE OPERATION</span>
+          <button id="prestige-btn" onclick="prestige()" disabled>RESET FOR BONUS</button>
+          <span class="prestige-sub">REQUIRES 1,000,000 PILLS<br>PRESTIGE COUNT: <span id="prestige-count">0</span>x</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- you were not supposed to find this -->
 <div class="hidden-tracklist" aria-hidden="true">
 MANUFACTURED CONSENT
@@ -859,7 +937,7 @@ MANUFACTURED CONSENT
 04. TAKE THE CALL
 05. VIOLENCE
 06. HOW TO SPOT A COMMI (INTERMISSION)
-07. RADIO SILENT
+07. RADIO SILENT [REMOVED — LEGAL]
 08. WOODSBORO
 09. CBII
 10. BUREAUCRATIC RED TAPE
@@ -913,20 +991,6 @@ MANUFACTURED CONSENT
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
-  // ALBUM COUNTDOWN — June 12 2026
-  const albumDate = new Date('2026-06-12T00:00:00').getTime();
-  function updateAlbumCountdown() {
-    const now = Date.now();
-    const d = albumDate - now;
-    if (d < 0) { document.getElementById('album-countdown').innerHTML = '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:1.5rem;letter-spacing:4px;color:var(--red2);">OUT NOW</div>'; return; }
-    document.getElementById('acd-days').textContent    = String(Math.floor(d / 86400000)).padStart(2,'0');
-    document.getElementById('acd-hours').textContent   = String(Math.floor((d % 86400000) / 3600000)).padStart(2,'0');
-    document.getElementById('acd-minutes').textContent = String(Math.floor((d % 3600000) / 60000)).padStart(2,'0');
-    document.getElementById('acd-seconds').textContent = String(Math.floor((d % 60000) / 1000)).padStart(2,'0');
-  }
-  setInterval(updateAlbumCountdown, 1000);
-  updateAlbumCountdown();
-
   // FILE 137
   function openFile() {
     document.getElementById('file-overlay').classList.add('open');
@@ -937,12 +1001,10 @@ MANUFACTURED CONSENT
     document.getElementById('gate-input').classList.remove('error');
     document.body.style.overflow = 'hidden';
   }
-
   function closeFile() {
     document.getElementById('file-overlay').classList.remove('open');
     document.body.style.overflow = '';
   }
-
   function checkPassword() {
     const val = document.getElementById('gate-input').value.trim().toUpperCase();
     if (val === 'FILE137') {
@@ -957,7 +1019,6 @@ MANUFACTURED CONSENT
       setTimeout(() => input.classList.remove('error'), 400);
     }
   }
-
   document.getElementById('gate-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
 
   // MAILING LIST
@@ -979,13 +1040,266 @@ MANUFACTURED CONSENT
     if (keys.join(',') === konami.join(',')) document.getElementById('s').play();
   });
 
-  // TYPE "pillkill" anywhere to open FILE 137
+  // TYPE "pillkill" to open FILE 137
   let typedWord = '';
   document.addEventListener('keypress', e => {
     typedWord += e.key.toLowerCase();
     typedWord = typedWord.slice(-8);
     if (typedWord === 'pillkill') openFile();
   });
+
+  // ============================
+  // BUFFALO PILL CLICKER ENGINE
+  // ============================
+  const UPGRADES = [
+    {
+      id: 'scooby',
+      name: 'SCOOBY DOO DELIVERY',
+      desc: 'The dog runs pills. Good boy. +1/sec',
+      cost: 50,
+      pps: 1,
+      perClick: 0,
+      count: 0,
+      maxCount: 999,
+    },
+    {
+      id: 'knife',
+      name: "BUFFALO'S KNIFE",
+      desc: 'Sharp. Effective. +3 per click.',
+      cost: 100,
+      pps: 0,
+      perClick: 3,
+      count: 0,
+      maxCount: 1,
+    },
+    {
+      id: 'pillkill',
+      name: 'PILLKILL OPERATION',
+      desc: 'Set up shop in a town that doesn\'t exist. +5/sec',
+      cost: 300,
+      pps: 5,
+      perClick: 0,
+      count: 0,
+      maxCount: 999,
+    },
+    {
+      id: 'mkultra',
+      name: 'MK ULTRA COLLABORATION',
+      desc: 'He handles distribution in Vegas. +12/sec',
+      cost: 800,
+      pps: 12,
+      perClick: 0,
+      count: 0,
+      maxCount: 999,
+    },
+    {
+      id: 'twixx',
+      name: 'MC TWIXX (UNWILLING)',
+      desc: 'He doesn\'t know he\'s helping. +2 per click, +8/sec',
+      cost: 1500,
+      pps: 8,
+      perClick: 2,
+      count: 0,
+      maxCount: 999,
+    },
+    {
+      id: 'ghost',
+      name: 'GHOST FACE COSTUME',
+      desc: 'Nobody recognizes you. Click value doubled.',
+      cost: 3000,
+      pps: 0,
+      perClick: 0,
+      multiplier: 2,
+      count: 0,
+      maxCount: 1,
+    },
+    {
+      id: 'mmj',
+      name: 'MEXICAN MICHAEL JACKSON (×2)',
+      desc: 'Both of them. +30/sec combined.',
+      cost: 5000,
+      pps: 30,
+      perClick: 0,
+      count: 0,
+      maxCount: 999,
+    },
+    {
+      id: 'consent',
+      name: 'MANUFACTURED CONSENT',
+      desc: 'The album does the work now. +100/sec',
+      cost: 15000,
+      pps: 100,
+      perClick: 0,
+      count: 0,
+      maxCount: 999,
+    },
+    {
+      id: 'radiosilent',
+      name: 'RADIO SILENT (SUPPRESSED)',
+      desc: 'You weren\'t supposed to find this. +500/sec',
+      cost: 50000,
+      pps: 500,
+      perClick: 0,
+      count: 0,
+      maxCount: 1,
+    },
+    {
+      id: 'brydn',
+      name: 'BRYDN',
+      desc: '██████████████████████████████',
+      cost: 200000,
+      pps: 9999,
+      perClick: 0,
+      count: 0,
+      maxCount: 1,
+    },
+  ];
+
+  let pills = 0;
+  let totalPills = 0;
+  let prestigeCount = 0;
+  let clickMultiplier = 1;
+  let basePerClick = 1;
+
+  const newsHeadlines = [
+    'PKPD DISPATCH · BUFFALO PILL STILL AT LARGE · PILLS MOVING THROUGH PILLKILL ·',
+    'BREAKING · SCOOBY DOO SPOTTED NEAR DISTRIBUTION ZONE · PKPD CANNOT CONFIRM ·',
+    'MK ULTRA REPORTED IN LAS VEGAS AGAIN · DETAILS CLASSIFIED · WE ARE CONCERNED ·',
+    'MC TWIXX STILL UPSET ABOUT THE TWIX BAR THING · INVESTIGATION ONGOING ·',
+    'PILLKILL NV STILL NOT ON MAP · OFFICERS DISPATCHED · OFFICERS NOT RETURNED ·',
+    'MANUFACTURED CONSENT STREAMING NUMBERS SUSPICIOUS · PKPD INVESTIGATING ·',
+    'BRYDN STILL UNREACHABLE · VOICEMAIL STILL NOT RETURNED · WE LEFT ANOTHER ONE ·',
+    'MATTHEW LILLARD REPORTEDLY UNAWARE OF BUFFALO PILL · WE BELIEVE THIS IS A LIE ·',
+    'RADIO SILENT MV VIEWED BY PKPD AGENT · AGENT REFUSED TO ELABORATE ·',
+    'GHOST FACES EVIL TWIN GROSS FACE SPOTTED IN WOODSBORO · DEVELOPING ·',
+  ];
+  let headlineIdx = 0;
+
+  function getNewsHeadline() {
+    const h = newsHeadlines[headlineIdx % newsHeadlines.length];
+    headlineIdx++;
+    return h + ' ' + h;
+  }
+
+  function updateNewsText() {
+    document.getElementById('clicker-news-text').textContent = getNewsHeadline();
+  }
+  updateNewsText();
+  setInterval(updateNewsText, 20000);
+
+  function calcPerClick() {
+    let pc = basePerClick;
+    UPGRADES.forEach(u => {
+      if (u.perClick && u.count > 0) pc += u.perClick * u.count;
+    });
+    if (UPGRADES.find(u => u.id === 'ghost').count > 0) pc *= 2;
+    pc *= (1 + prestigeCount * 0.5);
+    return Math.floor(pc);
+  }
+
+  function calcPPS() {
+    let pps = 0;
+    UPGRADES.forEach(u => {
+      if (u.pps && u.count > 0) pps += u.pps * u.count;
+    });
+    pps *= (1 + prestigeCount * 0.5);
+    return pps;
+  }
+
+  function formatNum(n) {
+    if (n >= 1e9) return (n / 1e9).toFixed(1) + 'B';
+    if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+    if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+    return Math.floor(n).toString();
+  }
+
+  function updateDisplay() {
+    document.getElementById('stat-pills').textContent = formatNum(pills);
+    document.getElementById('stat-pps').textContent = formatNum(calcPPS());
+    document.getElementById('stat-per-click').textContent = formatNum(calcPerClick());
+    document.getElementById('stat-prestige').textContent = prestigeCount;
+    document.getElementById('current-pills-display').textContent = formatNum(pills);
+    document.getElementById('prestige-count').textContent = prestigeCount;
+    document.getElementById('prestige-btn').disabled = pills < 1000000;
+    renderUpgrades();
+  }
+
+  function renderUpgrades() {
+    const container = document.getElementById('upgrades-container');
+    container.innerHTML = '';
+    const costMultiplier = Math.pow(1.15, prestigeCount * -1) || 1;
+    UPGRADES.forEach(u => {
+      const scaledCost = Math.floor(u.cost * Math.pow(1.12, u.count));
+      const canAfford = pills >= scaledCost;
+      const maxed = u.count >= u.maxCount;
+      const btn = document.createElement('button');
+      btn.className = 'upgrade-btn' + (maxed ? ' owned' : '');
+      btn.disabled = !canAfford || maxed;
+
+      let descText = u.desc;
+      if (u.pps) descText = u.desc;
+
+      btn.innerHTML = `
+        <div class="upgrade-name">
+          ${u.name}
+          <span class="upgrade-desc">${descText}${u.count > 0 && !maxed ? ' [×' + u.count + ']' : ''}</span>
+        </div>
+        ${!maxed ? '<span class="upgrade-cost">' + formatNum(scaledCost) + '</span>' : ''}
+      `;
+      if (!maxed) {
+        btn.onclick = () => buyUpgrade(u, scaledCost);
+      }
+      container.appendChild(btn);
+    });
+  }
+
+  function buyUpgrade(upgrade, cost) {
+    if (pills < cost) return;
+    pills -= cost;
+    upgrade.count++;
+    updateDisplay();
+  }
+
+  function clickPill(e) {
+    const amount = calcPerClick();
+    pills += amount;
+    totalPills += amount;
+
+    // float text
+    const wrap = document.querySelector('.pill-btn-wrap');
+    const float = document.createElement('div');
+    float.className = 'pill-click-float';
+    float.textContent = '+' + formatNum(amount);
+    float.style.left = (Math.random() * 120 + 30) + 'px';
+    float.style.top = '20px';
+    wrap.appendChild(float);
+    setTimeout(() => float.remove(), 900);
+
+    updateDisplay();
+  }
+
+  function prestige() {
+    if (pills < 1000000) return;
+    if (!confirm('RESET ALL PILLS AND UPGRADES?\nYOU WILL KEEP YOUR PRESTIGE BONUS.\nBRYDN CANNOT BE UNDONE.')) return;
+    prestigeCount++;
+    pills = 0;
+    totalPills = 0;
+    UPGRADES.forEach(u => { u.count = 0; });
+    updateDisplay();
+  }
+
+  // PASSIVE INCOME TICK
+  setInterval(() => {
+    const pps = calcPPS();
+    if (pps > 0) {
+      pills += pps / 20;
+      totalPills += pps / 20;
+      updateDisplay();
+    }
+  }, 50);
+
+  renderUpgrades();
+  updateDisplay();
 </script>
 </body>
 </html>

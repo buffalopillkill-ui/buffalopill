@@ -639,6 +639,19 @@
     .prestige-sub { font-size: 0.45rem; letter-spacing: 2px; color: #222; margin-top: 0.6rem; display: block; line-height: 1.8; }
     #prestige-count { color: #660000; font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; }
 
+    /* GRANDMA KANYE */
+    #grandma-kanye {
+      display: none;
+      position: fixed;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      z-index: 9990;
+      pointer-events: none;
+      border: 1px solid #1a0000;
+      box-shadow: 0 0 20px rgba(200,0,0,0.3);
+    }
+
     @media (max-width: 700px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { gap: 1rem; }
@@ -989,7 +1002,7 @@
   <h2>RADIO SILENT</h2>
   <div class="music-block">
     <div class="legal-notice">
-      <span>// NOTE //</span> RADIO SILENT was originally track 07 on MANUFACTURED CONSENT. It was removed prior to release for legal reasons. No further information is available. The music video was uploaded in its honor.
+      <span>// NOTE //</span> RADIO SILENT was originally track 07 on MANUFACTURED CONSENT. It was removed prior to release for legal reasons. No further information is available. The music video still exists.
     </div>
     <iframe class="main-vid" src="https://www.youtube.com/embed/gQyjohMuEyY" title="RADIO SILENT" allowfullscreen loading="lazy" style="aspect-ratio:16/9;height:auto;border:1px solid var(--border);margin-bottom:1rem;"></iframe>
     <div class="btn-row">
@@ -1214,32 +1227,15 @@
 
 <!-- you were not supposed to find this -->
 <div class="hidden-tracklist" aria-hidden="true">
-MANUFACTURED CONSENT
-01. WHATSSUPP
-02. FEAR
-03. REAGANOMICS II
-04. TAKE THE CALL
-05. VIOLENCE
-06. HOW TO SPOT A COMMI (INTERMISSION)
-07. RADIO SILENT [REMOVED — LEGAL]
-08. WOODSBORO
-09. CBII
-10. BUREAUCRATIC RED TAPE
-11. THE CROWD
-12. JUST CHECKIN IN ON YA!
-13. MANUFACTURED CONSENT
-14. FBII
-15. NOT A COSTUME
-16. ENDLESS DREAM
-17. TODAY I FEEL (ANGRY, PISSED, SAD, MAD, FRUSTRATED)
-18. FILL IN THE BLANK (ya get what im sayin?)
-19. why am i so angry?
+NEXT ALBUM: nobody//EVERYBODY
 </div>
 
 <footer>
   <span>BUFFALO PILL</span>
   <span>WOODSBORO · PILLKILL NV · 2026</span>
 </footer>
+
+<img id="grandma-kanye" src="grandmakanye.jpg" alt="" style="display:none;position:fixed;width:120px;height:120px;object-fit:cover;z-index:9990;pointer-events:none;border:1px solid #1a0000;box-shadow:0 0 20px rgba(200,0,0,0.3);">
 
 <audio id="s" src="https://buffalopill.pages.dev/secret.mp3" preload="auto"></audio>
 
@@ -1337,16 +1333,16 @@ MANUFACTURED CONSENT
   // ============================
 
   const UPGRADES = [
-    { id:'grandmakanye', name:'GRANDMA KANYE',              desc:'only the best grandmother in the world!',                            baseCost:1,      pps:0,    pc:0, max:1,   count:0 },
+    { id:'grandmakanye', name:'GRANDMA KANYE',              desc:'everyone loves grandma ye!',                            baseCost:1,      pps:0,    pc:0, max:1,   count:0 },
     { id:'scooby',      name:'SCOOBY DOO DELIVERY',       desc:'+1/sec — good boy runs pills',            baseCost:50,     pps:1,    pc:0, max:999, count:0 },
     { id:'knife',       name:"BUFFALO'S KNIFE",           desc:'+3 per click — sharp, effective',         baseCost:100,    pps:0,    pc:3, max:1,   count:0 },
     { id:'pillkill',    name:'PILLKILL OPERATION',        desc:'+5/sec — town that does not exist',       baseCost:300,    pps:5,    pc:0, max:999, count:0 },
     { id:'mkultra',     name:'MK ULTRA COLLAB',           desc:'+12/sec — vegas distribution',            baseCost:800,    pps:12,   pc:0, max:999, count:0 },
-    { id:'twixx',       name:'MC TWIXX COLLAB',      desc:'+8/sec +2/click — twix',        baseCost:1500,   pps:8,    pc:2, max:999, count:0 },
+    { id:'twixx',       name:'MC TWIXX FEATURE',      desc:'+8/sec +2/click — twix',        baseCost:1500,   pps:8,    pc:2, max:999, count:0 },
     { id:'ghost',       name:'GHOST FACE COSTUME',        desc:'2x all clicks — nobody knows it\'s you',  baseCost:3000,   pps:0,    pc:0, max:1,   count:0 },
     { id:'mmj',         name:'MEXICAN MICHAEL JACKSON',   desc:'+30/sec — both of them',                  baseCost:5000,   pps:30,   pc:0, max:999, count:0 },
-    { id:'consent',     name:'MANUFACTURED CONSENT',      desc:'+100/sec — album is produced',      baseCost:15000,  pps:100,  pc:0, max:999, count:0 },
-    { id:'radiosilent', name:'SPRINGTRAP COSTUME', desc:'+500/sec — ability to kill more secretly', baseCost:50000, pps:500, pc:0, max:1, count:0 },
+    { id:'consent',     name:'MANUFACTURED CONSENT',      desc:'+100/sec — album sales generate more pills',      baseCost:15000,  pps:100,  pc:0, max:999, count:0 },
+    { id:'radiosilent', name:'SPRINGTRAP COSTUME', desc:'+500/sec — killing is easier for you', baseCost:50000, pps:500, pc:0, max:1, count:0 },
     { id:'brydn',       name:'BRYDN',                     desc:'+9999/sec — \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588', baseCost:200000, pps:9999, pc:0, max:1, count:0 },
   ];
 
@@ -1424,12 +1420,28 @@ MANUFACTURED CONSENT
     });
   }
 
+  function spawnGrandmaKanye() {
+    const el = document.getElementById('grandma-kanye');
+    if (!el) return;
+    function placeRandom() {
+      el.style.left = Math.floor(Math.random() * Math.max(100, window.innerWidth - 140)) + 'px';
+      el.style.top  = Math.floor(Math.random() * Math.max(100, window.innerHeight - 140)) + 'px';
+    }
+    placeRandom();
+    el.style.setProperty('display', 'block', 'important');
+    el.style.visibility = 'visible';
+    el.style.opacity = '1';
+    setInterval(() => { placeRandom(); }, 8000);
+  }
+
   function buyUpgrade(u) {
     if (u.count >= u.max) return;
     const cost = upgradeCost(u);
     if (pills < cost) return;
     pills -= cost;
     u.count++;
+    if (u.id === 'grandmakanye') spawnGrandmaKanye();
+    saveGame();
     tick();
   }
 
@@ -1513,6 +1525,8 @@ MANUFACTURED CONSENT
 
   loadGame();
   initUpgrades();
+  // Respawn grandma kanye if already purchased
+  if (UPGRADES.find(u => u.id === 'grandmakanye').count > 0) spawnGrandmaKanye();
   tick();
 </script>
 </body>

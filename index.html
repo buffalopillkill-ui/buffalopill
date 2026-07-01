@@ -240,179 +240,400 @@
     .doc-footer { border-top: 1px solid #1a1a1a; padding: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.55rem; letter-spacing: 3px; color: #333; margin-top: 2rem; }
     .hidden-tracklist { color: #050505; background: #050505; font-size: 0.6rem; letter-spacing: 2px; line-height: 2; padding: 0 1.5rem; user-select: text; }
 
-    /* ======================== */
-    /* BUFFALO PILL CLICKER     */
-    /* ======================== */
+    /* =============================== */
+    /* BUFFALO PILL CLICKER — V2 COOL  */
+    /* =============================== */
     #clicker-section {
-      background: #030303;
-      border-top: 2px solid var(--red);
-      border-bottom: 1px solid var(--border);
-      padding: 0;
-    }
-    .clicker-wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: clamp(3rem, 6vw, 5rem) 1.5rem;
-    }
-    .clicker-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-    .clicker-header .section-label { display: block; margin-bottom: 0.5rem; }
-    .clicker-header h2 { margin-bottom: 0.5rem; }
-    .clicker-header p { font-size: 0.6rem; letter-spacing: 3px; color: var(--grey); }
-
-    .clicker-main {
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (max-width: 700px) {
-      .clicker-main { grid-template-columns: 1fr; }
-    }
-
-    /* PILL BUTTON */
-    .clicker-left { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-    .pill-btn-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
-    #pill-btn {
-      width: 180px; height: 180px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 38% 38%, #2a0000 0%, #0a0000 60%, #000 100%);
-      border: 2px solid var(--red);
-      box-shadow: 0 0 30px rgba(200,0,0,0.25), inset 0 0 20px rgba(0,0,0,0.8);
-      cursor: crosshair;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 4px;
-      color: var(--red2);
-      transition: transform 0.08s, box-shadow 0.08s;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-      position: relative; overflow: hidden;
-      user-select: none;
-    }
-    #pill-btn:active { transform: scale(0.93); box-shadow: 0 0 10px rgba(200,0,0,0.4), inset 0 0 30px rgba(0,0,0,0.9); }
-    #pill-btn .pill-icon { font-size: 2.5rem; line-height: 1; }
-    #pill-btn .pill-label { font-size: 0.65rem; letter-spacing: 3px; color: #883333; }
-    .pill-click-float {
-      position: absolute;
-      pointer-events: none;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      color: var(--red2);
-      animation: float-up 0.9s ease-out forwards;
-      z-index: 20;
-    }
-    @keyframes float-up {
-      0% { opacity: 1; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-70px) scale(0.7); }
-    }
-
-    .clicker-stats {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-    }
-    .clicker-stat {
-      border: 1px solid var(--border);
-      padding: 0.75rem 1rem;
-      text-align: center;
-    }
-    .clicker-stat-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      color: var(--red2);
-      display: block;
-      line-height: 1;
-    }
-    .clicker-stat-label {
-      font-size: 0.5rem;
-      letter-spacing: 3px;
-      color: var(--grey);
-      text-transform: uppercase;
-      margin-top: 0.3rem;
-      display: block;
-    }
-
-    /* UPGRADES */
-    .clicker-right { display: flex; flex-direction: column; gap: 1rem; }
-    .upgrades-label {
-      font-size: 0.55rem;
-      letter-spacing: 4px;
-      color: var(--red);
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.75rem;
-      margin-bottom: 0.25rem;
-    }
-    .upgrade-btn {
-      width: 100%;
-      background: #080808;
-      border: 1px solid #1a1a1a;
-      color: var(--grey);
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 2px;
-      padding: 0.75rem 1rem;
-      cursor: crosshair;
-      text-align: left;
-      transition: all 0.15s;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
+      background: #020202;
+      border-top: 1px solid #1a0000;
       position: relative;
       overflow: hidden;
     }
-    .upgrade-btn:hover:not(:disabled) { border-color: var(--red); color: var(--white); background: #0f0000; }
-    .upgrade-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-    .upgrade-btn.owned { border-color: #330000; color: #553333; }
-    .upgrade-btn.owned::after { content: "OWNED"; position: absolute; right: 0.75rem; font-size: 0.45rem; letter-spacing: 3px; color: var(--red); }
-    .upgrade-name { flex: 1; }
-    .upgrade-cost { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; color: var(--red); white-space: nowrap; }
-    .upgrade-desc { font-size: 0.5rem; letter-spacing: 1px; color: #444; display: block; margin-top: 0.2rem; }
+    #clicker-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(180,0,0,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(100,0,0,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .clicker-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: clamp(4rem, 7vw, 6rem) 2rem;
+    }
+
+    .clicker-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .clicker-header .section-label { display: block; margin-bottom: 0.5rem; }
+    .clicker-header h2 {
+      margin-bottom: 0.75rem;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      text-shadow: 0 0 40px rgba(200,0,0,0.4);
+    }
+    .clicker-header p { font-size: 0.6rem; letter-spacing: 4px; color: #444; }
+
+    /* TOP STATS BAR */
+    .clicker-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: #0f0f0f;
+      border: 1px solid #111;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 600px) { .clicker-stats-bar { grid-template-columns: repeat(2, 1fr); } }
+    .clicker-stat {
+      background: #080808;
+      padding: 1rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .clicker-stat::after {
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,0,0,0.4), transparent);
+    }
+    .clicker-stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--red2);
+      display: block;
+      line-height: 1;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(255,26,26,0.5);
+    }
+    .clicker-stat-label {
+      font-size: 0.48rem;
+      letter-spacing: 3px;
+      color: #333;
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+      display: block;
+    }
+
+    /* MAIN LAYOUT */
+    .clicker-main {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 800px) { .clicker-main { grid-template-columns: 1fr; } }
+
+    /* LEFT — PILL + MILESTONES */
+    .clicker-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    /* BIG PILL BUTTON */
+    .pill-arena {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+    /* Static decorative ring — no animation that touches transform */
+    .pill-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(200,0,0,0.15);
+      pointer-events: none;
+    }
+    .pill-ring-2 {
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      border: 1px dashed rgba(200,0,0,0.08);
+      pointer-events: none;
+    }
+    /* Glow pulse — opacity only, no transform, no layout shift */
+    .pill-glow {
+      position: absolute;
+      inset: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,0,0,0.18) 0%, transparent 70%);
+      animation: glow-pulse 2.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes glow-pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    #pill-btn {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #3a0000 0%, #0d0000 45%, #000 100%);
+      border: 2px solid var(--red);
+      box-shadow:
+        0 0 0 4px rgba(200,0,0,0.08),
+        0 0 40px rgba(200,0,0,0.3),
+        0 0 80px rgba(200,0,0,0.1),
+        inset 0 0 30px rgba(0,0,0,0.9);
+      cursor: crosshair;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 4px;
+      color: var(--red2);
+      transition: box-shadow 0.1s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      position: relative;
+      /* NO overflow:hidden — that was clipping the hitbox */
+      user-select: none;
+      z-index: 2;
+    }
+    #pill-btn:hover {
+      box-shadow:
+        0 0 0 4px rgba(200,0,0,0.15),
+        0 0 60px rgba(200,0,0,0.5),
+        0 0 100px rgba(200,0,0,0.2),
+        inset 0 0 30px rgba(0,0,0,0.9);
+    }
+    #pill-btn:active {
+      box-shadow: 0 0 20px rgba(200,0,0,0.6), inset 0 0 40px rgba(0,0,0,0.95);
+    }
+    #pill-btn .pill-icon { font-size: 3rem; line-height: 1; filter: drop-shadow(0 0 8px rgba(255,26,26,0.8)); }
+    #pill-btn .pill-label { font-size: 0.6rem; letter-spacing: 4px; color: #660000; }
+    #pill-btn .pill-count { font-size: 0.5rem; letter-spacing: 2px; color: #330000; }
+
+    /* Float numbers */
+    .pill-click-float {
+      position: fixed;
+      pointer-events: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--red2);
+      text-shadow: 0 0 10px var(--red2);
+      animation: float-up 1s ease-out forwards;
+      z-index: 9999;
+      white-space: nowrap;
+    }
+    @keyframes float-up {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      30%  { opacity: 1; transform: translateY(-20px) scale(1.1); }
+      100% { opacity: 0; transform: translateY(-90px) scale(0.7); }
+    }
+
+    /* MILESTONE TRACK */
+    .milestone-track {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .milestone-track-label {
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+      color: var(--red);
+      border-bottom: 1px solid #0f0f0f;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .milestone-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #0d0d0d;
+      background: #050505;
+      transition: border-color 0.3s;
+    }
+    .milestone-item.achieved { border-color: #2a0000; }
+    .milestone-item.achieved .milestone-icon { opacity: 1; filter: drop-shadow(0 0 6px var(--red)); }
+    .milestone-icon { font-size: 1rem; opacity: 0.2; transition: all 0.4s; }
+    .milestone-text { flex: 1; }
+    .milestone-name { font-size: 0.55rem; letter-spacing: 2px; color: #333; display: block; }
+    .milestone-item.achieved .milestone-name { color: #884444; }
+    .milestone-thresh { font-size: 0.45rem; letter-spacing: 2px; color: #222; display: block; margin-top: 1px; }
+
+    /* NEWS TICKER */
+    .clicker-news {
+      width: 100%;
+      border: 1px solid #0f0f0f;
+      background: #040404;
+      overflow: hidden;
+      position: relative;
+    }
+    .clicker-news::before {
+      content: "// PKPD //";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      padding: 0 0.75rem;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.45rem;
+      letter-spacing: 3px;
+      display: flex;
+      align-items: center;
+      z-index: 2;
+      white-space: nowrap;
+    }
+    .clicker-news-inner {
+      font-size: 0.5rem;
+      letter-spacing: 3px;
+      color: #2a2a2a;
+      white-space: nowrap;
+      animation: ticker 25s linear infinite;
+      padding: 0.6rem 0.6rem 0.6rem 6rem;
+    }
+
+    /* RIGHT — UPGRADES */
+    .clicker-right { display: flex; flex-direction: column; gap: 0; }
+
+    .upgrades-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: #080808;
+      border: 1px solid #111;
+      border-bottom: none;
+    }
+    .upgrades-header-label {
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+      color: var(--red);
+    }
+    #current-pills-display {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: var(--red2);
+      text-shadow: 0 0 10px rgba(255,26,26,0.4);
+    }
+
+    #upgrades-container {
+      border: 1px solid #111;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: #0a0a0a;
+      max-height: 480px;
+      overflow-y: auto;
+    }
+    #upgrades-container::-webkit-scrollbar { width: 3px; }
+    #upgrades-container::-webkit-scrollbar-track { background: #050505; }
+    #upgrades-container::-webkit-scrollbar-thumb { background: #2a0000; }
+
+    .upgrade-btn {
+      width: 100%;
+      background: #060606;
+      border: none;
+      border-left: 2px solid transparent;
+      color: #444;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 1.5px;
+      padding: 0.8rem 1rem;
+      cursor: crosshair;
+      text-align: left;
+      transition: all 0.12s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .upgrade-btn:hover:not([disabled]) {
+      background: #0d0000;
+      border-left-color: var(--red);
+      color: var(--white);
+    }
+    .upgrade-btn[disabled] { opacity: 0.25; cursor: not-allowed; }
+    .upgrade-btn.can-afford {
+      color: #777;
+      border-left-color: #330000;
+    }
+    .upgrade-btn.can-afford:hover { background: #100000; border-left-color: var(--red); color: var(--white); }
+    .upgrade-btn.is-owned {
+      border-left-color: #1a0000;
+      color: #2a1a1a;
+      cursor: default;
+      background: #050505;
+    }
+    .upgrade-left { flex: 1; min-width: 0; }
+    .upgrade-name-text { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .upgrade-desc { font-size: 0.45rem; letter-spacing: 1px; color: #282828; display: block; margin-top: 2px; }
+    .upgrade-btn.can-afford .upgrade-desc { color: #3a3a3a; }
+    .upgrade-right { text-align: right; flex-shrink: 0; }
+    .upgrade-cost-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      color: #660000;
+      display: block;
+      line-height: 1;
+    }
+    .upgrade-btn.can-afford .upgrade-cost-num { color: var(--red); text-shadow: 0 0 8px rgba(200,0,0,0.4); }
+    .upgrade-count-badge {
+      font-size: 0.4rem;
+      letter-spacing: 2px;
+      color: #330000;
+      display: block;
+      margin-top: 2px;
+    }
+    .upgrade-owned-tag {
+      font-size: 0.4rem;
+      letter-spacing: 3px;
+      color: #2a1a1a;
+    }
 
     /* PRESTIGE */
     .prestige-zone {
-      margin-top: 1.5rem;
-      border: 1px solid #330000;
-      padding: 1rem;
+      border: 1px solid #1a0000;
+      border-top: none;
+      padding: 1.25rem 1rem;
       text-align: center;
-      background: rgba(200,0,0,0.02);
+      background: #040000;
+      position: relative;
+      overflow: hidden;
     }
-    .prestige-label { font-size: 0.5rem; letter-spacing: 4px; color: var(--red); display: block; margin-bottom: 0.5rem; }
+    .prestige-zone::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+    .prestige-label { font-size: 0.48rem; letter-spacing: 4px; color: #440000; display: block; margin-bottom: 0.75rem; }
     #prestige-btn {
       background: none;
-      border: 1px solid var(--red);
-      color: var(--red2);
+      border: 1px solid #330000;
+      color: #660000;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       letter-spacing: 3px;
-      padding: 0.6rem 1.2rem;
+      padding: 0.6rem 1.5rem;
       cursor: crosshair;
       text-transform: uppercase;
       transition: all 0.2s;
+      display: block;
+      width: 100%;
     }
-    #prestige-btn:hover:not(:disabled) { background: var(--red); color: #fff; }
-    #prestige-btn:disabled { opacity: 0.25; cursor: not-allowed; }
-    .prestige-sub { font-size: 0.5rem; letter-spacing: 2px; color: #333; margin-top: 0.5rem; display: block; }
-    #prestige-count { color: var(--red2); }
-
-    /* CLICKER NEWS TICKER */
-    .clicker-news {
-      margin-top: 2rem;
-      border-top: 1px solid var(--border);
-      padding-top: 1rem;
-      overflow: hidden;
+    #prestige-btn:not([disabled]):hover {
+      background: var(--red);
+      border-color: var(--red2);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(200,0,0,0.4);
     }
-    .clicker-news-inner {
-      font-size: 0.55rem;
-      letter-spacing: 3px;
-      color: #333;
-      white-space: nowrap;
-      animation: ticker 20s linear infinite;
-    }
+    #prestige-btn[disabled] { opacity: 0.2; cursor: not-allowed; }
+    .prestige-sub { font-size: 0.45rem; letter-spacing: 2px; color: #222; margin-top: 0.6rem; display: block; line-height: 1.8; }
+    #prestige-count { color: #660000; font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; }
 
     @media (max-width: 700px) {
       nav { padding: 1rem 1.5rem; }
@@ -726,7 +947,7 @@
 
 <header>
   <div class="hero-bg"></div>
-  <div class="hero-img-wrap"><img src="cover.jpg" alt="Buffalo Pill"></div>
+  <div class="hero-img-wrap"><img src="cover.jpg" alt="Buffalo Pill" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'width:clamp(140px,18vw,220px);height:clamp(140px,18vw,220px);border:1px solid var(--red);background:radial-gradient(circle at 40% 40%,#2a0000,#000);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(200,0,0,0.3)\'><span style=\'font-family:Bebas Neue,sans-serif;font-size:3rem;color:#cc0000;text-shadow:0 0 20px #cc0000\'>💊</span></div>'"></div>
   <p class="hero-tag">// STRAIGHT OUTTA WOODSBORO //</p>
   <h1>BUFFALO<br>PILL</h1>
   <p class="hero-sub">THE BEST TO DO IT SINCE MICHAEL</p>
@@ -869,59 +1090,114 @@
 <hr class="rule">
 
 <!-- ============================== -->
-<!-- BUFFALO PILL CLICKER           -->
+<!-- BUFFALO PILL CLICKER V2        -->
 <!-- ============================== -->
 <div id="clicker-section">
   <div class="clicker-wrap">
     <div class="clicker-header">
-      <span class="section-label">// CLASSIFIED OPERATION</span>
+      <span class="section-label">// CLASSIFIED OPERATION //</span>
       <h2>PILLKILL CLICKER</h2>
       <p>CLICK THE PILL. BUILD THE EMPIRE. DON'T ASK QUESTIONS.</p>
     </div>
 
+    <!-- STATS BAR -->
+    <div class="clicker-stats-bar">
+      <div class="clicker-stat">
+        <span class="clicker-stat-num" id="stat-pills">0</span>
+        <span class="clicker-stat-label">PILLS TOTAL</span>
+      </div>
+      <div class="clicker-stat">
+        <span class="clicker-stat-num" id="stat-pps">0</span>
+        <span class="clicker-stat-label">PILLS / SEC</span>
+      </div>
+      <div class="clicker-stat">
+        <span class="clicker-stat-num" id="stat-per-click">1</span>
+        <span class="clicker-stat-label">PER CLICK</span>
+      </div>
+      <div class="clicker-stat">
+        <span class="clicker-stat-num" id="stat-prestige">0</span>
+        <span class="clicker-stat-label">PRESTIGE</span>
+      </div>
+    </div>
+
     <div class="clicker-main">
+      <!-- LEFT COLUMN -->
       <div class="clicker-left">
-        <div class="pill-btn-wrap">
+
+        <!-- THE PILL -->
+        <div class="pill-arena">
+          <div class="pill-ring"></div>
+          <div class="pill-ring-2"></div>
+          <div class="pill-glow"></div>
           <button id="pill-btn" onclick="clickPill(event)">
             <span class="pill-icon">💊</span>
             <span class="pill-label">CLICK</span>
+            <span class="pill-count" id="pill-count-label">0 PILLS</span>
           </button>
         </div>
 
-        <div class="clicker-stats">
-          <div class="clicker-stat">
-            <span class="clicker-stat-num" id="stat-pills">0</span>
-            <span class="clicker-stat-label">TOTAL PILLS</span>
+        <!-- MILESTONES -->
+        <div class="milestone-track">
+          <div class="milestone-track-label">// MILESTONES</div>
+          <div class="milestone-item" id="ms-0" data-thresh="100">
+            <span class="milestone-icon">🦴</span>
+            <div class="milestone-text">
+              <span class="milestone-name">SCOOBY DOO APPROVED</span>
+              <span class="milestone-thresh">100 PILLS</span>
+            </div>
           </div>
-          <div class="clicker-stat">
-            <span class="clicker-stat-num" id="stat-pps">0</span>
-            <span class="clicker-stat-label">PILLS / SEC</span>
+          <div class="milestone-item" id="ms-1" data-thresh="1000">
+            <span class="milestone-icon">🔪</span>
+            <div class="milestone-text">
+              <span class="milestone-name">THE KNIFE IS CLEAN AGAIN</span>
+              <span class="milestone-thresh">1,000 PILLS</span>
+            </div>
           </div>
-          <div class="clicker-stat">
-            <span class="clicker-stat-num" id="stat-per-click">1</span>
-            <span class="clicker-stat-label">PER CLICK</span>
+          <div class="milestone-item" id="ms-2" data-thresh="10000">
+            <span class="milestone-icon">🌵</span>
+            <div class="milestone-text">
+              <span class="milestone-name">PILLKILL OPERATION ACTIVE</span>
+              <span class="milestone-thresh">10,000 PILLS</span>
+            </div>
           </div>
-          <div class="clicker-stat">
-            <span class="clicker-stat-num" id="stat-prestige">0</span>
-            <span class="clicker-stat-label">PRESTIGE</span>
+          <div class="milestone-item" id="ms-3" data-thresh="100000">
+            <span class="milestone-icon">👻</span>
+            <div class="milestone-text">
+              <span class="milestone-name">GHOST FACE SPOTTED IN WOODSBORO</span>
+              <span class="milestone-thresh">100,000 PILLS</span>
+            </div>
+          </div>
+          <div class="milestone-item" id="ms-4" data-thresh="1000000">
+            <span class="milestone-icon">📼</span>
+            <div class="milestone-text">
+              <span class="milestone-name">MANUFACTURED CONSENT ACHIEVED</span>
+              <span class="milestone-thresh">1,000,000 PILLS</span>
+            </div>
           </div>
         </div>
 
+        <!-- NEWS -->
         <div class="clicker-news">
-          <div class="clicker-news-inner" id="clicker-news-text">
-            PKPD DISPATCH · PILLKILL NV · BUFFALO PILL STILL AT LARGE · PILLS MOVING · SCOOBY DOO UNHARMED · BRYDN UNAVAILABLE FOR COMMENT ·
-          </div>
+          <div class="clicker-news-inner" id="clicker-news-text">PKPD DISPATCH · BUFFALO PILL STILL AT LARGE · PILLS MOVING THROUGH PILLKILL · SCOOBY DOO UNHARMED · BRYDN UNAVAILABLE FOR COMMENT · RADIO SILENT REMOVED FOR LEGAL REASONS · WE ARE NOT ALLOWED TO SAY WHY ·&nbsp;&nbsp;&nbsp;&nbsp;PKPD DISPATCH · BUFFALO PILL STILL AT LARGE · PILLS MOVING THROUGH PILLKILL · SCOOBY DOO UNHARMED · BRYDN UNAVAILABLE FOR COMMENT ·</div>
         </div>
+
       </div>
 
+      <!-- RIGHT COLUMN — UPGRADES -->
       <div class="clicker-right">
-        <div class="upgrades-label">// UPGRADES — <span id="current-pills-display">0</span> PILLS</div>
+        <div class="upgrades-header">
+          <span class="upgrades-header-label">// UPGRADES</span>
+          <span id="current-pills-display">0</span>
+        </div>
         <div id="upgrades-container"></div>
-
         <div class="prestige-zone">
-          <span class="prestige-label">// PRESTIGE OPERATION</span>
-          <button id="prestige-btn" onclick="prestige()" disabled>RESET FOR BONUS</button>
-          <span class="prestige-sub">REQUIRES 1,000,000 PILLS<br>PRESTIGE COUNT: <span id="prestige-count">0</span>x</span>
+          <span class="prestige-label">// PRESTIGE OPERATION — PILLKILL PROTOCOL</span>
+          <button id="prestige-btn" onclick="prestige()" disabled>[ INITIATE RESET ]</button>
+          <span class="prestige-sub">
+            REQUIRES 1,000,000 PILLS TO ACTIVATE<br>
+            RESETS PILLS + UPGRADES · KEEPS PRESTIGE BONUS<br>
+            PRESTIGE LEVEL: <span id="prestige-count">0</span>x
+          </span>
         </div>
       </div>
     </div>
@@ -1049,257 +1325,146 @@ MANUFACTURED CONSENT
   });
 
   // ============================
-  // BUFFALO PILL CLICKER ENGINE
+  // BUFFALO PILL CLICKER — CLEAN
   // ============================
+
   const UPGRADES = [
-    {
-      id: 'scooby',
-      name: 'SCOOBY DOO DELIVERY',
-      desc: 'The dog runs pills. Good boy. +1/sec',
-      cost: 50,
-      pps: 1,
-      perClick: 0,
-      count: 0,
-      maxCount: 999,
-    },
-    {
-      id: 'knife',
-      name: "BUFFALO'S KNIFE",
-      desc: 'Sharp. Effective. +3 per click.',
-      cost: 100,
-      pps: 0,
-      perClick: 3,
-      count: 0,
-      maxCount: 1,
-    },
-    {
-      id: 'pillkill',
-      name: 'PILLKILL OPERATION',
-      desc: 'Set up shop in a town that doesn\'t exist. +5/sec',
-      cost: 300,
-      pps: 5,
-      perClick: 0,
-      count: 0,
-      maxCount: 999,
-    },
-    {
-      id: 'mkultra',
-      name: 'MK ULTRA COLLABORATION',
-      desc: 'He handles distribution in Vegas. +12/sec',
-      cost: 800,
-      pps: 12,
-      perClick: 0,
-      count: 0,
-      maxCount: 999,
-    },
-    {
-      id: 'twixx',
-      name: 'MC TWIXX (UNWILLING)',
-      desc: 'He doesn\'t know he\'s helping. +2 per click, +8/sec',
-      cost: 1500,
-      pps: 8,
-      perClick: 2,
-      count: 0,
-      maxCount: 999,
-    },
-    {
-      id: 'ghost',
-      name: 'GHOST FACE COSTUME',
-      desc: 'Nobody recognizes you. Click value doubled.',
-      cost: 3000,
-      pps: 0,
-      perClick: 0,
-      multiplier: 2,
-      count: 0,
-      maxCount: 1,
-    },
-    {
-      id: 'mmj',
-      name: 'MEXICAN MICHAEL JACKSON (×2)',
-      desc: 'Both of them. +30/sec combined.',
-      cost: 5000,
-      pps: 30,
-      perClick: 0,
-      count: 0,
-      maxCount: 999,
-    },
-    {
-      id: 'consent',
-      name: 'MANUFACTURED CONSENT',
-      desc: 'The album does the work now. +100/sec',
-      cost: 15000,
-      pps: 100,
-      perClick: 0,
-      count: 0,
-      maxCount: 999,
-    },
-    {
-      id: 'radiosilent',
-      name: 'RADIO SILENT (SUPPRESSED)',
-      desc: 'You weren\'t supposed to find this. +500/sec',
-      cost: 50000,
-      pps: 500,
-      perClick: 0,
-      count: 0,
-      maxCount: 1,
-    },
-    {
-      id: 'brydn',
-      name: 'BRYDN',
-      desc: '██████████████████████████████',
-      cost: 200000,
-      pps: 9999,
-      perClick: 0,
-      count: 0,
-      maxCount: 1,
-    },
+    { id:'scooby',      name:'SCOOBY DOO DELIVERY',       desc:'+1/sec — good boy runs pills',            baseCost:50,     pps:1,    pc:0, max:999, count:0 },
+    { id:'knife',       name:"BUFFALO'S KNIFE",           desc:'+3 per click — sharp, effective',         baseCost:100,    pps:0,    pc:3, max:1,   count:0 },
+    { id:'pillkill',    name:'PILLKILL OPERATION',        desc:'+5/sec — town that does not exist',       baseCost:300,    pps:5,    pc:0, max:999, count:0 },
+    { id:'mkultra',     name:'MK ULTRA COLLAB',           desc:'+12/sec — vegas distribution',            baseCost:800,    pps:12,   pc:0, max:999, count:0 },
+    { id:'twixx',       name:'MC TWIXX (UNWILLING)',      desc:'+8/sec +2/click — he has no idea',        baseCost:1500,   pps:8,    pc:2, max:999, count:0 },
+    { id:'ghost',       name:'GHOST FACE COSTUME',        desc:'2x all clicks — nobody knows it\'s you',  baseCost:3000,   pps:0,    pc:0, max:1,   count:0 },
+    { id:'mmj',         name:'MEXICAN MICHAEL JACKSON',   desc:'+30/sec — both of them',                  baseCost:5000,   pps:30,   pc:0, max:999, count:0 },
+    { id:'consent',     name:'MANUFACTURED CONSENT',      desc:'+100/sec — the album works for you',      baseCost:15000,  pps:100,  pc:0, max:999, count:0 },
+    { id:'radiosilent', name:'RADIO SILENT [SUPPRESSED]', desc:'+500/sec — you weren\'t supposed to find this', baseCost:50000, pps:500, pc:0, max:1, count:0 },
+    { id:'brydn',       name:'BRYDN',                     desc:'+9999/sec — \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588', baseCost:200000, pps:9999, pc:0, max:1, count:0 },
   ];
 
   let pills = 0;
-  let totalPills = 0;
+  let totalEver = 0;
   let prestigeCount = 0;
-  let clickMultiplier = 1;
-  let basePerClick = 1;
 
-  const newsHeadlines = [
-    'PKPD DISPATCH · BUFFALO PILL STILL AT LARGE · PILLS MOVING THROUGH PILLKILL ·',
-    'BREAKING · SCOOBY DOO SPOTTED NEAR DISTRIBUTION ZONE · PKPD CANNOT CONFIRM ·',
-    'MK ULTRA REPORTED IN LAS VEGAS AGAIN · DETAILS CLASSIFIED · WE ARE CONCERNED ·',
-    'MC TWIXX STILL UPSET ABOUT THE TWIX BAR THING · INVESTIGATION ONGOING ·',
-    'PILLKILL NV STILL NOT ON MAP · OFFICERS DISPATCHED · OFFICERS NOT RETURNED ·',
-    'MANUFACTURED CONSENT STREAMING NUMBERS SUSPICIOUS · PKPD INVESTIGATING ·',
-    'BRYDN STILL UNREACHABLE · VOICEMAIL STILL NOT RETURNED · WE LEFT ANOTHER ONE ·',
-    'MATTHEW LILLARD REPORTEDLY UNAWARE OF BUFFALO PILL · WE BELIEVE THIS IS A LIE ·',
-    'RADIO SILENT MV VIEWED BY PKPD AGENT · AGENT REFUSED TO ELABORATE ·',
-    'GHOST FACES EVIL TWIN GROSS FACE SPOTTED IN WOODSBORO · DEVELOPING ·',
-  ];
-  let headlineIdx = 0;
-
-  function getNewsHeadline() {
-    const h = newsHeadlines[headlineIdx % newsHeadlines.length];
-    headlineIdx++;
-    return h + ' ' + h;
+  function upgradeCost(u) {
+    return Math.floor(u.baseCost * Math.pow(1.12, u.count));
   }
 
-  function updateNewsText() {
-    document.getElementById('clicker-news-text').textContent = getNewsHeadline();
-  }
-  updateNewsText();
-  setInterval(updateNewsText, 20000);
-
-  function calcPerClick() {
-    let pc = basePerClick;
-    UPGRADES.forEach(u => {
-      if (u.perClick && u.count > 0) pc += u.perClick * u.count;
-    });
-    if (UPGRADES.find(u => u.id === 'ghost').count > 0) pc *= 2;
-    pc *= (1 + prestigeCount * 0.5);
-    return Math.floor(pc);
+  function perClick() {
+    let v = 1;
+    UPGRADES.forEach(u => { if (u.pc && u.count > 0) v += u.pc * u.count; });
+    if (UPGRADES.find(u => u.id === 'ghost').count > 0) v *= 2;
+    return Math.max(1, Math.floor(v * (1 + prestigeCount * 0.5)));
   }
 
-  function calcPPS() {
-    let pps = 0;
-    UPGRADES.forEach(u => {
-      if (u.pps && u.count > 0) pps += u.pps * u.count;
-    });
-    pps *= (1 + prestigeCount * 0.5);
-    return pps;
+  function pps() {
+    let v = 0;
+    UPGRADES.forEach(u => { if (u.pps && u.count > 0) v += u.pps * u.count; });
+    return v * (1 + prestigeCount * 0.5);
   }
 
-  function formatNum(n) {
-    if (n >= 1e9) return (n / 1e9).toFixed(1) + 'B';
-    if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
-    if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
-    return Math.floor(n).toString();
+  function fmt(n) {
+    n = Math.floor(n);
+    if (n >= 1e9) return (n/1e9).toFixed(1)+'B';
+    if (n >= 1e6) return (n/1e6).toFixed(1)+'M';
+    if (n >= 1e3) return (n/1e3).toFixed(1)+'K';
+    return ''+n;
   }
 
-  function updateDisplay() {
-    document.getElementById('stat-pills').textContent = formatNum(pills);
-    document.getElementById('stat-pps').textContent = formatNum(calcPPS());
-    document.getElementById('stat-per-click').textContent = formatNum(calcPerClick());
-    document.getElementById('stat-prestige').textContent = prestigeCount;
-    document.getElementById('current-pills-display').textContent = formatNum(pills);
-    document.getElementById('prestige-count').textContent = prestigeCount;
-    document.getElementById('prestige-btn').disabled = pills < 1000000;
-    renderUpgrades();
-  }
-
-  function renderUpgrades() {
+  // Build upgrade buttons ONCE at init — never rebuild
+  function initUpgrades() {
     const container = document.getElementById('upgrades-container');
     container.innerHTML = '';
-    const costMultiplier = Math.pow(1.15, prestigeCount * -1) || 1;
     UPGRADES.forEach(u => {
-      const scaledCost = Math.floor(u.cost * Math.pow(1.12, u.count));
-      const canAfford = pills >= scaledCost;
-      const maxed = u.count >= u.maxCount;
       const btn = document.createElement('button');
-      btn.className = 'upgrade-btn' + (maxed ? ' owned' : '');
-      btn.disabled = !canAfford || maxed;
-
-      let descText = u.desc;
-      if (u.pps) descText = u.desc;
-
-      btn.innerHTML = `
-        <div class="upgrade-name">
-          ${u.name}
-          <span class="upgrade-desc">${descText}${u.count > 0 && !maxed ? ' [×' + u.count + ']' : ''}</span>
-        </div>
-        ${!maxed ? '<span class="upgrade-cost">' + formatNum(scaledCost) + '</span>' : ''}
-      `;
-      if (!maxed) {
-        btn.onclick = () => buyUpgrade(u, scaledCost);
-      }
+      btn.id = 'upg-' + u.id;
+      btn.className = 'upgrade-btn';
+      btn.onclick = function() { buyUpgrade(u); };
       container.appendChild(btn);
     });
   }
 
-  function buyUpgrade(upgrade, cost) {
+  function buyUpgrade(u) {
+    if (u.count >= u.max) return;
+    const cost = upgradeCost(u);
     if (pills < cost) return;
     pills -= cost;
-    upgrade.count++;
-    updateDisplay();
+    u.count++;
+    tick();
+  }
+
+  // Only update text/classes — never rebuild DOM
+  function refreshUpgrades() {
+    UPGRADES.forEach(u => {
+      const btn = document.getElementById('upg-' + u.id);
+      if (!btn) return;
+      const cost = upgradeCost(u);
+      const owned = u.count >= u.max;
+      const afford = !owned && pills >= cost;
+
+      if (owned) {
+        btn.className = 'upgrade-btn is-owned';
+        btn.innerHTML = '<div class="upgrade-left"><span class="upgrade-name-text">' + u.name + (u.count > 1 ? ' [x'+u.count+']' : '') + '</span><span class="upgrade-desc">' + u.desc + '</span></div><div class="upgrade-right"><span class="upgrade-owned-tag">OWNED</span></div>';
+      } else {
+        btn.className = 'upgrade-btn' + (afford ? ' can-afford' : '');
+        btn.innerHTML = '<div class="upgrade-left"><span class="upgrade-name-text">' + u.name + (u.count > 0 ? ' [x'+u.count+']' : '') + '</span><span class="upgrade-desc">' + u.desc + '</span></div><div class="upgrade-right"><span class="upgrade-cost-num">' + fmt(cost) + '</span></div>';
+      }
+      // Never set btn.disabled — onclick handler guards instead
+    });
+  }
+
+  function tick() {
+    document.getElementById('stat-pills').textContent     = fmt(pills);
+    document.getElementById('stat-pps').textContent       = fmt(pps());
+    document.getElementById('stat-per-click').textContent = fmt(perClick());
+    document.getElementById('stat-prestige').textContent  = prestigeCount;
+    document.getElementById('current-pills-display').textContent = fmt(pills) + ' \uD83D\uDC8A';
+    document.getElementById('pill-count-label').textContent      = fmt(pills) + ' PILLS';
+    document.getElementById('prestige-count').textContent        = prestigeCount;
+    document.getElementById('prestige-btn').disabled             = pills < 1000000;
+    refreshUpgrades();
+    checkMilestones();
   }
 
   function clickPill(e) {
-    const amount = calcPerClick();
-    pills += amount;
-    totalPills += amount;
+    const amt = perClick();
+    pills += amt;
+    totalEver += amt;
+    const f = document.createElement('div');
+    f.className = 'pill-click-float';
+    f.textContent = '+' + fmt(amt);
+    f.style.left = (e.clientX + Math.random()*30 - 15) + 'px';
+    f.style.top  = (e.clientY - 20) + 'px';
+    document.body.appendChild(f);
+    setTimeout(() => f.remove(), 1000);
+    tick();
+  }
 
-    // float text
-    const wrap = document.querySelector('.pill-btn-wrap');
-    const float = document.createElement('div');
-    float.className = 'pill-click-float';
-    float.textContent = '+' + formatNum(amount);
-    float.style.left = (Math.random() * 120 + 30) + 'px';
-    float.style.top = '20px';
-    wrap.appendChild(float);
-    setTimeout(() => float.remove(), 900);
-
-    updateDisplay();
+  const MS_THRESH = [100, 1000, 10000, 100000, 1000000];
+  function checkMilestones() {
+    MS_THRESH.forEach((t, i) => {
+      const el = document.getElementById('ms-' + i);
+      if (el && totalEver >= t) el.classList.add('achieved');
+    });
   }
 
   function prestige() {
     if (pills < 1000000) return;
-    if (!confirm('RESET ALL PILLS AND UPGRADES?\nYOU WILL KEEP YOUR PRESTIGE BONUS.\nBRYDN CANNOT BE UNDONE.')) return;
+    if (!confirm('PILLKILL PROTOCOL\n\nReset pills + upgrades?\nPrestige bonus kept.\nBRYDN cannot be undone.')) return;
     prestigeCount++;
-    pills = 0;
-    totalPills = 0;
+    pills = 0; totalEver = 0;
     UPGRADES.forEach(u => { u.count = 0; });
-    updateDisplay();
+    MS_THRESH.forEach((_, i) => { const el = document.getElementById('ms-'+i); if (el) el.classList.remove('achieved'); });
+    tick();
   }
 
-  // PASSIVE INCOME TICK
+  // Passive income — update display only once per second to avoid jitter
   setInterval(() => {
-    const pps = calcPPS();
-    if (pps > 0) {
-      pills += pps / 20;
-      totalPills += pps / 20;
-      updateDisplay();
-    }
-  }, 50);
+    const gain = pps();
+    if (gain > 0) { pills += gain; totalEver += gain; tick(); }
+  }, 1000);
 
-  renderUpgrades();
-  updateDisplay();
+  initUpgrades();
+  tick();
 </script>
 </body>
 </html>

@@ -48,6 +48,8 @@
     .nav-file { color: var(--red) !important; border: 1px solid var(--red); padding: 0.3rem 0.8rem; font-size: 0.6rem !important; animation: blink-border 2s infinite; }
     .nav-file:hover { background: var(--red); color: #fff !important; }
     @keyframes blink-border { 0%, 100% { border-color: var(--red); } 50% { border-color: transparent; } }
+    .nav-discord { background: #5865F2 !important; color: #fff !important; border: 1px solid #7289DA; padding: 0.3rem 0.8rem; font-size: 0.6rem !important; box-shadow: 0 0 12px rgba(88,101,242,0.5); }
+    .nav-discord:hover { background: #4752C4 !important; box-shadow: 0 0 20px rgba(88,101,242,0.8); }
 
     header { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
     .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(150,0,0,0.12) 0%, transparent 70%), linear-gradient(180deg, #050505 0%, #0a0000 50%, #050505 100%); }
@@ -72,6 +74,21 @@
     }
     .hero-sub { font-size: 0.7rem; letter-spacing: 6px; color: var(--grey); margin-top: 1rem; z-index: 2; position: relative; }
     .hero-cta { margin-top: 2.5rem; z-index: 2; position: relative; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    .btn-discord { background: #5865F2; color: #fff !important; border: 1px solid #7289DA; box-shadow: 0 0 20px rgba(88,101,242,0.5); animation: discord-pulse 2s ease-in-out infinite; }
+    .btn-discord:hover { background: #4752C4; box-shadow: 0 0 35px rgba(88,101,242,0.9); }
+    @keyframes discord-pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(88,101,242,0.5); }
+      50% { box-shadow: 0 0 35px rgba(88,101,242,0.9), 0 0 60px rgba(88,101,242,0.3); }
+    }
+
+    .discord-banner { background: linear-gradient(90deg, #050505, #0a0a20, #050505); border-top: 1px solid #23234a; border-bottom: 1px solid #23234a; padding: 2rem 1.5rem; text-align: center; position: relative; overflow: hidden; }
+    .discord-banner::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(88,101,242,0.15) 0%, transparent 70%); pointer-events: none; }
+    .discord-banner-label { font-size: 0.6rem; letter-spacing: 5px; color: #8b93f5; text-transform: uppercase; margin-bottom: 0.75rem; display: block; position: relative; z-index: 1; }
+    .discord-banner-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 5vw, 3rem); letter-spacing: 5px; color: var(--white); margin-bottom: 0.5rem; position: relative; z-index: 1; text-shadow: 0 0 20px rgba(88,101,242,0.6); }
+    .discord-banner-sub { font-size: 0.65rem; letter-spacing: 2px; color: var(--grey); margin-bottom: 1.5rem; position: relative; z-index: 1; }
+    .btn-discord-big { display: inline-flex; align-items: center; gap: 0.6rem; background: #5865F2; color: #fff; text-decoration: none; padding: 1rem 2.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; border: 1px solid #7289DA; position: relative; z-index: 1; box-shadow: 0 0 25px rgba(88,101,242,0.6); animation: discord-pulse 2s ease-in-out infinite; transition: all 0.2s; }
+    .btn-discord-big:hover { background: #4752C4; box-shadow: 0 0 45px rgba(88,101,242,1); transform: scale(1.03); }
 
     .album-banner { background: #0a0000; border-top: 1px solid #1a0000; border-bottom: 1px solid #1a0000; padding: 1.5rem; text-align: center; }
     .album-banner-label { font-size: 0.55rem; letter-spacing: 5px; color: var(--red); text-transform: uppercase; margin-bottom: 0.75rem; display: block; }
@@ -123,6 +140,8 @@
     .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; border: 1px solid var(--border); }
     .social-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 1rem; text-decoration: none; color: var(--grey); border: 1px solid transparent; transition: all 0.2s; gap: 0.5rem; }
     .social-item:hover { background: rgba(200,0,0,0.05); color: var(--white); border-color: var(--border); }
+    .social-item.discord-item { color: #8b93f5; }
+    .social-item.discord-item:hover { background: rgba(88,101,242,0.1); color: #fff; border-color: #5865F2; }
     .social-platform { font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
     .social-handle { font-size: 0.75rem; color: var(--grey); }
 
@@ -319,6 +338,7 @@
       .nav-links { gap: 0.6rem; }
       nav a { font-size: 0.55rem; letter-spacing: 1.5px; }
       .nav-file { padding: 0.25rem 0.5rem; font-size: 0.5rem !important; }
+      .nav-discord { padding: 0.25rem 0.5rem; font-size: 0.5rem !important; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
       .doc-stamp { display: none; }
     }
@@ -328,6 +348,7 @@
       .nav-links { gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
       nav a { font-size: 0.48rem; letter-spacing: 1px; }
       .nav-file { padding: 0.2rem 0.4rem; font-size: 0.45rem !important; }
+      .nav-discord { padding: 0.2rem 0.4rem; font-size: 0.45rem !important; }
       h1 { letter-spacing: 3px; }
       .pill-arena { padding: 15px; }
       #pill-btn { width: 160px; height: 160px; }
@@ -441,6 +462,7 @@
     <a href="#merch">MERCH</a>
     <a href="#socials">SOCIALS</a>
     <a href="#" class="nav-file" onclick="openFile();return false;">FILE 137</a>
+    <a href="https://discord.gg/7yPrKddrqK" target="_blank" rel="noopener" class="nav-discord">DISCORD</a>
   </div>
 </nav>
 
@@ -453,15 +475,23 @@
   <div class="hero-cta">
     <a href="#music" class="btn btn-primary">LISTEN NOW</a>
     <a href="https://open.spotify.com/artist/0KT9MzDOenp2Fa2TbUAJSL" target="_blank" rel="noopener" class="btn btn-ghost">SPOTIFY</a>
+    <a href="https://discord.gg/7yPrKddrqK" target="_blank" rel="noopener" class="btn btn-discord">JOIN THE DISCORD</a>
   </div>
   <p class="scroll-hint">SCROLL DOWN</p>
 </header>
 
 <div class="ticker-wrap">
   <div class="ticker-inner">
-    <span>BUFFALO PILL</span><span>·</span><span>STREAM NOW</span><span>·</span><span>MANUFACTURED CONSENT</span><span>·</span><span>OUT NOW</span><span>·</span><span>MY GOSPEL</span><span>·</span><span>SNAKE EATER</span><span>·</span><span>RADIO SILENT</span><span>·</span><span>LEGAL REASONS</span><span>·</span><span>STRAIGHT OUTTA PILLKILL NEVADA</span><span>·</span>
-    <span>BUFFALO PILL</span><span>·</span><span>STREAM NOW</span><span>·</span><span>MANUFACTURED CONSENT</span><span>·</span><span>OUT NOW</span><span>·</span><span>MY GOSPEL</span><span>·</span><span>SNAKE EATER</span><span>·</span><span>RADIO SILENT</span><span>·</span><span>LEGAL REASONS</span><span>·</span><span>STRAIGHT OUTTA PILLKILL NEVADA</span><span>·</span>
+    <span>BUFFALO PILL</span><span>·</span><span>STREAM NOW</span><span>·</span><span>MANUFACTURED CONSENT</span><span>·</span><span>OUT NOW</span><span>·</span><span>MY GOSPEL</span><span>·</span><span>SNAKE EATER</span><span>·</span><span>RADIO SILENT</span><span>·</span><span>LEGAL REASONS</span><span>·</span><span>STRAIGHT OUTTA PILLKILL NEVADA</span><span>·</span><span>JOIN THE DISCORD</span><span>·</span>
+    <span>BUFFALO PILL</span><span>·</span><span>STREAM NOW</span><span>·</span><span>MANUFACTURED CONSENT</span><span>·</span><span>OUT NOW</span><span>·</span><span>MY GOSPEL</span><span>·</span><span>SNAKE EATER</span><span>·</span><span>RADIO SILENT</span><span>·</span><span>LEGAL REASONS</span><span>·</span><span>STRAIGHT OUTTA PILLKILL NEVADA</span><span>·</span><span>JOIN THE DISCORD</span><span>·</span>
   </div>
+</div>
+
+<div class="discord-banner">
+  <span class="discord-banner-label">// PILLKILL, NV — OFFICIAL SERVER //</span>
+  <div class="discord-banner-title">JOIN THE DISCORD</div>
+  <div class="discord-banner-sub">new drops first · hang with other fans · no bots, no scams, just pills</div>
+  <a href="https://discord.gg/7yPrKddrqK" target="_blank" rel="noopener" class="btn-discord-big">💬 DISCORD.GG/7YPRKDDRQK</a>
 </div>
 
 <div class="album-banner">
@@ -566,6 +596,7 @@
   <span class="section-label">// FIND ME</span>
   <h2>SOCIALS</h2>
   <div class="social-grid">
+    <a class="social-item discord-item" href="https://discord.gg/7yPrKddrqK" target="_blank" rel="noopener"><span class="social-platform">DISCORD</span><span class="social-handle">discord.gg/7yPrKddrqK</span></a>
     <a class="social-item" href="https://www.tiktok.com/@buffalo.pill" target="_blank" rel="noopener"><span class="social-platform">TIKTOK</span><span class="social-handle">@buffalo.pill</span></a>
     <a class="social-item" href="https://www.instagram.com/buff.alopill/" target="_blank" rel="noopener"><span class="social-platform">INSTAGRAM</span><span class="social-handle">@buff.alopill</span></a>
     <a class="social-item" href="https://x.com/BuffaloPill" target="_blank" rel="noopener"><span class="social-platform">X / TWITTER</span><span class="social-handle">@BuffaloPill</span></a>

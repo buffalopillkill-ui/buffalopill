@@ -253,12 +253,6 @@
     overflow: hidden;
     margin-bottom: 24px;
   }
-  #heatbar {
-    height: 100%;
-    width: 0%;
-    background: #e0a020;
-    transition: width .2s, background .3s;
-  }
   .room-label {
     font-size: 12px;
     color: #666;
@@ -858,10 +852,8 @@
 
 <div class="stats">
   <span>Cash: <b id="cash">$0</b></span>
-  <span>Heat: <b id="heatval">0%</b></span>
   <span>Health: <b id="healthval">100</b></span>
 </div>
-<div class="heatbar-bg"><div id="heatbar"></div></div>
 <div class="heatbar-bg"><div id="healthbar" style="background:#4caf50; width:100%;"></div></div>
 
 <div class="room-label">City</div>
@@ -1140,10 +1132,10 @@ function trackCheatCode(e) {
       updateCashDisplay();
       showToast(`CHEAT ACTIVATED — +${fmt(CHEAT_REWARD)}`);
       cheatBuffer = '';
+      saveState();
     }
   }
 }
-let heat = 0;
 let health = 100;
 const MIKE_HIRE_THRESHOLD = 3;
 let mikeSalesCount = 0;
@@ -1248,8 +1240,7 @@ function makeDropper(room, idBase, totalCost, baseRate) {
   return {
     room, domId: 'machine-' + idBase, promptId: 'prompt-' + idBase,
     isDropper: true, owned: false, baseRate, rate: 0,
-    parts: makeDropperParts(totalCost),
-    heatFactor: 1, label: 'dropper'
+    parts: makeDropperParts(totalCost), label: 'dropper'
   };
 }
 
@@ -1271,14 +1262,12 @@ const PRODUCERS = {
       dropper: { cost: 1650000, owned: false },
       conveyor: { cost: 150000, owned: false },
       box: { cost: 200000, owned: false }
-    },
-    heatFactor: 1, label: 'mega dropper'
+    }, label: 'mega dropper'
   },
   computer: {
     room: 'building2', domId: 'machine-computer', promptId: 'prompt-computer',
     owned: false, baseRate: 800, upgradeStep: 800, rate: 0,
-    buyCost: 10000, upgradeCost: 6000, upgradeGrowth: 1.6,
-    heatFactor: 0.35, isStorefront: true, label: 'online storefront'
+    buyCost: 10000, upgradeCost: 6000, upgradeGrowth: 1.6, isStorefront: true, label: 'online storefront'
   }
 };
 
@@ -1307,6 +1296,7 @@ function buyNextPart(p) {
     p.owned = true;
     p.rate = p.baseRate;
   }
+  saveState();
 }
 
 function updateDropperVisual(p) {
@@ -1326,6 +1316,7 @@ function buyProducer(p) {
   p.owned = true;
   p.rate = p.baseRate;
   updateCashDisplay();
+  saveState();
 }
 
 function upgradeProducer(p) {
@@ -1334,6 +1325,7 @@ function upgradeProducer(p) {
   p.rate += p.upgradeStep;
   p.upgradeCost = Math.round(p.upgradeCost * p.upgradeGrowth);
   updateCashDisplay();
+  saveState();
 }
 
 function producerPromptText(p) {
@@ -1373,6 +1365,7 @@ function hireMike() {
     promptEl.style.display = 'block';
     setTimeout(() => { promptEl.style.display = 'none'; }, 2200);
   }
+  saveState();
 }
 
 function hireNextCousin() {
@@ -1381,14 +1374,18 @@ function hireNextCousin() {
   const hue = workers.length * COUSIN_HUE_STEP;
   addWorker(`${name} (Mike's cousin)`, hue);
   showToast(`Hired ${name} to help run the storefront`);
+  saveState();
 }
 
 const cashEl = document.getElementById('cash');
-const heatEl = document.getElementById('heatval');
-const heatbar = document.getElementById('heatbar');
 
+let building2NotifShown = false;
 function updateCashDisplay() {
   cashEl.textContent = fmt(cash);
+  if (!building2Purchased && !building2NotifShown && cash >= BUILDING2_COST) {
+    building2NotifShown = true;
+    showToast(`💰 You can afford Building 2 now — ${fmt(BUILDING2_COST)}`);
+  }
 }
 
 const healthEl = document.getElementById('healthval');
@@ -1497,23 +1494,14 @@ Object.values(PRODUCERS).forEach(p => {
   setTimeout(runLoop, 1000);
 });
 
-/* cash + heat accrual */
+/* cash accrual */
 setInterval(() => {
   let totalRate = 0;
-  let totalHeat = 0;
   for (const p of Object.values(PRODUCERS)) {
     totalRate += p.rate;
-    totalHeat += p.rate * p.heatFactor;
   }
   cash += totalRate;
-  // Dead zone: no heat at all until combined heat-weighted output passes a threshold,
-  // then it climbs gently. Early game (just dropper1 running) should barely register.
-  const heatEligible = Math.max(0, totalHeat - 100);
-  heat = Math.min(100, heat + Math.sqrt(heatEligible) * 0.02);
   updateCashDisplay();
-  heatEl.textContent = Math.round(heat) + '%';
-  heatbar.style.width = heat + '%';
-  heatbar.style.background = heat > 70 ? '#c0392b' : '#e0a020';
 }, 900);
 
 /* =========================================================================
@@ -1537,6 +1525,7 @@ function purchaseBuilding2() {
   building2Purchased = true;
   updateCashDisplay();
   updateBuilding2Sprite();
+  saveState();
 }
 
 /* =========================================================================
@@ -1861,6 +1850,7 @@ const WORKER_DESK = { x: 325, y: 195 }; // base left/bottom of the desk spot; ea
 const COUSIN_NAMES = ['Gary', 'Duane', 'Chad', 'Tony', 'Lonnie', 'Rick', 'Wes', 'Stu', 'Randy', 'Kirby', 'Dale', 'Milo'];
 const COUSIN_HUE_STEP = 55; // degrees; each new cousin gets another step around the color wheel
 const COUSIN_UNLOCK_SECONDS = 45; // "after a while" of a worker being on the clock
+const COUSIN_AUTO_HIRE_THRESHOLD = 6; // Mike + 5 cousins - past this, cousins recruit on their own
 
 let workers = [];
 let cousinUnlocked = false;
@@ -2009,8 +1999,15 @@ function updateWorkers(dt) {
     if (cousinTimer >= COUSIN_UNLOCK_SECONDS) {
       cousinUnlocked = true;
       nextCousinName = COUSIN_NAMES[(workers.length - 1) % COUSIN_NAMES.length];
-      showToast(`Mike: yo, my cousin ${nextCousinName} is looking for work too...`);
-      workerSay(workers[0], `yo, my cousin ${nextCousinName} is looking for work too...`, 5);
+      if (workers.length >= COUSIN_AUTO_HIRE_THRESHOLD) {
+        const recruiter = workers[Math.floor(Math.random() * workers.length)];
+        showToast(`${recruiter.name} brought ${nextCousinName} on board`);
+        workerSay(recruiter, `yo ${nextCousinName}, get in here`, 4);
+        hireNextCousin();
+      } else {
+        showToast(`Mike: yo, my cousin ${nextCousinName} is looking for work too...`);
+        workerSay(workers[0], `yo, my cousin ${nextCousinName} is looking for work too...`, 5);
+      }
     }
   }
 }
@@ -2283,6 +2280,7 @@ function shopPurchaseSelected() {
     showToast(`Unlocked "${item.name}"`);
     renderShopItems();
     updateShopkeeperSpeech();
+    saveState();
   }
 }
 
@@ -2567,8 +2565,7 @@ function finishChat() {
 
   if (chatProducer._isCop) {
     if (chatSignal >= 1) {
-      heat = Math.min(100, heat + 25);
-      resultEl.textContent = `🚨 That ${name} was a cop - too specific. Heat spiked.`;
+      resultEl.textContent = `🚨 That ${name} was a cop - too specific.`;
     } else {
       resultEl.textContent = `😮\u200d💨 Stayed vague with the ${name}. They lost interest - probably a cop.`;
     }
@@ -2676,12 +2673,109 @@ function draw() {
   player.style.left = px + 'px';
   player.style.top = (py + size - DISPLAY_H) + 'px';
 }
+/* =========================================================================
+   SAVE / LOAD: persists progress to localStorage so closing the browser
+   doesn't wipe everything. Autosaves periodically and after key actions;
+   loads once on startup, before the first frame renders.
+   ========================================================================= */
+const SAVE_KEY = 'pillkill_tycoon_v1';
+
+function serializeState() {
+  const producers = {};
+  Object.keys(PRODUCERS).forEach(k => {
+    const p = PRODUCERS[k];
+    const entry = { owned: p.owned, rate: p.rate };
+    if (p.parts) {
+      entry.parts = {
+        dropper: p.parts.dropper.owned,
+        conveyor: p.parts.conveyor.owned,
+        box: p.parts.box.owned
+      };
+    }
+    if (p.isStorefront) entry.upgradeCost = p.upgradeCost;
+    producers[k] = entry;
+  });
+  const musicOwned = {};
+  MUSIC_TRACKS.forEach(t => { musicOwned[t.id] = t.owned; });
+  return {
+    v: 1,
+    cash, health,
+    buildingPurchased, building2Purchased, building2NotifShown,
+    currentRoom,
+    producers,
+    mikeSalesCount, mikeHireUnlocked, mikeHired,
+    workerNames: workers.map(w => w.name),
+    musicOwned,
+    ostVol2Loaded
+  };
+}
+
+function saveState() {
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(serializeState())); } catch (e) { /* storage unavailable - ignore */ }
+}
+
+function loadState() {
+  let data;
+  try { data = JSON.parse(localStorage.getItem(SAVE_KEY)); } catch (e) { return; }
+  if (!data || data.v !== 1) return;
+
+  cash = data.cash || 0;
+  health = data.health != null ? data.health : 100;
+  buildingPurchased = !!data.buildingPurchased;
+  building2Purchased = !!data.building2Purchased;
+  building2NotifShown = !!data.building2NotifShown || building2Purchased;
+
+  if (data.producers) {
+    Object.keys(data.producers).forEach(k => {
+      const p = PRODUCERS[k];
+      const s = data.producers[k];
+      if (!p || !s) return;
+      p.owned = !!s.owned;
+      p.rate = s.rate || 0;
+      if (p.parts && s.parts) {
+        p.parts.dropper.owned = !!s.parts.dropper;
+        p.parts.conveyor.owned = !!s.parts.conveyor;
+        p.parts.box.owned = !!s.parts.box;
+      }
+      if (p.isStorefront && s.upgradeCost) p.upgradeCost = s.upgradeCost;
+    });
+  }
+
+  mikeSalesCount = data.mikeSalesCount || 0;
+  mikeHireUnlocked = !!data.mikeHireUnlocked;
+  mikeHired = !!data.mikeHired;
+
+  if (data.musicOwned) {
+    MUSIC_TRACKS.forEach(t => { if (data.musicOwned[t.id] !== undefined) t.owned = data.musicOwned[t.id]; });
+  }
+
+  if (mikeHired && Array.isArray(data.workerNames) && data.workerNames.length) {
+    data.workerNames.forEach((name, i) => {
+      const hue = i === 0 ? 0 : i * COUSIN_HUE_STEP;
+      addWorker(name, hue);
+    });
+  }
+
+  if (data.ostVol2Loaded) fetchOstVol2();
+
+  if (data.currentRoom && rooms[data.currentRoom]) {
+    roomManager.switchRoom(data.currentRoom, px);
+  }
+}
+
+loadState();
+
+setInterval(saveState, 8000);
+window.addEventListener('beforeunload', saveState);
+
 draw();
 updateSprite(false, 'down');
 updateBuildingSprite();
 updateCamera();
 updateHealthDisplay();
 Object.values(PRODUCERS).forEach(p => { if (p.isDropper) updateDropperVisual(p); });
+updateBuilding2Sprite();
+updateCashDisplay();
 
 /* =========================================================================
    INTERACT (F key): proximity prompts
@@ -2869,6 +2963,11 @@ const jumpButtonEl = document.getElementById('jumpButton');
 let lastWorkerTickTs = performance.now();
 
 setInterval(() => {
+  const nowTs = performance.now();
+  const realDt = Math.min(0.25, (nowTs - lastWorkerTickTs) / 1000); // cap avoids a huge jump after a throttled/backgrounded tab
+  lastWorkerTickTs = nowTs;
+  updateWorkers(realDt); // workers keep working even while a menu (chat/shop) is open
+
   if (chatOpen || shopOpen) return;
   vx = 0;
   if (keys['ArrowLeft'] || keys['a']) vx = -moveSpeed;
@@ -2910,10 +3009,6 @@ setInterval(() => {
   updateDoorLocks();
   checkInteract();
   checkPickups();
-  const nowTs = performance.now();
-  const realDt = Math.min(0.25, (nowTs - lastWorkerTickTs) / 1000); // cap avoids a huge jump after a throttled/backgrounded tab
-  lastWorkerTickTs = nowTs;
-  updateWorkers(realDt);
   jumpButtonEl.style.display = (currentRoom === 'floor5') ? 'block' : 'none';
 }, 30);
 </script>

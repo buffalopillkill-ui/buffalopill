@@ -1604,6 +1604,7 @@ function cleanClutterItem(floorKey, itemId) {
   updateCashDisplay();
   const el = document.getElementById('clutter-' + itemId);
   if (el) el.style.display = 'none';
+  saveState();
 }
 
 function buyFloor(key) {
@@ -1623,6 +1624,7 @@ function buyFloor(key) {
   updateCashDisplay();
   updateBuildingSprite(); // force immediate update, don't wait for next tick
   spawnSparkles(px + size / 2, roomH - py - size, currentRoom);
+  saveState();
 }
 
 const roomManager = {
@@ -2697,12 +2699,20 @@ function serializeState() {
   });
   const musicOwned = {};
   MUSIC_TRACKS.forEach(t => { musicOwned[t.id] = t.owned; });
+  const floorPurchases = {};
+  Object.keys(FLOOR_PURCHASES).forEach(k => { floorPurchases[k] = FLOOR_PURCHASES[k].owned; });
+  const clutterCleaned = {};
+  Object.keys(FLOOR_CLUTTER).forEach(floorKey => {
+    FLOOR_CLUTTER[floorKey].forEach(item => { clutterCleaned[item.id] = item.cleaned; });
+  });
   return {
     v: 1,
     cash, health,
     buildingPurchased, building2Purchased, building2NotifShown,
     currentRoom,
     producers,
+    floorPurchases,
+    clutterCleaned,
     mikeSalesCount, mikeHireUnlocked, mikeHired,
     workerNames: workers.map(w => w.name),
     musicOwned,
@@ -2738,6 +2748,24 @@ function loadState() {
         p.parts.box.owned = !!s.parts.box;
       }
       if (p.isStorefront && s.upgradeCost) p.upgradeCost = s.upgradeCost;
+    });
+  }
+
+  if (data.floorPurchases) {
+    Object.keys(data.floorPurchases).forEach(k => {
+      if (FLOOR_PURCHASES[k]) FLOOR_PURCHASES[k].owned = !!data.floorPurchases[k];
+    });
+  }
+
+  if (data.clutterCleaned) {
+    Object.keys(FLOOR_CLUTTER).forEach(floorKey => {
+      FLOOR_CLUTTER[floorKey].forEach(item => {
+        if (data.clutterCleaned[item.id]) {
+          item.cleaned = true;
+          const el = document.getElementById('clutter-' + item.id);
+          if (el) el.style.display = 'none';
+        }
+      });
     });
   }
 

@@ -350,6 +350,24 @@
     .tracklist-title { color: var(--white); flex: 1; }
     .tracklist-feat { color: var(--grey); font-size: 0.6rem; letter-spacing: 1px; }
 
+    /* GAMES TAB */
+    #games { max-width: none; padding: 0; }
+    .games-intro { max-width: 860px; margin: 0 auto; padding: clamp(4rem, 8vw, 7rem) 1.5rem 2rem; }
+    .games-grid { max-width: 900px; margin: 0 auto 4rem; padding: 0 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .game-card { border: 1px solid var(--border); background: #060606; padding: 2rem 1.5rem; text-align: center; position: relative; overflow: hidden; transition: border-color 0.2s; }
+    .game-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); opacity: 0; transition: opacity 0.2s; }
+    .game-card:hover { border-color: var(--grey); }
+    .game-card:hover::before { opacity: 1; }
+    .game-card-icon { font-size: 2.5rem; margin-bottom: 1rem; filter: grayscale(60%); }
+    .game-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 3px; color: var(--white); margin-bottom: 0.75rem; }
+    .game-card-desc { font-size: 0.6rem; letter-spacing: 1.5px; color: var(--grey); line-height: 1.9; margin-bottom: 1.5rem; min-height: 3.4em; }
+    .games-back { background: none; border: 1px solid #222; color: var(--grey); font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 2px; padding: 0.6rem 1.2rem; cursor: crosshair; text-transform: uppercase; transition: all 0.2s; margin: 0 auto 1.5rem; display: block; width: fit-content; }
+    .games-back:hover { border-color: var(--grey); color: var(--white); }
+    .game-view { padding: 0 1.5rem 4rem; }
+    #tycoon-view .game-view-inner { max-width: 1300px; margin: 0 auto; }
+    #tycoon-frame { width: 100%; height: 80vh; min-height: 560px; border: 1px solid var(--border); background: #000; display: block; }
+    .tycoon-note { font-size: 0.55rem; letter-spacing: 1.5px; color: #333; text-align: center; margin-top: 1rem; line-height: 1.8; }
+
     @media (max-width: 700px) {
       nav { padding: 0.85rem 1rem; }
       .nav-logo { font-size: 1.1rem; letter-spacing: 2px; }
@@ -478,6 +496,7 @@
   <div class="nav-links">
     <a href="#music">MUSIC</a>
     <a href="#videos">VIDEOS</a>
+    <a href="#games">GAMES</a>
     <a href="#merch">MERCH</a>
     <a href="#socials">SOCIALS</a>
     <a href="#" class="nav-file" onclick="openFile();return false;">FILE 137</a>
@@ -589,6 +608,125 @@
 
 <hr class="rule">
 
+<!-- GAMES -->
+<section id="games">
+  <div class="games-intro">
+    <span class="section-label">// PLAY</span>
+    <h2>GAMES</h2>
+  </div>
+
+  <div id="games-select" class="games-grid">
+    <div class="game-card">
+      <div class="game-card-icon">💊</div>
+      <div class="game-card-title">PILLKILL CLICKER</div>
+      <div class="game-card-desc">Click the pill. Grow the collection. Unlock Grandma Kanye. Prestige your way to FILE 137.</div>
+      <button class="btn btn-primary" onclick="playClicker()">PLAY</button>
+    </div>
+    <div class="game-card">
+      <div class="game-card-icon">🏙️</div>
+      <div class="game-card-title">PILLKILL TYCOON</div>
+      <div class="game-card-desc">Run the operation. Build the storefront. Hire Mike. Beta 1.0 — WASD to move, E to interact.</div>
+      <button class="btn btn-primary" onclick="playTycoon()">PLAY</button>
+    </div>
+  </div>
+
+  <div id="clicker-view" class="game-view" style="display:none;">
+    <button class="games-back" onclick="showGameSelect()">[ ← BACK TO GAMES ]</button>
+    <div id="clicker-section">
+      <div class="clicker-wrap">
+        <div class="clicker-header">
+          <span class="section-label">// CLASSIFIED OPERATION //</span>
+          <h2>BUFFALO PILL CLICKER</h2>
+          <p>CLICK THE PILL, GROW YOUR COLLECTION.</p>
+        </div>
+        <div class="clicker-stats-bar">
+          <div class="clicker-stat"><span class="clicker-stat-num" id="stat-pills">0</span><span class="clicker-stat-label">PILLS NOW</span></div>
+          <div class="clicker-stat"><span class="clicker-stat-num" id="stat-pps">0</span><span class="clicker-stat-label">PILLS / SEC</span></div>
+          <div class="clicker-stat"><span class="clicker-stat-num" id="stat-per-click">1</span><span class="clicker-stat-label">PER CLICK</span></div>
+          <div class="clicker-stat"><span class="clicker-stat-num" id="stat-clicks">0</span><span class="clicker-stat-label">TOTAL CLICKS</span></div>
+          <div class="clicker-stat"><span class="clicker-stat-num" id="stat-prestige">0</span><span class="clicker-stat-label">PRESTIGE</span></div>
+        </div>
+        <div class="clicker-main">
+          <div class="clicker-left">
+            <div class="pill-arena">
+              <div class="pill-ring"></div>
+              <div class="pill-ring-2"></div>
+              <div class="pill-glow"></div>
+              <button id="pill-btn" onclick="clickPill(event)">
+                <span class="pill-icon">💊</span>
+                <span class="pill-label">CLICK</span>
+                <span class="pill-count" id="pill-count-label">0 PILLS</span>
+              </button>
+            </div>
+            <div class="milestone-track">
+              <div class="milestone-track-label">// MILESTONES</div>
+              <div class="milestone-item" id="ms-0"><span class="milestone-icon">🦴</span><div class="milestone-text"><span class="milestone-name">SCOOBY DOO APPROVED</span><span class="milestone-thresh">100 PILLS</span></div></div>
+              <div class="milestone-item" id="ms-1"><span class="milestone-icon">🔪</span><div class="milestone-text"><span class="milestone-name">THE KNIFE IS CLEAN AGAIN</span><span class="milestone-thresh">1,000 PILLS</span></div></div>
+              <div class="milestone-item" id="ms-2"><span class="milestone-icon">🌵</span><div class="milestone-text"><span class="milestone-name">PILLKILL OPERATION ACTIVE</span><span class="milestone-thresh">10,000 PILLS</span></div></div>
+              <div class="milestone-item" id="ms-3"><span class="milestone-icon">👻</span><div class="milestone-text"><span class="milestone-name">GHOST FACE SPOTTED IN WOODSBORO</span><span class="milestone-thresh">100,000 PILLS</span></div></div>
+              <div class="milestone-item" id="ms-4"><span class="milestone-icon">📼</span><div class="milestone-text"><span class="milestone-name">MANUFACTURED CONSENT ACHIEVED</span><span class="milestone-thresh">1,000,000 PILLS</span></div></div>
+            </div>
+            <div class="clicker-news">
+              <div class="clicker-news-inner" id="clicker-news-text">PKPD DISPATCH · BUFFALO PILL STILL AT LARGE · PILLS MOVING THROUGH PILLKILL · SCOOBY DOO UNHARMED · BRYDN UNAVAILABLE FOR COMMENT · RADIO SILENT REMOVED FOR LEGAL REASONS · WE ARE NOT ALLOWED TO SAY WHY · &nbsp;&nbsp;&nbsp; PKPD DISPATCH · BUFFALO PILL STILL AT LARGE · PILLS MOVING THROUGH PILLKILL · SCOOBY DOO UNHARMED ·</div>
+            </div>
+          </div>
+          <div class="clicker-right">
+            <div class="upgrades-header">
+              <span class="upgrades-header-label">// UPGRADES</span>
+              <span id="current-pills-display">0 💊</span>
+            </div>
+            <div id="upgrades-container"></div>
+            <div class="prestige-zone">
+              <span class="prestige-label">// PRESTIGE OPERATION — PILLKILL PROTOCOL</span>
+              <button id="prestige-btn" onclick="prestige()" disabled>[ INITIATE RESET ]</button>
+              <span class="prestige-sub">REQUIRES 1,000,000 PILLS · RESETS PILLS + UPGRADES<br>KEEPS PRESTIGE BONUS · PRESTIGE LEVEL: <span id="prestige-count">0</span>x</span>
+            </div>
+            <div class="prestige-rewards">
+              <span class="prestige-rewards-label">// PRESTIGE REWARDS</span>
+              <div class="prestige-reward-item" id="pr-0">
+                <span class="prestige-reward-icon">🎖️</span>
+                <div class="prestige-reward-text"><span class="prestige-reward-name">PILLKILL VETERAN</span><span class="prestige-reward-req">PRESTIGE 1 · +50% ALL PRODUCTION</span></div>
+              </div>
+              <div class="prestige-reward-item" id="pr-1">
+                <span class="prestige-reward-icon">🩸</span>
+                <div class="prestige-reward-text"><span class="prestige-reward-name">BLOODLINE ELIMINATED</span><span class="prestige-reward-req">PRESTIGE 2 · CLICK VALUE ×3 TOTAL</span></div>
+              </div>
+              <div class="prestige-reward-item" id="pr-2">
+                <span class="prestige-reward-icon">📞</span>
+                <div class="prestige-reward-text"><span class="prestige-reward-name">TAKE THE CALL</span><span class="prestige-reward-req">PRESTIGE 3 · PASSIVE INCOME ×4 TOTAL</span></div>
+              </div>
+              <div class="prestige-reward-item" id="pr-3">
+                <span class="prestige-reward-icon">🎭</span>
+                <div class="prestige-reward-text"><span class="prestige-reward-name">GHOST FACE FOR REAL</span><span class="prestige-reward-req">PRESTIGE 5 · ALL UPGRADES 50% OFF</span></div>
+              </div>
+              <div class="prestige-reward-item" id="pr-4">
+                <span class="prestige-reward-icon">📼</span>
+                <div class="prestige-reward-text"><span class="prestige-reward-name">RADIO SILENT RECOVERED</span><span class="prestige-reward-req">PRESTIGE 10 · FILE 137 PASSWORD + FREE SONG UNLOCKED</span></div>
+              </div>
+            </div>
+            <div id="secret-reveal" style="display:none;border:1px solid var(--red);border-top:none;padding:1rem;background:#0d0d0d;text-align:center;">
+              <span style="font-size:0.5rem;letter-spacing:3px;color:var(--red);display:block;margin-bottom:0.75rem;">// CLEARANCE GRANTED //</span>
+              <div style="font-size:0.55rem;letter-spacing:2px;color:#888;margin-bottom:0.5rem;">FILE 137 ACCESS CODE</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:6px;color:var(--red2);margin-bottom:1rem;text-shadow:0 0 10px rgba(190,190,190,0.5);">FILE137</div>
+              <a href="glascowman.wav" download="glascowman.wav" class="btn btn-primary" style="font-size:0.6rem;padding:0.6rem 1.2rem;">DOWNLOAD FREE SONG</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tycoon-view" class="game-view" style="display:none;">
+    <button class="games-back" onclick="showGameSelect()">[ ← BACK TO GAMES ]</button>
+    <div class="game-view-inner">
+      <iframe id="tycoon-frame" src="" title="Pillkill Tycoon"></iframe>
+      <p class="tycoon-note">PILLKILL TYCOON — BETA 1.0 · WASD TO MOVE · E TO INTERACT · CLICK INSIDE THE GAME TO GIVE IT KEYBOARD FOCUS</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
 <section id="merch">
   <span class="section-label">// DROP #1</span>
   <h2>MERCH</h2>
@@ -636,90 +774,6 @@
 </section>
 
 <hr class="rule">
-
-<!-- CLICKER -->
-<div id="clicker-section">
-  <div class="clicker-wrap">
-    <div class="clicker-header">
-      <span class="section-label">// CLASSIFIED OPERATION //</span>
-      <h2>BUFFALO PILL CLICKER</h2>
-      <p>CLICK THE PILL, GROW YOUR COLLECTION.</p>
-    </div>
-    <div class="clicker-stats-bar">
-      <div class="clicker-stat"><span class="clicker-stat-num" id="stat-pills">0</span><span class="clicker-stat-label">PILLS NOW</span></div>
-      <div class="clicker-stat"><span class="clicker-stat-num" id="stat-pps">0</span><span class="clicker-stat-label">PILLS / SEC</span></div>
-      <div class="clicker-stat"><span class="clicker-stat-num" id="stat-per-click">1</span><span class="clicker-stat-label">PER CLICK</span></div>
-      <div class="clicker-stat"><span class="clicker-stat-num" id="stat-clicks">0</span><span class="clicker-stat-label">TOTAL CLICKS</span></div>
-      <div class="clicker-stat"><span class="clicker-stat-num" id="stat-prestige">0</span><span class="clicker-stat-label">PRESTIGE</span></div>
-    </div>
-    <div class="clicker-main">
-      <div class="clicker-left">
-        <div class="pill-arena">
-          <div class="pill-ring"></div>
-          <div class="pill-ring-2"></div>
-          <div class="pill-glow"></div>
-          <button id="pill-btn" onclick="clickPill(event)">
-            <span class="pill-icon">💊</span>
-            <span class="pill-label">CLICK</span>
-            <span class="pill-count" id="pill-count-label">0 PILLS</span>
-          </button>
-        </div>
-        <div class="milestone-track">
-          <div class="milestone-track-label">// MILESTONES</div>
-          <div class="milestone-item" id="ms-0"><span class="milestone-icon">🦴</span><div class="milestone-text"><span class="milestone-name">SCOOBY DOO APPROVED</span><span class="milestone-thresh">100 PILLS</span></div></div>
-          <div class="milestone-item" id="ms-1"><span class="milestone-icon">🔪</span><div class="milestone-text"><span class="milestone-name">THE KNIFE IS CLEAN AGAIN</span><span class="milestone-thresh">1,000 PILLS</span></div></div>
-          <div class="milestone-item" id="ms-2"><span class="milestone-icon">🌵</span><div class="milestone-text"><span class="milestone-name">PILLKILL OPERATION ACTIVE</span><span class="milestone-thresh">10,000 PILLS</span></div></div>
-          <div class="milestone-item" id="ms-3"><span class="milestone-icon">👻</span><div class="milestone-text"><span class="milestone-name">GHOST FACE SPOTTED IN WOODSBORO</span><span class="milestone-thresh">100,000 PILLS</span></div></div>
-          <div class="milestone-item" id="ms-4"><span class="milestone-icon">📼</span><div class="milestone-text"><span class="milestone-name">MANUFACTURED CONSENT ACHIEVED</span><span class="milestone-thresh">1,000,000 PILLS</span></div></div>
-        </div>
-        <div class="clicker-news">
-          <div class="clicker-news-inner" id="clicker-news-text">PKPD DISPATCH · BUFFALO PILL STILL AT LARGE · PILLS MOVING THROUGH PILLKILL · SCOOBY DOO UNHARMED · BRYDN UNAVAILABLE FOR COMMENT · RADIO SILENT REMOVED FOR LEGAL REASONS · WE ARE NOT ALLOWED TO SAY WHY · &nbsp;&nbsp;&nbsp; PKPD DISPATCH · BUFFALO PILL STILL AT LARGE · PILLS MOVING THROUGH PILLKILL · SCOOBY DOO UNHARMED ·</div>
-        </div>
-      </div>
-      <div class="clicker-right">
-        <div class="upgrades-header">
-          <span class="upgrades-header-label">// UPGRADES</span>
-          <span id="current-pills-display">0 💊</span>
-        </div>
-        <div id="upgrades-container"></div>
-        <div class="prestige-zone">
-          <span class="prestige-label">// PRESTIGE OPERATION — PILLKILL PROTOCOL</span>
-          <button id="prestige-btn" onclick="prestige()" disabled>[ INITIATE RESET ]</button>
-          <span class="prestige-sub">REQUIRES 1,000,000 PILLS · RESETS PILLS + UPGRADES<br>KEEPS PRESTIGE BONUS · PRESTIGE LEVEL: <span id="prestige-count">0</span>x</span>
-        </div>
-        <div class="prestige-rewards">
-          <span class="prestige-rewards-label">// PRESTIGE REWARDS</span>
-          <div class="prestige-reward-item" id="pr-0">
-            <span class="prestige-reward-icon">🎖️</span>
-            <div class="prestige-reward-text"><span class="prestige-reward-name">PILLKILL VETERAN</span><span class="prestige-reward-req">PRESTIGE 1 · +50% ALL PRODUCTION</span></div>
-          </div>
-          <div class="prestige-reward-item" id="pr-1">
-            <span class="prestige-reward-icon">🩸</span>
-            <div class="prestige-reward-text"><span class="prestige-reward-name">BLOODLINE ELIMINATED</span><span class="prestige-reward-req">PRESTIGE 2 · CLICK VALUE ×3 TOTAL</span></div>
-          </div>
-          <div class="prestige-reward-item" id="pr-2">
-            <span class="prestige-reward-icon">📞</span>
-            <div class="prestige-reward-text"><span class="prestige-reward-name">TAKE THE CALL</span><span class="prestige-reward-req">PRESTIGE 3 · PASSIVE INCOME ×4 TOTAL</span></div>
-          </div>
-          <div class="prestige-reward-item" id="pr-3">
-            <span class="prestige-reward-icon">🎭</span>
-            <div class="prestige-reward-text"><span class="prestige-reward-name">GHOST FACE FOR REAL</span><span class="prestige-reward-req">PRESTIGE 5 · ALL UPGRADES 50% OFF</span></div>
-          </div>
-          <div class="prestige-reward-item" id="pr-4">
-            <span class="prestige-reward-icon">📼</span>
-            <div class="prestige-reward-text"><span class="prestige-reward-name">RADIO SILENT RECOVERED</span><span class="prestige-reward-req">PRESTIGE 10 · FILE 137 PASSWORD + FREE SONG UNLOCKED</span></div>
-          </div>
-        </div>
-        <div id="secret-reveal" style="display:none;border:1px solid var(--red);border-top:none;padding:1rem;background:#0d0d0d;text-align:center;">
-          <span style="font-size:0.5rem;letter-spacing:3px;color:var(--red);display:block;margin-bottom:0.75rem;">// CLEARANCE GRANTED //</span>
-          <div style="font-size:0.55rem;letter-spacing:2px;color:#888;margin-bottom:0.5rem;">FILE 137 ACCESS CODE</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:6px;color:var(--red2);margin-bottom:1rem;text-shadow:0 0 10px rgba(190,190,190,0.5);">FILE137</div>
-          <a href="glascowman.wav" download="glascowman.wav" class="btn btn-primary" style="font-size:0.6rem;padding:0.6rem 1.2rem;">DOWNLOAD FREE SONG</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="hidden-tracklist" aria-hidden="true">
 nobody//EVERYBODY
@@ -821,6 +875,32 @@ MANUFACTURED CONSENT
   document.addEventListener('keydown', e => { keys.push(e.key); keys = keys.slice(-10); if (keys.join(',') === konami.join(',')) document.getElementById('s').play(); });
   let typedWord = '';
   document.addEventListener('keypress', e => { typedWord += e.key.toLowerCase(); typedWord = typedWord.slice(-8); if (typedWord === 'pillkill') openFile(); });
+
+  // ============================
+  // GAMES TAB — view switching
+  // ============================
+  function showGameSelect() {
+    document.getElementById('games-select').style.display = 'grid';
+    document.getElementById('clicker-view').style.display = 'none';
+    document.getElementById('tycoon-view').style.display = 'none';
+  }
+  function playClicker() {
+    document.getElementById('games-select').style.display = 'none';
+    document.getElementById('clicker-view').style.display = 'block';
+    document.getElementById('tycoon-view').style.display = 'none';
+    document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
+  }
+  let tycoonLoaded = false;
+  function playTycoon() {
+    document.getElementById('games-select').style.display = 'none';
+    document.getElementById('tycoon-view').style.display = 'block';
+    document.getElementById('clicker-view').style.display = 'none';
+    if (!tycoonLoaded) {
+      document.getElementById('tycoon-frame').src = 'tycoon.html';
+      tycoonLoaded = true;
+    }
+    document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
+  }
 
   // ============================
   // CLICKER
@@ -1123,13 +1203,46 @@ DEPLOYMENT / INFRA GOTCHAS:
   Relative paths only (e.g. src="cover.jpg") — no site-relative absolute URLs.
 - For file downloads (not inline playback), use <a href="file" download="file">,
   NOT target="_blank" — target="_blank" just opens/plays it instead of saving.
+- GAMES TAB (added this edit) needs FOUR more root-level files, same rule:
+  tycoon.html (the standalone Pillkill Tycoon game — a fully self-contained
+  single-file HTML/CSS/JS game, all sprites embedded as base64, built and
+  maintained in a separate conversation thread) plus its three audio tracks:
+  woodsborotycoon.flac, BludsVCrips.flac, The_SPAWN_Remix.flac. These MUST sit
+  in the repo root next to index.html and tycoon.html itself — tycoon.html
+  references them by bare relative filename (e.g. src="woodsborotycoon.flac"),
+  so if they're nested in a subfolder the game loads with no music and no
+  visible error beyond a console 404. If Dan asks to update Pillkill Tycoon
+  itself (new features, bug fixes, balance changes) — that's a different,
+  larger, self-contained game file with its own history; make those edits
+  directly to tycoon.html, not by rebuilding it here from scratch.
 
 SITE STRUCTURE:
 - FILE 137 lore overlay: password "FILE137" (case-insensitive), gated PKPD
   fictional police-file document about the Buffalo Pill mythos. Also opens via
   typing "pillkill" anywhere on the page, or Konami code (plays secret.mp3).
-- PILLKILL CLICKER (bottom of site): a cookie-clicker game themed around
-  Buffalo Pill lore. Key facts about its engine, learned the hard way:
+- GAMES TAB (#games section, between Videos and Merch): a game-select screen
+  (#games-select, two .game-card buttons) that swaps to either #clicker-view
+  or #tycoon-view via showGameSelect()/playClicker()/playTycoon(). Only one
+  view is visible at a time; the other two get display:none. Each game view
+  has its own "[ ← BACK TO GAMES ]" button (.games-back) calling
+  showGameSelect(). The clicker's markup was relocated here from its old
+  standalone full-width section lower on the page — all of its element IDs
+  and JS logic are completely unchanged, so don't "fix" the clicker JS
+  thinking it's now broken by the move; it isn't, it just lives in a
+  different DOM location now. Pillkill Tycoon is NOT embedded inline — it
+  loads lazily into an <iframe id="tycoon-frame"> only once the player clicks
+  PLAY (frame.src is set on first playTycoon() call, not on page load), both
+  to avoid loading a large embedded-asset game file for visitors who never
+  play it, and because the tycoon game has its own WASD/keyboard handlers
+  that would otherwise conflict with this page's own keydown listeners
+  (Konami code, "pillkill" easter egg) if it weren't sandboxed in an iframe's
+  separate JS context. #tycoon-view deliberately overrides the section's
+  normal max-width:860px (via #games{max-width:none}) so the iframe can run
+  much wider (max 1300px) — Pillkill Tycoon's room layouts need more
+  horizontal space than the site's normal prose columns.
+- PILLKILL CLICKER (now inside #clicker-view, was previously its own
+  lower-page section): a cookie-clicker game themed around Buffalo Pill lore.
+  Key facts about its engine, learned the hard way:
     * Upgrade buttons are built ONCE at init with permanent onclick handlers
       (initUpgrades()). NEVER rebuild the upgrade DOM on every tick — this
       caused a real bug where rebuilding every 50ms wiped onclick handlers
@@ -1173,6 +1286,11 @@ VISUAL DIRECTION — THIS HAS CHANGED, READ CAREFULLY:
   banner title. Feel free to extend to other headings if asked to intensify
   the effect further, but don't overdo it to the point of hurting readability
   or accessibility — Dan hasn't asked for that.
+- New .game-card / .games-back / #tycoon-frame styling (added this edit)
+  follows the same grayscale palette and hairline-border language as the rest
+  of the site (var(--border), var(--grey), var(--red)/--red2 accents on
+  hover) — keep any further Games-tab visual work consistent with that, not
+  a new visual language.
 
 ALBUM / RELEASE TIMELINE (keep this updated as things ship):
 - MANUFACTURED CONSENT: released June 2026. Previous/most recent album.
